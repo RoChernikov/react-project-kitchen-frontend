@@ -1,23 +1,46 @@
-# Проектная кухня
+# Getting Started with Create React App
 
-Так мы называем коллективную работу над проектом, проходящую параллельно с курсом по React в Яндекс.Практикуме. По желанию студенты делятся на команды и переделывают несложное приложение на React и Redux. Это закрепляет навыки кодинга и тренирует навыки коллективной работы.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## О проекте в этом репозитории
+## Available Scripts
 
-Мы немного переделали проект Real World на React и Redux. Информацию об исходном проекте можно прочитать в [репозитории на GitHub](https://github.com/gothinkster/react-redux-realworld-example-app). Этот проект в меру сложен и в меру прост, он основан на универсальной механике, которую часто придется применять в работе. Лучшего выбора для дополнительной активности не найти.
+In the project directory, you can run:
 
+### `npm start`
 
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-## Установка
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-Вам точно потребуется бэкенд для локального запуска проекта. Вот ссылки на [репозиторий бэкенда на Express](https://github.com/gothinkster/node-express-realworld-example-app) и на [Контейнер в Docker](https://github.com/Yandex-Practicum/react-project-kitchen-backend). Инструкции по запуску бэкенда на локальной машине вы получите от команды сопровождения.
+### `npm test`
 
-После запуска бэкенда локально, вам нужно:
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-1. Клонировать этот репозиторий
-2. Убедиться, что в файле `/agent.js` указан корректный порт для обращения к бэкенду (константа `API_ROOT`)
-3. Выполнить `npm install && npm start` в терминале, находясь в папке проекта
+### `npm run build`
 
-## Вопросы
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-Если возникли вопросы, пишите в slack, вам помогут.
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
