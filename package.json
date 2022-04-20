@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "cross-env": "^5.1.4"
+    "cross-env": "^5.1.4",
+    "prettier": "^2.6.2"
   },
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",

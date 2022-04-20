@@ -14,20 +14,21 @@ import Profile from '../Profile';
 import ProfileFavorites from '../ProfileFavorites';
 import Register from '../Register';
 import Settings from '../Settings';
+import TestComponent from '../test-component/test-component';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     appLoaded: state.common.appLoaded,
     appName: state.common.appName,
     currentUser: state.common.currentUser,
-    redirectTo: state.common.redirectTo
+    redirectTo: state.common.redirectTo,
   };
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   onLoad: (payload, token) =>
     dispatch({ type: APP_LOAD, payload, token, skipTracking: true }),
-  onRedirect: () => dispatch({ type: REDIRECT })
+  onRedirect: () => dispatch({ type: REDIRECT }),
 });
 
 interface IApp {
@@ -45,7 +46,7 @@ const App: FC<IApp> = ({
   currentUser,
   redirectTo,
   onLoad,
-  onRedirect
+  onRedirect,
 }) => {
   useEffect(() => {
     const token = window.localStorage.getItem('jwt');
@@ -63,6 +64,7 @@ const App: FC<IApp> = ({
   if (appLoaded)
     return (
       <div>
+        <TestComponent>TEST</TestComponent>
         <Header appName={appName} currentUser={currentUser} />
         <Switch>
           <Route exact path="/" component={Home} />
