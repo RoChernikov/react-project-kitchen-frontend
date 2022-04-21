@@ -5,7 +5,7 @@ import { APP_LOAD, REDIRECT } from '../../constants/actionTypes';
 import { store } from '../../store';
 import { push } from 'react-router-redux';
 import agent from '../../agent';
-import Header from '../Header';
+import Header from '../header/header';
 import Article from '../Article';
 import Editor from '../Editor';
 import Home from '../Home';
@@ -35,7 +35,9 @@ const mapDispatchToProps = (dispatch) => ({
 interface IApp {
   appLoaded: boolean;
   appName: string;
-  currentUser: string;
+  currentUser: {
+    username: string;
+  };
   redirectTo: any;
   onLoad: any;
   onRedirect: any;
