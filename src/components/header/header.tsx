@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 
-const LoggedOutView = props => {
-  if (!props.currentUser) {
+const LoggedOutView = ({ currentUser }) => {
+  if (!currentUser) {
     return (
       <ul className="nav navbar-nav pull-xs-right">
 
@@ -30,8 +30,8 @@ const LoggedOutView = props => {
   return null;
 };
 
-const LoggedInView = props => {
-  if (props.currentUser) {
+const LoggedInView = ({ currentUser }) => {
+  if (currentUser) {
     return (
       <ul className="nav navbar-nav pull-xs-right">
 
@@ -55,9 +55,9 @@ const LoggedInView = props => {
 
         <li className="nav-item">
           <Link
-            to={`/@${props.currentUser.username}`}
+            to={`/@${currentUser.username}`}
             className="nav-link">
-            <span>Hello, {props.currentUser.username}</span>
+            <span>Hello, {currentUser.username}</span>
           </Link>
         </li>
 
@@ -68,23 +68,29 @@ const LoggedInView = props => {
   return null;
 };
 
-class Header extends React.Component {
-  render() {
-    return (
-      <nav className="navbar navbar-light">
-        <div className="container">
 
-          <Link to="/" className="navbar-brand">
-            {this.props.appName.toLowerCase()}
-          </Link>
+interface IHeader {
+  appName: string;
+  currentUser: {
+    username: string;
+  };
+}
 
-          <LoggedOutView currentUser={this.props.currentUser} />
+const Header: FC<IHeader> = ({currentUser, appName }) => {
+  return (
+    <nav className="navbar navbar-light">
+      <div className="container">
 
-          <LoggedInView currentUser={this.props.currentUser} />
-        </div>
-      </nav>
-    );
-  }
+        <Link to="/" className="navbar-brand">
+          {appName.toLowerCase()}
+        </Link>
+
+        <LoggedOutView currentUser={currentUser} />
+
+        <LoggedInView currentUser={currentUser} />
+      </div>
+    </nav>
+  )
 }
 
 export default Header;
