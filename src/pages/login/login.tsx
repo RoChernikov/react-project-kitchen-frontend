@@ -91,8 +91,7 @@ const LoginPage: FC<ILoginPage> = ({
                 <button
                   className="btn btn-lg btn-primary pull-xs-right"
                   type="submit"
-                  disabled={inProgress}
-                >
+                  disabled={inProgress}>
                   Sign in
                 </button>
               </fieldset>

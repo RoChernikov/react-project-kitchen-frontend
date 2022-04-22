@@ -7,7 +7,6 @@ import { push } from 'react-router-redux';
 import agent from '../../agent';
 import Header from '../header/header';
 import Article from '../Article';
-// import Editor from '../Editor';
 import EditorPage from '../../pages/editor/editor';
 import Home from '../Home';
 import LoginPage from '../../pages/login/login';
@@ -35,7 +34,7 @@ interface IApp {
   appLoaded: boolean;
   appName: string;
   currentUser: {
-    username: string;
+    username: string,
   };
   redirectTo: any;
   onLoad: any;
