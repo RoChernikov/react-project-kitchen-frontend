@@ -10,6 +10,7 @@ import agent from '../../agent';
 import { Link } from 'react-router-dom';
 import ListErrors from '../../components/ListErrors';
 import { LOGIN, LOGIN_PAGE_UNLOADED } from '../../constants/actionTypes';
+import { TErrors } from '../../utils/types';
 
 const mapStateToProps = (state) => ({ ...state.auth });
 
@@ -19,14 +20,8 @@ const mapDispatchToProps = (dispatch) => ({
   onUnload: () => dispatch({ type: LOGIN_PAGE_UNLOADED }),
 });
 
-type TErrors = {
-  username?: string;
-  email?: string;
-  password?: string;
-};
-
 interface ILoginPage {
-  errors: TErrors;
+  errors: TErrors | undefined;
   inProgress: boolean | undefined;
   onSubmit: (email: string, password: string) => void;
   onUnload: () => void;
@@ -50,7 +45,9 @@ const LoginPage: FC<ILoginPage> = ({
   );
 
   useEffect(() => {
-    return onUnload();
+    return () => {
+      onUnload();
+    };
   }, [onUnload]);
 
   return (
