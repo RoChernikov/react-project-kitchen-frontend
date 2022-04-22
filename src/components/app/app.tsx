@@ -9,13 +9,11 @@ import Header from '../header/header';
 import Article from '../Article';
 import Editor from '../Editor';
 import Home from '../Home';
-import Login from '../Login';
+import LoginPage from '../../pages/login/login';
 import Profile from '../Profile';
 import ProfileFavorites from '../ProfileFavorites';
-// import Register from '../Register';
 import RegisterPage from '../../pages/register/register';
 import Settings from '../Settings';
-import TestComponent from '../test-component/test-component';
 
 const mapStateToProps = (state) => {
   return {
@@ -67,11 +65,10 @@ const App: FC<IApp> = ({
   if (appLoaded)
     return (
       <div>
-        <TestComponent>TEST</TestComponent>
         <Header appName={appName} currentUser={currentUser} />
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/login" component={Login} />
+          <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegisterPage} />
           <Route path="/editor/:slug" component={Editor} />
           <Route path="/editor" component={Editor} />
