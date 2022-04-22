@@ -10,6 +10,7 @@ import agent from '../../agent';
 import { Link } from 'react-router-dom';
 import ListErrors from '../../components/ListErrors';
 import { REGISTER, REGISTER_PAGE_UNLOADED } from '../../constants/actionTypes';
+import { TErrors } from '../../utils/types';
 
 const mapStateToProps = (state) => ({ ...state.auth });
 
@@ -21,14 +22,8 @@ const mapDispatchToProps = (dispatch) => ({
   onUnload: () => dispatch({ type: REGISTER_PAGE_UNLOADED }),
 });
 
-type TErrors = {
-  username?: string;
-  email?: string;
-  password?: string;
-};
-
 interface IRegisterPage {
-  errors: TErrors;
+  errors: TErrors | undefined;
   inProgress: boolean | undefined;
   onSubmit: (username: string, email: string, password: string) => void;
   onUnload: () => void;
@@ -53,7 +48,9 @@ const RegisterPage: FC<IRegisterPage> = ({
   );
 
   useEffect(() => {
-    return onUnload();
+    return () => {
+      onUnload();
+    };
   }, [onUnload]);
 
   return (

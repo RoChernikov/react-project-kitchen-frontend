@@ -7,7 +7,8 @@ import { push } from 'react-router-redux';
 import agent from '../../agent';
 import Header from '../header/header';
 import Article from '../Article';
-import Editor from '../Editor';
+// import Editor from '../Editor';
+import EditorPage from '../../pages/editor/editor';
 import Home from '../Home';
 import LoginPage from '../../pages/login/login';
 import Profile from '../Profile';
@@ -70,8 +71,8 @@ const App: FC<IApp> = ({
           <Route exact path="/" component={Home} />
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegisterPage} />
-          <Route path="/editor/:slug" component={Editor} />
-          <Route path="/editor" component={Editor} />
+          <Route path="/editor/:slug" component={EditorPage} />
+          <Route path="/editor" component={EditorPage} />
           <Route path="/article/:id" component={Article} />
           <Route path="/settings" component={Settings} />
           <Route path="/@:username/favorites" component={ProfileFavorites} />
