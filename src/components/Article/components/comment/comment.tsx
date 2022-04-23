@@ -1,11 +1,16 @@
-import DeleteButton from './components/delete-button/delete-button';
+import React, { FC } from 'react';
+import DeleteButton from '../delete-button/delete-button';
 import { Link } from 'react-router-dom';
-import React from 'react';
+import { TAuthor } from '../../../../utils/types';
 
-const Comment = (props) => {
-  const comment = props.comment;
-  const show =
-    props.currentUser && props.currentUser.username === comment.author.username;
+interface IComment {
+  comment: any; //На данный момент нет возможности проверить тип, так как комменты не постятся (500-тит сервер)
+  currentUser: TAuthor;
+  slug: string;
+}
+
+const Comment: FC<IComment> = ({ comment, currentUser, slug }) => {
+  const show = currentUser && currentUser.username === comment.author.username;
   return (
     <div className="card">
       <div className="card-block">
@@ -26,7 +31,7 @@ const Comment = (props) => {
         <span className="date-posted">
           {new Date(comment.createdAt).toDateString()}
         </span>
-        <DeleteButton show={show} slug={props.slug} commentId={comment.id} />
+        <DeleteButton show={show} slug={slug} commentId={comment.id} />
       </div>
     </div>
   );
