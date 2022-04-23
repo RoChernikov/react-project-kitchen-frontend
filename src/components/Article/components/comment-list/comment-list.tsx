@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import Comment from '../../Comment';
+import Comment from '../comment/comment';
 import { TAuthor } from '../../../../utils/types';
 
 interface ICommentList {
