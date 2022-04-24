@@ -8,7 +8,7 @@ import React, {
 import { connect } from 'react-redux';
 import agent from '../../agent';
 import { Link } from 'react-router-dom';
-import ListErrors from '../../components/ListErrors';
+import ListErrors from '../../components/list-errors';
 import { REGISTER, REGISTER_PAGE_UNLOADED } from '../../constants/actionTypes';
 import { TErrors } from '../../utils/types';
 
@@ -106,8 +106,7 @@ const RegisterPage: FC<IRegisterPage> = ({
                 <button
                   className="btn btn-lg btn-primary pull-xs-right"
                   type="submit"
-                  disabled={inProgress}
-                >
+                  disabled={inProgress}>
                   Sign up
                 </button>
               </fieldset>

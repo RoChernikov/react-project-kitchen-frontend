@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import agent from '../../agent';
 import { connect } from 'react-redux';
-import ListErrors from '../../components/ListErrors';
+import ListErrors from '../../components/list-errors';
 import {
   ADD_TAG,
   EDITOR_PAGE_LOADED,
