@@ -2,7 +2,7 @@ import ArticlePreview from '../ArticlePreview';
 import ListPagination from '../list-pagination/list-pagination';
 import React, { FC } from 'react';
 
-type TArticle = {
+export type TArticle = {
   slug: string,
 };
 
