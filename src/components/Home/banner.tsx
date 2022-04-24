@@ -1,6 +1,11 @@
 import React from 'react';
-
-const Banner = ({ appName, token }) => {
+interface IBaner {
+  appName: string;
+  token: string
+}
+const Banner: React.FC<IBaner> = ({ appName, token }) => {
+  console.log('appName', appName);
+  console.log('token', token);
   if (token) {
     return null;
   }
