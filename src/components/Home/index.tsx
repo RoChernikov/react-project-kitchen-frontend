@@ -1,7 +1,7 @@
 import Banner from './banner';
-import MainView from './MainView';
+import MainView from './main-view';
 import React from 'react';
-import Tags from './Tags';
+import Tags from './tags';
 import agent from '../../agent';
 import { connect } from 'react-redux';
 import {
@@ -10,12 +10,27 @@ import {
     APPLY_TAG_FILTER,
 } from '../../constants/actionTypes';
 import { useEffect } from 'react';
+import { IArticleList } from '../article-list/article-list';
+import { TPayload } from './tags';
+import { FC, Dispatch, SetStateAction } from 'react';
 
-interface Promise<T> {
-    __promiseValue: T
+
+//const Promise = global.Promise;
+
+export interface IHome {
+    onLoad: any;
+    onUnload: () => void;
+    appName: string;
+    tags?: string[];
+    onClickTag: (
+        tag: string,
+        pager: (page: number) => IArticleList,
+        payload: TPayload
+    ) => Dispatch<SetStateAction<string>>;
+    token: string;
+
 }
 
-const Promise = global.Promise;
 
 const mapStateToProps = (state) => ({
     ...state.home,
@@ -31,24 +46,39 @@ const mapDispatchToProps = (dispatch) => ({
     onUnload: () => dispatch({ type: HOME_PAGE_UNLOADED }),
 });
 
-const Home = (props) => {
+const Home: FC<IHome> = ({
+    onLoad,
+    onUnload,
+    appName,
+    tags,
+    onClickTag,
+    token
+}) => {
     useEffect(() => {
-        const tab = props.token ? 'feed' : 'all';
-        const articlesPromise = props.token ?
-            agent.Articles.feed :
-            agent.Articles.all;
+        const tab = token ? 'feed' : 'all';
 
-        props.onLoad(tab, articlesPromise, Promise.all([agent.Tags.getAll(), articlesPromise()]));
+        const articlesPromise = token
+            ? agent.Articles.feed
+            : agent.Articles.all;
 
 
-        return (() => {
-            props.onUnload();
-        });
-    }, []);
+        onLoad(
+            tab,
+            articlesPromise,
+            Promise.all<string>([agent.Tags.getAll(), articlesPromise()])
+        );
+    }, [onLoad]);
+
+    useEffect(() => {
+        return () => {
+            onUnload();
+        };
+    }, [onUnload]);
+
 
     return (
         <div className="home-page">
-            <Banner token={props.token} appName={props.appName} />
+            <Banner token={token} appName={appName} />
             <div className="container page">
                 <div className="row">
                     <MainView />
@@ -58,8 +88,8 @@ const Home = (props) => {
                             <p>Popular Tags</p>
 
                             <Tags
-                                tags={props.tags}
-                                onClickTag={props.onClickTag} />
+                                tags={tags}
+                                onClickTag={onClickTag} />
                         </div>
                     </div>
                 </div>
