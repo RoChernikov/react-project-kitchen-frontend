@@ -61,6 +61,7 @@ const YourFeedTab: React.FC<IYourFeedTab> = ({ token, tab, onTabClick }) => {
       </li>
     );
   }
+  return null;
 };
 
 const GlobalFeedTab: React.FC<IGlobalFeedTab> = ({ tab, onTabClick }) => {
