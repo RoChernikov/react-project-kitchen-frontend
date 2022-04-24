@@ -1,4 +1,4 @@
-import Banner from './Banner';
+import Banner from './banner';
 import MainView from './MainView';
 import React from 'react';
 import Tags from './tags';
