@@ -1,5 +1,5 @@
 import ArticleMeta from './components/article-meta/ArticleMeta';
-import CommentContainer from './CommentContainer';
+import CommentContainer from './components/comment-container/comment-container';
 import React from 'react';
 import agent from '../../agent';
 import { connect } from 'react-redux';
