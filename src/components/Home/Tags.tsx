@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction } from 'react';
 import agent from '../../agent';
 import { IArticleList } from '../article-list/article-list';
 
-interface TPayload {
+export interface TPayload {
   pager: (page: number) => IArticleList;
   articles: IArticleList;
   articlesCount: number;
