@@ -14,10 +14,9 @@ const YourFeedTab = (props) => {
     return (
       <li className="nav-item">
         <a
-          href=""
+          href="/"
           className={props.tab === 'feed' ? 'nav-link active' : 'nav-link'}
-          onClick={clickHandler}
-        >
+          onClick={clickHandler}>
           Your Feed
         </a>
       </li>
@@ -34,10 +33,9 @@ const GlobalFeedTab = (props) => {
   return (
     <li className="nav-item">
       <a
-        href=""
+        href="/"
         className={props.tab === 'all' ? 'nav-link active' : 'nav-link'}
-        onClick={clickHandler}
-      >
+        onClick={clickHandler}>
         Global Feed
       </a>
     </li>
@@ -51,7 +49,7 @@ const TagFilterTab = (props) => {
 
   return (
     <li className="nav-item">
-      <a href="" className="nav-link active">
+      <a href="/" className="nav-link active">
         <i className="ion-pound"></i> {props.tag}
       </a>
     </li>
