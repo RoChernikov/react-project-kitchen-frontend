@@ -6,7 +6,7 @@ type TArticle = {
   slug: string,
 };
 
-interface IArticleList {
+export interface IArticleList {
   articles: TArticle[];
   pager: () => Promise<unknown>;
   articlesCount: number;
