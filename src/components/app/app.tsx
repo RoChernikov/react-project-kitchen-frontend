@@ -10,7 +10,7 @@ import Article from '../Article';
 import EditorPage from '../../pages/editor/editor';
 import Home from '../Home';
 import LoginPage from '../../pages/login/login';
-import Profile from '../Profile';
+import Profile from '../profile/profile';
 import ProfileFavorites from '../ProfileFavorites';
 import RegisterPage from '../../pages/register/register';
 import Settings from '../Settings';
