@@ -14,9 +14,6 @@ import { IArticleList } from '../article-list/article-list';
 import { TPayload } from './tags';
 import { FC, Dispatch, SetStateAction } from 'react';
 
-
-//const Promise = global.Promise;
-
 export interface IHome {
     onLoad: any;
     onUnload: () => void;
