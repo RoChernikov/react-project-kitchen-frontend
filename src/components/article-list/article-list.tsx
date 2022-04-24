@@ -1,9 +1,9 @@
 import ArticlePreview from '../ArticlePreview';
-import ListPagination from '../ListPagination';
+import ListPagination from '../list-pagination/list-pagination';
 import React, { FC } from 'react';
 
 type TArticle = {
-  slug: string;
+  slug: string,
 };
 
 interface IArticleList {
