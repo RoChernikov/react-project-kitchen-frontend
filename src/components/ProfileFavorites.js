@@ -1,5 +1,5 @@
 import React from 'react';
-import {  mapStateToProps } from './Profile';
+import {  mapStateToProps } from './profile/profile';
 import { Link } from 'react-router-dom';
 import agent from '../agent';
 import { connect } from 'react-redux';
