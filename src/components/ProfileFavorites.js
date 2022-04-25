@@ -1,4 +1,5 @@
 import React from 'react';
+import {  mapStateToProps } from './Profile';
 import { Link } from 'react-router-dom';
 import agent from '../agent';
 import { connect } from 'react-redux';
@@ -49,5 +50,4 @@ class ProfileFavorites {
   }
 }
 
-export default connect(mapDispatchToProps)(ProfileFavorites);
-//mapStateToProps
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileFavorites);
