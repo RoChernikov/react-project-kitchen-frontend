@@ -1,4 +1,7 @@
-import ArticleList, { IArticleList, TArticle } from '../article-list/article-list';
+import ArticleList, {
+  IArticleList,
+  TArticle,
+} from '../article-list/article-list';
 import React, { Dispatch, SetStateAction } from 'react';
 import agent from '../../agent';
 import { connect } from 'react-redux';
@@ -61,6 +64,7 @@ const YourFeedTab: React.FC<IYourFeedTab> = ({ token, tab, onTabClick }) => {
       </li>
     );
   }
+  return null;
 };
 
 const GlobalFeedTab: React.FC<IGlobalFeedTab> = ({ tab, onTabClick }) => {
