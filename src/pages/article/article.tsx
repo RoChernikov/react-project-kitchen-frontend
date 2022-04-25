@@ -7,8 +7,8 @@ import {
   ARTICLE_PAGE_UNLOADED,
 } from '../../constants/actionTypes';
 import { TAuthor, TErrors } from '../../utils/types';
-import CommentContainer from '../../components/article/components/comment-container/comment-container';
-import ArticleMeta from '../../components/article/components/article-meta/ArticleMeta';
+import CommentContainer from '../../components/Article/components/comment-container/comment-container';
+import ArticleMeta from '../../components/Article/components/article-meta/ArticleMeta';
 import { IArticle } from '../../utils/interfaces';
 
 interface IArticlePage {

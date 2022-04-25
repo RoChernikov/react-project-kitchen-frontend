@@ -7,7 +7,7 @@ import { push } from 'react-router-redux';
 import agent from '../../agent';
 import Header from '../header/header';
 import EditorPage from '../../pages/editor/editor';
-import Home from '../home';
+import Home from '../Home/index';
 import LoginPage from '../../pages/login/login';
 import Profile from '../profile/profile';
 import ProfileFavorites from '../ProfileFavorites';

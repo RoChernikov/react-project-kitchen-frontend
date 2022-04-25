@@ -1,4 +1,4 @@
-import ArticlePreview from '../ArticlePreview';
+import ArticlePreview from '../article-preview/article-preview';
 import ListPagination from '../list-pagination/list-pagination';
 import React, { FC } from 'react';
 
