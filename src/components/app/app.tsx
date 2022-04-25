@@ -7,12 +7,12 @@ import { push } from 'react-router-redux';
 import agent from '../../agent';
 import Header from '../header/header';
 import EditorPage from '../../pages/editor/editor';
-import Home from '../home';
+import Home from '../Home';
 import LoginPage from '../../pages/login/login';
 import Profile from '../profile/profile';
 import ProfileFavorites from '../ProfileFavorites';
 import RegisterPage from '../../pages/register/register';
-import Settings from '../Settings';
+import Settings from '../settings/settings';
 import ArticlePage from '../../pages/article/article';
 
 const mapStateToProps = (state) => {
