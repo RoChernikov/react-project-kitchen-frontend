@@ -6,14 +6,14 @@ import { store } from '../../store';
 import { push } from 'react-router-redux';
 import agent from '../../agent';
 import Header from '../header/header';
-import Article from '../Article';
 import EditorPage from '../../pages/editor/editor';
-import Home from '../Home';
+import Home from '../home';
 import LoginPage from '../../pages/login/login';
 import Profile from '../profile/profile';
 import ProfileFavorites from '../ProfileFavorites';
 import RegisterPage from '../../pages/register/register';
 import Settings from '../Settings';
+import ArticlePage from '../../pages/article/article';
 
 const mapStateToProps = (state) => {
   return {
@@ -72,7 +72,7 @@ const App: FC<IApp> = ({
           <Route path="/register" component={RegisterPage} />
           <Route path="/editor/:slug" component={EditorPage} />
           <Route path="/editor" component={EditorPage} />
-          <Route path="/article/:id" component={Article} />
+          <Route path="/article/:id" component={ArticlePage} />
           <Route path="/settings" component={Settings} />
           <Route path="/@:username/favorites" component={ProfileFavorites} />
           <Route path="/@:username" component={Profile} />

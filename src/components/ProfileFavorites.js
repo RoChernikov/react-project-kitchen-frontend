@@ -1,5 +1,5 @@
-import { Profile, mapStateToProps } from './Profile';
 import React from 'react';
+import {  mapStateToProps } from './profile/profile';
 import { Link } from 'react-router-dom';
 import agent from '../agent';
 import { connect } from 'react-redux';
@@ -15,7 +15,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: PROFILE_PAGE_UNLOADED })
 });
 
-class ProfileFavorites extends Profile {
+class ProfileFavorites {
   componentWillMount() {
     this.props.onLoad(page => agent.Articles.favoritedBy(this.props.match.params.username, page), Promise.all([
       agent.Profile.get(this.props.match.params.username),
