@@ -10,7 +10,7 @@ import {
   PROFILE_PAGE_UNLOADED,
 } from '../../constants/actionTypes';
 
-const EditProfileSettings = ({ isUser }) => {
+export const EditProfileSettings = ({ isUser }) => {
   if (isUser) {
     return (
       <Link
@@ -23,7 +23,7 @@ const EditProfileSettings = ({ isUser }) => {
   return null;
 };
 
-const FollowUserButton = ({ isUser, user, follow, unfollow }) => {
+export const FollowUserButton = ({ isUser, user, follow, unfollow }) => {
   if (isUser) {
     return null;
   }

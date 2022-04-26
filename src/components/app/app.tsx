@@ -13,7 +13,7 @@ import Profile from '../profile/profile';
 import ProfileFavorites from '../profile-favorites/profile-favorites';
 import RegisterPage from '../../pages/register/register';
 import Settings from '../settings/settings';
-import Article from '../article/article';
+import Article from '../Article/article';
 
 const mapStateToProps = (state) => {
   return {
