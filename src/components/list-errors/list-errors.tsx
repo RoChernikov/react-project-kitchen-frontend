@@ -1,6 +1,6 @@
 import React from 'react';
 import { FC } from 'react';
-import { TErrors } from '../utils/types';
+import { TErrors } from '../../utils/types';
 
 interface IListErrors {
   errors: TErrors | undefined;

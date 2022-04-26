@@ -8,7 +8,7 @@ import React, {
 import { connect } from 'react-redux';
 import agent from '../../agent';
 import { Link } from 'react-router-dom';
-import ListErrors from '../../components/list-errors';
+import ListErrors from '../../components/list-errors/list-errors';
 import { REGISTER, REGISTER_PAGE_UNLOADED } from '../../constants/actionTypes';
 import { TErrors } from '../../utils/types';
 

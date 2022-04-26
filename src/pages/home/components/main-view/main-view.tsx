@@ -1,12 +1,12 @@
 import ArticleList, {
   IArticleList,
   TArticle,
-} from '../article-list/article-list';
+} from '../../../../components/article-list/article-list';
 import React, { Dispatch, SetStateAction } from 'react';
-import agent from '../../agent';
+import agent from '../../../../agent';
 import { connect } from 'react-redux';
-import { CHANGE_TAB } from '../../constants/actionTypes';
-import { TPayload } from './tags';
+import { CHANGE_TAB } from '../../../../constants/actionTypes';
+import { TPayload } from '../tags/tags';
 
 interface IYourFeedTab {
   token: string;
