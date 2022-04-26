@@ -7,6 +7,7 @@ import {
   PROFILE_PAGE_LOADED,
   PROFILE_PAGE_UNLOADED,
 } from '../../constants/actionTypes';
+import { EditProfileSettings, FollowUserButton } from "../profile/profile";
 
 const mapDispatchToProps = (dispatch) => ({
   onLoad: (pager, payload) =>
@@ -17,6 +18,10 @@ const mapDispatchToProps = (dispatch) => ({
 interface IProfileFavorites {
   profile: {
     username: string,
+    image: string,
+  };
+  currentUser: {
+    username: string,
   };
   onLoad: (
     pager: (page: string) => any,
@@ -24,6 +29,8 @@ interface IProfileFavorites {
   ) => Dispatch<SetStateAction<string>>;
   onUnload: () => void;
   match: any;
+  onFollow: () => void;
+  onUnfollow: () => void;
 }
 
 const ProfileFavorites: React.FC<IProfileFavorites> = ({
@@ -31,6 +38,9 @@ const ProfileFavorites: React.FC<IProfileFavorites> = ({
   profile,
   onLoad,
   onUnload,
+  currentUser,
+  onFollow,
+  onUnfollow,
 }) => {
   useEffect(() => {
     onLoad(
@@ -42,23 +52,58 @@ const ProfileFavorites: React.FC<IProfileFavorites> = ({
     );
     return () => onUnload();
   }, [match.params.username, onLoad, onUnload]);
+  const isUser = currentUser && profile.username === currentUser.username;
 
   return (
-    <ul className="nav nav-pills outline-active">
-      <li className="nav-item">
-        <Link className="nav-link" to={`/@${profile.username}`}>
-          My Articles
-        </Link>
-      </li>
 
-      <li className="nav-item">
-        <Link
-          className="nav-link active"
-          to={`/@${profile.username}/favorites`}>
-          Favorited Articles
-        </Link>
-      </li>
-    </ul>
+    <div className="profile-page">
+      <div className="user-info">
+        <div className="container">
+          <div className="row">
+            <div className="col-xs-12 col-md-10 offset-md-1">
+              <img
+                src={profile.image}
+                className="user-img"
+                alt={profile.username}
+              />
+              <h4>{profile.username}</h4>
+
+
+              <EditProfileSettings isUser={isUser} />
+              <FollowUserButton
+                isUser={isUser}
+                user={profile}
+                follow={onFollow}
+                unfollow={onUnfollow}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="container">
+        <div className="row">
+          <div className="col-xs-12 col-md-10 offset-md-1">
+            <ul className="nav nav-pills outline-active">
+              <li className="nav-item">
+                <Link className="nav-link" to={`/@${profile.username}`}>
+                  My Articles
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                <Link
+                  className="nav-link active"
+                  to={`/@${profile.username}/favorites`}>
+                  Favorited Articles
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
   );
 };
 
