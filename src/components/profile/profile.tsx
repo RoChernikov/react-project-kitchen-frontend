@@ -15,8 +15,7 @@ const EditProfileSettings = ({ isUser }) => {
     return (
       <Link
         to="/settings"
-        className="btn btn-sm btn-outline-secondary action-btn"
-      >
+        className="btn btn-sm btn-outline-secondary action-btn">
         <i className="ion-gear-a"></i> Edit Profile Settings
       </Link>
     );
@@ -80,16 +79,16 @@ interface IProfile {
   onUnload: any;
   match: {
     params: {
-      username: string;
-    }
+      username: string,
+    },
   };
   profile: {
-    username: string;
-    bio: string;
-    image: string;
+    username: string,
+    bio: string,
+    image: string,
   };
   currentUser: {
-    username: string;
+    username: string,
   };
   onFollow: () => void;
   onUnfollow: () => void;
@@ -99,7 +98,7 @@ interface IProfile {
   currentPage: number;
 }
 
-const Profile : FC<IProfile> = ({ 
+const Profile: FC<IProfile> = ({
   onLoad,
   onUnload,
   match,
@@ -111,14 +110,14 @@ const Profile : FC<IProfile> = ({
   articles,
   articlesCount,
   currentPage,
-} ) => {
+}) => {
   useEffect(() => {
     onLoad(
       Promise.all([
         agent.Profile.get(match.params.username),
         agent.Articles.byAuthor(match.params.username),
       ])
-    )
+    );
 
     return () => onUnload();
   }, [match.params.username, onLoad, onUnload]);
@@ -129,31 +128,23 @@ const Profile : FC<IProfile> = ({
     return (
       <ul className="nav nav-pills outline-active">
         <li className="nav-item">
-          <Link
-            className="nav-link active"
-            to={`/@${profile.username}`}
-          >
+          <Link className="nav-link active" to={`/@${profile.username}`}>
             My Articles
           </Link>
         </li>
 
         <li className="nav-item">
-          <Link
-            className="nav-link"
-            to={`/@${profile.username}/favorites`}
-          >
+          <Link className="nav-link" to={`/@${profile.username}/favorites`}>
             Favorited Articles
           </Link>
         </li>
       </ul>
-    )
+    );
   };
 
   return (
     <>
-      {!profile ? null 
-      : 
-      (
+      {!profile ? null : (
         <div className="profile-page">
           <div className="user-info">
             <div className="container">
@@ -194,10 +185,10 @@ const Profile : FC<IProfile> = ({
             </div>
           </div>
         </div>
-      ) }
+      )}
     </>
-  )
-}
+  );
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
 export { Profile, mapStateToProps };

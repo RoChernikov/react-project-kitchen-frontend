@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import agent from '../../agent';
-import { IArticleList } from '../article-list/article-list';
+import agent from '../../../../agent';
+import { IArticleList } from '../../../../components/article-list/article-list';
 
 export interface TPayload {
   pager: (page: number) => IArticleList;

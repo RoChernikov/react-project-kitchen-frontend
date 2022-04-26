@@ -7,12 +7,12 @@ import {
   ARTICLE_PAGE_UNLOADED,
 } from '../../constants/actionTypes';
 import { TAuthor, TErrors } from '../../utils/types';
-import CommentContainer from '../../components/Article/components/comment-container/comment-container';
-import ArticleMeta from '../../components/Article/components/article-meta/ArticleMeta';
-import { IArticle } from '../../utils/interfaces';
+import CommentContainer from './components/comment-container/comment-container';
+import ArticleMeta from './components/article-meta/ArticleMeta';
+import { TArticle } from '../../utils/types';
 
-interface IArticlePage {
-  article: IArticle;
+interface IArticle {
+  article: TArticle;
   comments: string[];
   currentUser: TAuthor | null;
   commentErrors: TErrors | undefined;
@@ -48,7 +48,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 /** */
 
-export const ArticlePage: React.FC<IArticlePage> = ({
+export const Article: React.FC<IArticle> = ({
   article,
   comments,
   commentErrors,
@@ -117,4 +117,4 @@ export const ArticlePage: React.FC<IArticlePage> = ({
   return null;
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ArticlePage);
+export default connect(mapStateToProps, mapDispatchToProps)(Article);

@@ -1,12 +1,12 @@
-import { mapStateToProps } from './profile/profile';
+import { mapStateToProps } from '../profile/profile';
 import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import agent from '../agent';
+import agent from '../../agent';
 import { connect } from 'react-redux';
 import {
   PROFILE_PAGE_LOADED,
   PROFILE_PAGE_UNLOADED,
-} from '../constants/actionTypes';
+} from '../../constants/actionTypes';
 
 const mapDispatchToProps = (dispatch) => ({
   onLoad: (pager, payload) =>
@@ -16,9 +16,12 @@ const mapDispatchToProps = (dispatch) => ({
 
 interface IProfileFavorites {
   profile: {
-    username: string;
+    username: string,
   };
-  onLoad: (pager: (page: string) => any, payload: Promise<[any, any]>) => Dispatch<SetStateAction<string>>;
+  onLoad: (
+    pager: (page: string) => any,
+    payload: Promise<[any, any]>
+  ) => Dispatch<SetStateAction<string>>;
   onUnload: () => void;
   match: any;
 }

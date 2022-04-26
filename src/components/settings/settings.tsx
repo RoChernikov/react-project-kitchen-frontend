@@ -1,4 +1,4 @@
-import ListErrors from './../list-errors';
+import ListErrors from '../list-errors/list-errors';
 import React, { FC, useEffect, useState } from 'react';
 import agent from '../../agent';
 import { connect } from 'react-redux';
@@ -23,7 +23,7 @@ const SettingsForm = ({ onSubmitForm, currentUser }) => {
       setBio(currentUser.bio);
       setEmail(currentUser.email);
     }
-  }, [currentUser])
+  }, [currentUser]);
 
   const submitForm = (evt) => {
     evt.preventDefault();
@@ -32,73 +32,73 @@ const SettingsForm = ({ onSubmitForm, currentUser }) => {
       username,
       bio,
       email,
-    }
+    };
     if (password) user[password] = password;
     onSubmitForm(user);
-  }
+  };
 
   return (
-      <form onSubmit={submitForm}>
-        <fieldset>
-          <fieldset className="form-group">
-            <input
-              className="form-control"
-              type="text"
-              placeholder="URL of profile picture"
-              value={image}
-              onChange={(evt) => setImage(evt.target.value)}
-            />
-          </fieldset>
-
-          <fieldset className="form-group">
-            <input
-              className="form-control form-control-lg"
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(evt) => setUsername(evt.target.value)}
-            />
-          </fieldset>
-
-          <fieldset className="form-group">
-            <textarea
-              className="form-control form-control-lg"
-              rows={8}
-              placeholder="Short bio about you"
-              value={bio}
-              onChange={(evt) => setBio(evt.target.value)}></textarea>
-          </fieldset>
-
-          <fieldset className="form-group">
-            <input
-              className="form-control form-control-lg"
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(evt) => setEmail(evt.target.value)}
-            />
-          </fieldset>
-
-          <fieldset className="form-group">
-            <input
-              className="form-control form-control-lg"
-              type="password"
-              placeholder="New Password"
-              value={password}
-              onChange={(evt) => setPassword(evt.target.value)}
-            />
-          </fieldset>
-
-          <button
-            className="btn btn-lg btn-primary pull-xs-right"
-            type="submit"
-            disabled={inProgress}>
-            Update Settings
-          </button>
+    <form onSubmit={submitForm}>
+      <fieldset>
+        <fieldset className="form-group">
+          <input
+            className="form-control"
+            type="text"
+            placeholder="URL of profile picture"
+            value={image}
+            onChange={(evt) => setImage(evt.target.value)}
+          />
         </fieldset>
-      </form>
-  )
-}
+
+        <fieldset className="form-group">
+          <input
+            className="form-control form-control-lg"
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(evt) => setUsername(evt.target.value)}
+          />
+        </fieldset>
+
+        <fieldset className="form-group">
+          <textarea
+            className="form-control form-control-lg"
+            rows={8}
+            placeholder="Short bio about you"
+            value={bio}
+            onChange={(evt) => setBio(evt.target.value)}></textarea>
+        </fieldset>
+
+        <fieldset className="form-group">
+          <input
+            className="form-control form-control-lg"
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(evt) => setEmail(evt.target.value)}
+          />
+        </fieldset>
+
+        <fieldset className="form-group">
+          <input
+            className="form-control form-control-lg"
+            type="password"
+            placeholder="New Password"
+            value={password}
+            onChange={(evt) => setPassword(evt.target.value)}
+          />
+        </fieldset>
+
+        <button
+          className="btn btn-lg btn-primary pull-xs-right"
+          type="submit"
+          disabled={inProgress}>
+          Update Settings
+        </button>
+      </fieldset>
+    </form>
+  );
+};
 
 const mapStateToProps = (state) => ({
   ...state.settings,
@@ -113,11 +113,11 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 type TCurrentUser = {
-  image: string;
-  username: string;
-  bio: string;
-  email: string;
-}
+  image: string,
+  username: string,
+  bio: string,
+  email: string,
+};
 
 interface ISettings {
   errors: any;
@@ -126,7 +126,12 @@ interface ISettings {
   onClickLogout: () => void;
 }
 
-const Settings: FC<ISettings> = ({ errors, currentUser, onSubmitForm, onClickLogout }) => {
+const Settings: FC<ISettings> = ({
+  errors,
+  currentUser,
+  onSubmitForm,
+  onClickLogout,
+}) => {
   return (
     <div className="settings-page">
       <div className="container page">
@@ -143,16 +148,14 @@ const Settings: FC<ISettings> = ({ errors, currentUser, onSubmitForm, onClickLog
 
             <hr />
 
-            <button
-              className="btn btn-outline-danger"
-              onClick={onClickLogout}>
+            <button className="btn btn-outline-danger" onClick={onClickLogout}>
               Or click here to logout.
             </button>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);
