@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 import { FC } from 'react';
 import { TAuthor } from '../../../../utils/types';
-import ListErrors from '../../../../components/list-errors/list-errors';
+import ListErrors from '../../../list-errors/list-errors';
 
 interface ICommentContainer {
   comments: any;
