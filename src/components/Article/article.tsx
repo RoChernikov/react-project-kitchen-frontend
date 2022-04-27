@@ -118,3 +118,4 @@ export const Article: React.FC<IArticle> = ({
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Article);
+// export default Article;

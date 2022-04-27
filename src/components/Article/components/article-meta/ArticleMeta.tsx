@@ -1,10 +1,9 @@
 import React, { FC } from 'react';
 import ArticleActions from '../article-actions/article-actions';
 import { Link } from 'react-router-dom';
-import { IArticle } from '../../../../utils/interfaces';
 
 interface IArticleMeta {
-  article: IArticle;
+  article: any;
   canModify: boolean;
 }
 

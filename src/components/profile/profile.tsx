@@ -53,26 +53,26 @@ export const FollowUserButton = ({ isUser, user, follow, unfollow }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  ...state.articleList,
-  currentUser: state.common.currentUser,
-  profile: state.profile,
-});
+// const mapStateToProps = (state) => ({
+//   ...state.articleList,
+//   currentUser: state.common.currentUser,
+//   profile: state.profile,
+// });
 
-const mapDispatchToProps = (dispatch) => ({
-  onFollow: (username) =>
-    dispatch({
-      type: FOLLOW_USER,
-      payload: agent.Profile.follow(username),
-    }),
-  onLoad: (payload) => dispatch({ type: PROFILE_PAGE_LOADED, payload }),
-  onUnfollow: (username) =>
-    dispatch({
-      type: UNFOLLOW_USER,
-      payload: agent.Profile.unfollow(username),
-    }),
-  onUnload: () => dispatch({ type: PROFILE_PAGE_UNLOADED }),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   onFollow: (username) =>
+//     dispatch({
+//       type: FOLLOW_USER,
+//       payload: agent.Profile.follow(username),
+//     }),
+//   onLoad: (payload) => dispatch({ type: PROFILE_PAGE_LOADED, payload }),
+//   onUnfollow: (username) =>
+//     dispatch({
+//       type: UNFOLLOW_USER,
+//       payload: agent.Profile.unfollow(username),
+//     }),
+//   onUnload: () => dispatch({ type: PROFILE_PAGE_UNLOADED }),
+// });
 
 interface IProfile {
   onLoad: any;
@@ -102,7 +102,11 @@ const Profile: FC<IProfile> = ({
   onLoad,
   onUnload,
   match,
-  profile,
+  profile = {
+    username: 'username',
+    bio: 'bio',
+    image: 'image',
+  },
   currentUser,
   onFollow,
   onUnfollow,
@@ -111,16 +115,16 @@ const Profile: FC<IProfile> = ({
   articlesCount,
   currentPage,
 }) => {
-  useEffect(() => {
-    onLoad(
-      Promise.all([
-        agent.Profile.get(match.params.username),
-        agent.Articles.byAuthor(match.params.username),
-      ])
-    );
+  // useEffect(() => {
+  //   onLoad(
+  //     Promise.all([
+  //       agent.Profile.get(match.params.username),
+  //       agent.Articles.byAuthor(match.params.username),
+  //     ])
+  //   );
 
-    return () => onUnload();
-  }, [match.params.username, onLoad, onUnload]);
+  //   return () => onUnload();
+  // }, [match.params.username, onLoad, onUnload]);
 
   const isUser = currentUser && profile.username === currentUser.username;
 
@@ -190,5 +194,6 @@ const Profile: FC<IProfile> = ({
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
-export { Profile, mapStateToProps };
+// export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default Profile;
+export { Profile };

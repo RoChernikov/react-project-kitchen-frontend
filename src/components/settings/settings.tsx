@@ -100,17 +100,17 @@ const SettingsForm = ({ onSubmitForm, currentUser }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  ...state.settings,
-  currentUser: state.common.currentUser,
-});
+// const mapStateToProps = (state) => ({
+//   ...state.settings,
+//   currentUser: state.common.currentUser,
+// });
 
-const mapDispatchToProps = (dispatch) => ({
-  onClickLogout: () => dispatch({ type: LOGOUT }),
-  onSubmitForm: (user) =>
-    dispatch({ type: SETTINGS_SAVED, payload: agent.Auth.save(user) }),
-  onUnload: () => dispatch({ type: SETTINGS_PAGE_UNLOADED }),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   onClickLogout: () => dispatch({ type: LOGOUT }),
+//   onSubmitForm: (user) =>
+//     dispatch({ type: SETTINGS_SAVED, payload: agent.Auth.save(user) }),
+//   onUnload: () => dispatch({ type: SETTINGS_PAGE_UNLOADED }),
+// });
 
 type TCurrentUser = {
   image: string,
@@ -158,4 +158,5 @@ const Settings: FC<ISettings> = ({
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Settings);
+// export default connect(mapStateToProps, mapDispatchToProps)(Settings);
+export default Settings;

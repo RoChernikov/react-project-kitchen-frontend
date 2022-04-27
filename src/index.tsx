@@ -1,21 +1,22 @@
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import React from 'react';
-import { store, history } from './store';
+import state from './services/store';
+// import { store, history } from './store';
 
-import { Route, Switch } from 'react-router-dom';
-import { ConnectedRouter } from 'react-router-redux';
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+// import { ConnectedRouter } from 'react-router-redux';
 
 import App from './components/app/app';
 
 ReactDOM.render(
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
+  <Router>
+    <Provider store={state}>
       <Switch>
         <Route path="/" component={App} />
       </Switch>
-    </ConnectedRouter>
-  </Provider>,
+    </Provider>
+  </Router>,
 
   document.getElementById('root')
 );

@@ -19,53 +19,54 @@ export interface IHome {
   onUnload: () => void;
   appName: string;
   tags?: string[];
-  onClickTag: (
-    tag: string,
-    pager: (page: number) => IArticleList,
-    payload: TPayload
-  ) => Dispatch<SetStateAction<string>>;
+  // onClickTag: (
+  //   tag: string,
+  //   pager: (page: number) => IArticleList,
+  //   payload: TPayload
+  // ) => Dispatch<SetStateAction<string>>;
+  onClickTag: any;
   token: string;
 }
 
-const mapStateToProps = (state) => ({
-  ...state.home,
-  appName: state.common.appName,
-  token: state.common.token,
-});
+// const mapStateToProps = (state) => ({
+//   ...state.home,
+//   appName: state.common.appName,
+//   token: state.common.token,
+// });
 
-const mapDispatchToProps = (dispatch) => ({
-  onClickTag: (tag, pager, payload) =>
-    dispatch({ type: APPLY_TAG_FILTER, tag, pager, payload }),
-  onLoad: (tab, pager, payload) =>
-    dispatch({ type: HOME_PAGE_LOADED, tab, pager, payload }),
-  onUnload: () => dispatch({ type: HOME_PAGE_UNLOADED }),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   onClickTag: (tag, pager, payload) =>
+//     dispatch({ type: APPLY_TAG_FILTER, tag, pager, payload }),
+//   onLoad: (tab, pager, payload) =>
+//     dispatch({ type: HOME_PAGE_LOADED, tab, pager, payload }),
+//   onUnload: () => dispatch({ type: HOME_PAGE_UNLOADED }),
+// });
 
 const HomePage: FC<IHome> = ({
   onLoad,
   onUnload,
-  appName,
+  appName = 'какое-никакое название',
   tags,
-  onClickTag,
+  onClickTag = () => {},
   token,
 }) => {
-  useEffect(() => {
-    const tab = token ? 'feed' : 'all';
+  // useEffect(() => {
+  //   const tab = token ? 'feed' : 'all';
 
-    const articlesPromise = token ? agent.Articles.feed : agent.Articles.all;
+  //   const articlesPromise = token ? agent.Articles.feed : agent.Articles.all;
 
-    onLoad(
-      tab,
-      articlesPromise,
-      Promise.all<string>([agent.Tags.getAll(), articlesPromise()])
-  );
-  }, [onLoad, token]);
+  //   onLoad(
+  //     tab,
+  //     articlesPromise,
+  //     Promise.all<string>([agent.Tags.getAll(), articlesPromise()])
+  // );
+  // }, [onLoad, token]);
 
-  useEffect(() => {
-    return () => {
-      onUnload();
-    };
-  }, [onUnload]);
+  // useEffect(() => {
+  //   return () => {
+  //     onUnload();
+  //   };
+  // }, [onUnload]);
 
   return (
     <div className="home-page">
@@ -87,4 +88,5 @@ const HomePage: FC<IHome> = ({
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+// export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default HomePage;

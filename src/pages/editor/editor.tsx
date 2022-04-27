@@ -18,19 +18,19 @@ import {
 } from '../../constants/actionTypes';
 import { TErrors } from '../../utils/types';
 
-const mapStateToProps = (state) => ({
-  ...state.editor,
-});
+// const mapStateToProps = (state) => ({
+//   ...state.editor,
+// });
 
-const mapDispatchToProps = (dispatch) => ({
-  onAddTag: () => dispatch({ type: ADD_TAG }),
-  onLoad: (payload) => dispatch({ type: EDITOR_PAGE_LOADED, payload }),
-  onRemoveTag: (tag) => dispatch({ type: REMOVE_TAG, tag }),
-  onSubmit: (payload) => dispatch({ type: ARTICLE_SUBMITTED, payload }),
-  onUnload: (payload) => dispatch({ type: EDITOR_PAGE_UNLOADED }),
-  onUpdateField: (key, value) =>
-    dispatch({ type: UPDATE_FIELD_EDITOR, key, value }),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   onAddTag: () => dispatch({ type: ADD_TAG }),
+//   onLoad: (payload) => dispatch({ type: EDITOR_PAGE_LOADED, payload }),
+//   onRemoveTag: (tag) => dispatch({ type: REMOVE_TAG, tag }),
+//   onSubmit: (payload) => dispatch({ type: ARTICLE_SUBMITTED, payload }),
+//   onUnload: (payload) => dispatch({ type: EDITOR_PAGE_UNLOADED }),
+//   onUpdateField: (key, value) =>
+//     dispatch({ type: UPDATE_FIELD_EDITOR, key, value }),
+// });
 
 interface IEditorPage {
   errors: TErrors | undefined;
@@ -104,12 +104,12 @@ const EditorPage: FC<IEditorPage> = ({
     onSubmit(promise);
   };
 
-  useEffect(() => {
-    onLoad(agent.Articles.get(match.params.slug));
-    return () => {
-      onUnload();
-    };
-  }, [onLoad, onUnload, match.params.slug]);
+  // useEffect(() => {
+  //   onLoad(agent.Articles.get(match.params.slug));
+  //   return () => {
+  //     onUnload();
+  //   };
+  // }, [onLoad, onUnload, match.params.slug]);
 
   return (
     <div className="editor-page">
@@ -200,4 +200,5 @@ const EditorPage: FC<IEditorPage> = ({
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditorPage);
+// export default connect(mapStateToProps, mapDispatchToProps)(EditorPage);
+export default EditorPage

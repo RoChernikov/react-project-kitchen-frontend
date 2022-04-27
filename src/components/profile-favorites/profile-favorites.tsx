@@ -1,4 +1,4 @@
-import { mapStateToProps } from '../profile/profile';
+// import { mapStateToProps } from '../profile/profile';
 import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import agent from '../../agent';
@@ -7,13 +7,13 @@ import {
   PROFILE_PAGE_LOADED,
   PROFILE_PAGE_UNLOADED,
 } from '../../constants/actionTypes';
-import { EditProfileSettings, FollowUserButton } from "../profile/profile";
+import { EditProfileSettings, FollowUserButton } from '../profile/profile';
 
-const mapDispatchToProps = (dispatch) => ({
-  onLoad: (pager, payload) =>
-    dispatch({ type: PROFILE_PAGE_LOADED, pager, payload }),
-  onUnload: () => dispatch({ type: PROFILE_PAGE_UNLOADED }),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   onLoad: (pager, payload) =>
+//     dispatch({ type: PROFILE_PAGE_LOADED, pager, payload }),
+//   onUnload: () => dispatch({ type: PROFILE_PAGE_UNLOADED }),
+// });
 
 interface IProfileFavorites {
   profile: {
@@ -35,27 +35,29 @@ interface IProfileFavorites {
 
 const ProfileFavorites: React.FC<IProfileFavorites> = ({
   match,
-  profile,
+  profile = {
+    username: 'username',
+    image: 'image',
+  },
   onLoad,
   onUnload,
   currentUser,
   onFollow,
   onUnfollow,
 }) => {
-  useEffect(() => {
-    onLoad(
-      (page: string) => agent.Articles.favoritedBy(match.params.username, page),
-      Promise.all([
-        agent.Profile.get(match.params.username),
-        agent.Articles.favoritedBy(match.params.username),
-      ])
-    );
-    return () => onUnload();
-  }, [match.params.username, onLoad, onUnload]);
+  // useEffect(() => {
+  //   onLoad(
+  //     (page: string) => agent.Articles.favoritedBy(match.params.username, page),
+  //     Promise.all([
+  //       agent.Profile.get(match.params.username),
+  //       agent.Articles.favoritedBy(match.params.username),
+  //     ])
+  //   );
+  //   return () => onUnload();
+  // }, [match.params.username, onLoad, onUnload]);
   const isUser = currentUser && profile.username === currentUser.username;
 
   return (
-
     <div className="profile-page">
       <div className="user-info">
         <div className="container">
@@ -67,7 +69,6 @@ const ProfileFavorites: React.FC<IProfileFavorites> = ({
                 alt={profile.username}
               />
               <h4>{profile.username}</h4>
-
 
               <EditProfileSettings isUser={isUser} />
               <FollowUserButton
@@ -102,9 +103,8 @@ const ProfileFavorites: React.FC<IProfileFavorites> = ({
         </div>
       </div>
     </div>
-
-
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileFavorites);
+// export default connect(mapStateToProps, mapDispatchToProps)(ProfileFavorites);
+export default ProfileFavorites;
