@@ -2,7 +2,7 @@ import ArticleList, {
   IArticleList,
   TArticle,
 } from '../../../../components/article-list/article-list';
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import agent from '../../../../agent';
 import { connect } from 'react-redux';
 import { CHANGE_TAB } from '../../../../constants/actionTypes';
@@ -32,18 +32,18 @@ interface ITagFilterTab {
 }
 
 interface IMainView {
-  token: string;
-  tab: string;
-  tag: string;
-  pager: () => Promise<unknown>;
-  articles: TArticle[];
-  loading: boolean;
-  articlesCount: number;
-  currentPage: number;
-  onTabClick: (
-    tag: string,
-    pager: (page: number) => IArticleList,
-    payload: TPayload
+  token?: string;
+  tab?: string;
+  tag?: string;
+  pager?: () => Promise<unknown>;
+  articles?: any;
+  loading?: boolean;
+  articlesCount?: number;
+  currentPage?: number;
+  onTabClick?: (
+    tag?: string,
+    pager?: (page: number) => IArticleList,
+    payload?: TPayload
   ) => Dispatch<SetStateAction<string>>;
 }
 
@@ -100,16 +100,16 @@ const TagFilterTab: React.FC<ITagFilterTab> = ({ tag }) => {
 /**
  * Не типизировано, перепишется на хуки в рамках рефакторинга редакс
  */
-const mapStateToProps = (state) => ({
-  ...state.articleList,
-  tags: state.home.tags,
-  token: state.common.token,
-});
+// const mapStateToProps = (state) => ({
+//   ...state.articleList,
+//   tags: state.home.tags,
+//   token: state.common.token,
+// });
 
-const mapDispatchToProps = (dispatch) => ({
-  onTabClick: (tab, pager, payload) =>
-    dispatch({ type: CHANGE_TAB, tab, pager, payload }),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   onTabClick: (tab, pager, payload) =>
+//     dispatch({ type: CHANGE_TAB, tab, pager, payload }),
+// });
 /** */
 
 const MainView: React.FC<IMainView> = ({
@@ -117,7 +117,24 @@ const MainView: React.FC<IMainView> = ({
   tag,
   token,
   pager,
-  articles,
+  articles = [
+    {
+      slug: '666-uusufe',
+      title: '666',
+      description: '666',
+      body: '666',
+      createdAt: '2022-04-23T23:17:05.200Z',
+      updatedAt: '2022-04-23T23:17:05.200Z',
+      tagList: [],
+      favorited: false,
+      favoritesCount: 0,
+      author: {
+        username: '666777',
+        image: 'https://static.productionready.io/images/smiley-cyrus.jpg',
+        following: false,
+      },
+    },
+  ],
   loading,
   articlesCount,
   currentPage,
@@ -143,4 +160,5 @@ const MainView: React.FC<IMainView> = ({
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainView);
+// export default connect(mapStateToProps, mapDispatchToProps)(MainView);
+export default MainView;

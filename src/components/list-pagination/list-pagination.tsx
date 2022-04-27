@@ -3,9 +3,9 @@ import agent from '../../agent';
 import { connect } from 'react-redux';
 import { SET_PAGE } from '../../constants/actionTypes';
 
-const mapDispatchToProps = (dispatch) => ({
-  onSetPage: (page, payload) => dispatch({ type: SET_PAGE, page, payload }),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   onSetPage: (page, payload) => dispatch({ type: SET_PAGE, page, payload }),
+// });
 
 interface IListPagination {
   articlesCount: number;
@@ -65,4 +65,5 @@ const ListPagination: FC<IListPagination> = ({
   );
 };
 
-export default connect(() => ({}), mapDispatchToProps)(ListPagination);
+// export default connect(() => ({}), mapDispatchToProps)(ListPagination);
+export default ListPagination;

@@ -1,18 +1,18 @@
-import React, { FC, Dispatch, SetStateAction } from 'react';
+import React, { FC, Dispatch, SetStateAction, useEffect } from 'react';
 import agent from '../../../../agent';
 import { connect } from 'react-redux';
 import { DELETE_COMMENT } from '../../../../constants/actionTypes';
 
-const mapDispatchToProps = (dispatch) => ({
-  onClick: (payload, commentId) =>
-    dispatch({ type: DELETE_COMMENT, payload, commentId }),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   onClick: (payload, commentId) =>
+//     dispatch({ type: DELETE_COMMENT, payload, commentId }),
+// });
 
 interface IDeleteButton {
   slug: string;
   commentId: string;
   show: boolean;
-  onClick: (
+  onClick?: (
     payload: Promise<string>,
     commentId: string
   ) => Dispatch<SetStateAction<string>>;
@@ -23,6 +23,7 @@ const DeleteButton: FC<IDeleteButton> = ({
   commentId,
   show,
   onClick,
+  ...rest
 }) => {
   const del = () => {
     const payload = agent.Comments.delete(slug, commentId);
@@ -39,4 +40,6 @@ const DeleteButton: FC<IDeleteButton> = ({
   return null;
 };
 
-export default connect(() => ({}), mapDispatchToProps)(DeleteButton);
+// export default connect(() => ({}), mapDispatchToProps)(DeleteButton);
+
+export default DeleteButton;

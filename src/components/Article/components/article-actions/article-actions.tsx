@@ -3,16 +3,17 @@ import { Link } from 'react-router-dom';
 import agent from '../../../../agent';
 import { connect } from 'react-redux';
 import { DELETE_ARTICLE } from '../../../../constants/actionTypes';
-import { IArticle } from '../../../../utils/interfaces';
 
-const mapDispatchToProps = (dispatch) => ({
-  onClickDelete: (payload) => dispatch({ type: DELETE_ARTICLE, payload }),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   onClickDelete: (payload) => dispatch({ type: DELETE_ARTICLE, payload }),
+// });
 
 interface IArticleActions {
-  article: IArticle;
+  article: any;
   canModify: boolean;
-  onClickDelete: (payload: Promise<string>) => Dispatch<SetStateAction<string>>;
+  onClickDelete?: (
+    payload: Promise<string>
+  ) => Dispatch<SetStateAction<string>>;
 }
 
 const ArticleActions: FC<IArticleActions> = ({
@@ -42,4 +43,6 @@ const ArticleActions: FC<IArticleActions> = ({
   return <span></span>;
 };
 
-export default connect(() => ({}), mapDispatchToProps)(ArticleActions);
+// export default connect(() => ({}), mapDispatchToProps)(ArticleActions);
+
+export default ArticleActions;

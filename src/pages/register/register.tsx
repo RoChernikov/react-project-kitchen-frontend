@@ -12,15 +12,15 @@ import ListErrors from '../../components/list-errors/list-errors';
 import { REGISTER, REGISTER_PAGE_UNLOADED } from '../../constants/actionTypes';
 import { TErrors } from '../../utils/types';
 
-const mapStateToProps = (state) => ({ ...state.auth });
+// const mapStateToProps = (state) => ({ ...state.auth });
 
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit: (username, email, password) => {
-    const payload = agent.Auth.register(username, email, password);
-    dispatch({ type: REGISTER, payload });
-  },
-  onUnload: () => dispatch({ type: REGISTER_PAGE_UNLOADED }),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   onSubmit: (username, email, password) => {
+//     const payload = agent.Auth.register(username, email, password);
+//     dispatch({ type: REGISTER, payload });
+//   },
+//   onUnload: () => dispatch({ type: REGISTER_PAGE_UNLOADED }),
+// });
 
 interface IRegisterPage {
   errors: TErrors | undefined;
@@ -47,11 +47,11 @@ const RegisterPage: FC<IRegisterPage> = ({
     [onSubmit, username, email, password]
   );
 
-  useEffect(() => {
-    return () => {
-      onUnload();
-    };
-  }, [onUnload]);
+  // useEffect(() => {
+  //   return () => {
+  //     onUnload();
+  //   };
+  // }, [onUnload]);
 
   return (
     <div className="auth-page">
@@ -118,4 +118,5 @@ const RegisterPage: FC<IRegisterPage> = ({
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage);
+// export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage);
+export default RegisterPage;

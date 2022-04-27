@@ -12,13 +12,13 @@ import ListErrors from '../../components/list-errors/list-errors';
 import { LOGIN, LOGIN_PAGE_UNLOADED } from '../../constants/actionTypes';
 import { TErrors } from '../../utils/types';
 
-const mapStateToProps = (state) => ({ ...state.auth });
+// const mapStateToProps = (state) => ({ ...state.auth });
 
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit: (email, password) =>
-    dispatch({ type: LOGIN, payload: agent.Auth.login(email, password) }),
-  onUnload: () => dispatch({ type: LOGIN_PAGE_UNLOADED }),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   onSubmit: (email, password) =>
+//     dispatch({ type: LOGIN, payload: agent.Auth.login(email, password) }),
+//   onUnload: () => dispatch({ type: LOGIN_PAGE_UNLOADED }),
+// });
 
 interface ILoginPage {
   errors: TErrors | undefined;
@@ -44,11 +44,11 @@ const LoginPage: FC<ILoginPage> = ({
     [onSubmit, email, password]
   );
 
-  useEffect(() => {
-    return () => {
-      onUnload();
-    };
-  }, [onUnload]);
+  // useEffect(() => {
+  //   return () => {
+  //     onUnload();
+  //   };
+  // }, [onUnload]);
 
   return (
     <div className="auth-page">
@@ -103,4 +103,5 @@ const LoginPage: FC<ILoginPage> = ({
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+// export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default LoginPage;
