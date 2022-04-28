@@ -1,0 +1,16 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px dashed white;
+  padding: 20px 60px;
+  width: 100%;
+  min-height: 200px;
+  font-size: 50px;
+  color: white;
+  background-color:rgb(54, 201, 152);
+
+  & ul {
+    font-size: 30px;
+  }
+}

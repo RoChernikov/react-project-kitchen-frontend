@@ -1,0 +1,14 @@
+@import-normalize;
+@import './scss/_fonts.scss';
+@import './scss/variables';
+@import './scss/common';
+
+.page {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;
+}

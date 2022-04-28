@@ -1,102 +1,54 @@
-import React, { FC, useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { APP_LOAD, REDIRECT } from '../../constants/actionTypes';
-import { store } from '../../store';
-import { push } from 'react-router-redux';
-import agent from '../../agent';
-import Header from '../header/header';
-import EditorPage from '../../pages/editor/editor';
-import Home from '../../pages/home/home';
-import LoginPage from '../../pages/login/login';
-import Profile from '../profile/profile';
-import ProfileFavorites from '../profile-favorites/profile-favorites';
-import RegisterPage from '../../pages/register/register';
-import Settings from '../settings/settings';
-import Article from '../article/article';
-import Footer from '../footer/footer';
+import React, { FC, lazy, Suspense } from 'react';
+import Loader from '../loader/loader';
+import Modal from '../modal/modal';
+import Layout from '../layout';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import RequireAuth from '../../hoc/require-auth';
+const MainPage = lazy(() => import('../../pages/main-page'));
+const ProfilePage = lazy(() => import('../../pages/profile-page'));
+//--------------------------------------------------------------------------------
 
-// const mapStateToProps = (state) => {
-//   return {
-//     appLoaded: state.common.appLoaded,
-//     appName: state.common.appName,
-//     currentUser: state.common.currentUser,
-//     redirectTo: state.common.redirectTo,
-//   };
-// };
-
-// const mapDispatchToProps = (dispatch) => ({
-//   onLoad: (payload, token) =>
-//     dispatch({ type: APP_LOAD, payload, token, skipTracking: true }),
-//   onRedirect: () => dispatch({ type: REDIRECT }),
-// });
-
-interface IApp {
-  appLoaded: boolean;
-  appName: string;
-  currentUser: {
-    username: string,
-    email: string,
-    token: string,
-    image: string,
-  };
-  redirectTo: any;
-  onLoad: any;
-  onRedirect: any;
-}
-
-const App: FC<IApp> = ({
-  appLoaded = true,
-  appName = 'Какое-никакое название',
-  currentUser = {
-    username: 'Юзернейм',
-    email: '',
-    token:
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNjE1MjYyOTZkZDM1MTQwMDY2NDNlMSIsInVzZXJuYW1lIjoiNjY2Nzc3IiwiZXhwIjoxNjU2MjI3NzI0LCJpYXQiOjE2NTEwNDM3MjR9.qQEpoEgaGwzkpgxFR-1RqGpLcZxzhat9nwO6HenvUc0',
-    image: '',
-  },
-  redirectTo,
-  onLoad,
-  onRedirect,
-}) => {
-  // useEffect(() => {
-  //   const token = window.localStorage.getItem('jwt');
-  //   if (token) {
-  //     agent.setToken(token);
-  //   }
-  //   onLoad(token ? agent.Auth.current() : null, token);
-  // }, [onLoad]);
-
-  // useEffect(() => {
-  //   if (redirectTo) store.dispatch(push(redirectTo));
-  //   onRedirect();
-  // }, [onRedirect, redirectTo]);
-
-  if (appLoaded)
-    return (
-      <div>
-        <Header appName={appName} currentUser={currentUser} />
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/login" component={LoginPage} />
-          <Route path="/register" component={RegisterPage} />
-          <Route path="/editor/:slug" component={EditorPage} />
-          <Route path="/editor" component={EditorPage} />
-          <Route path="/article/:id" component={Article} />
-          <Route path="/settings" component={Settings} />
-          <Route path="/@:username/favorites" component={ProfileFavorites} />
-          <Route path="/@:username" component={Profile} />
-        </Switch>
-        <Footer />
-      </div>
-    );
+const App: FC = () => {
+  const location = useLocation();
+  const state = location.state as { backgroundLocation?: Location };
   return (
-    <div>
-      <Header appName={appName} currentUser={currentUser} />
-    </div>
+    <>
+      <Routes location={state?.backgroundLocation || location}>
+        <Route path="/" element={<RequireAuth children={<Layout />} />}>
+          <Route
+            index
+            element={
+              <Suspense fallback={<Loader />}>
+                <MainPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="profile"
+            element={
+              <Suspense fallback={<Loader />}>
+                <ProfilePage />
+              </Suspense>
+            }
+          />
+        </Route>
+      </Routes>
+      {state?.backgroundLocation && (
+        <Routes>
+          <Route
+            path="modal"
+            element={
+              <Modal
+                children={
+                  <div style={{ minHeight: 200, fontSize: 32 }}>TEST MODAL</div>
+                }
+              />
+            }
+          />
+        </Routes>
+      )}
+    </>
   );
 };
-
-// export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 export default App;

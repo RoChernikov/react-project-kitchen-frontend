@@ -1,0 +1,21 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed white;
+  width: 100%;
+  min-height: 200px;
+  background-color: white;
+  font-size: 50px;
+  color: rgb(0, 132, 255);
+
+  &__link {
+    background-color: red;
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+    width: 200px;
+    font-size: 20px;
+  }
+}

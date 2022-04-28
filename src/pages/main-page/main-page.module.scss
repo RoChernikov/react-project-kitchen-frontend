@@ -1,11 +1,11 @@
-.footer {
+.main {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 50px;
-  color: white;
   border: 2px dashed white;
   width: 100%;
-  min-height: 100px;
-  background-color: rgb(54, 201, 152);
+  min-height: 200px;
+  background-color: white;
+  font-size: 50px;
+  color: rgb(0, 132, 255);
 }
