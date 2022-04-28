@@ -14,6 +14,7 @@ import ProfileFavorites from '../profile-favorites/profile-favorites';
 import RegisterPage from '../../pages/register/register';
 import Settings from '../settings/settings';
 import Article from '../article/article';
+import Footer from '../footer/footer';
 
 // const mapStateToProps = (state) => {
 //   return {
@@ -86,6 +87,7 @@ const App: FC<IApp> = ({
           <Route path="/@:username/favorites" component={ProfileFavorites} />
           <Route path="/@:username" component={Profile} />
         </Switch>
+        <Footer />
       </div>
     );
   return (
