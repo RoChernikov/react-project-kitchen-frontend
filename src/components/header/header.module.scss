@@ -1,16 +1,93 @@
-.header {
+@import '../../scss/mixins';
+
+.container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 35px 0 55px;
+  border-bottom: 1px solid #0a0a0b;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.link_text {
+  margin-left: 8px;
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 500;
+  color: #008aff;
+}
+
+.icon {
+  vertical-align: middle;
+  & path {
+    stroke: #008aff;
+  }
+}
+
+.text_box {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  border: 2px dashed white;
-  padding: 20px 60px;
-  width: 100%;
-  min-height: 200px;
-  font-size: 50px;
-  color: white;
-  background-color:rgb(54, 201, 152);
+  margin-top: 65px;
+}
 
-  & ul {
-    font-size: 30px;
+.title {
+  margin: 0;
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 118px;
+  font-weight: 400;
+  color: #0a0a0b;
+}
+
+.description {
+  max-width: 225px;
+  margin: 0 0 0 30px;
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 26px;
+  font-weight: 400;
+  color: #0a0a0b;
+}
+
+@include mediaMax(1200px) {
+  .container {
+    max-width: 800px;
+  }
+  .title {
+    font-size: 90px;
+  }
+}
+
+@include mediaMax(900px) {
+  .container {
+    max-width: 600px;
+  }
+  .title {
+    font-size: 60px;
+  }
+}
+
+@include mediaMax(700px) {
+  .container {
+    max-width: 500px;
+  }
+  .text_box {
+    flex-direction: column;
+    text-align: center;
+  }
+  .description {
+    max-width: 100%;
+    margin: 0;
+  }
+}
+
+@include mediaMax(500px) {
+  .container {
+    max-width: 300px;
+  }
+  .title {
+    font-size: 50px;
   }
 }

@@ -4,6 +4,7 @@ import Modal from '../modal/modal';
 import Layout from '../layout';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import RequireAuth from '../../hoc/require-auth';
+import '../../scss/_fonts.scss';
 const MainPage = lazy(() => import('../../pages/main-page'));
 const ProfilePage = lazy(() => import('../../pages/profile-page'));
 //--------------------------------------------------------------------------------

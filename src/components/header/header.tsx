@@ -1,41 +1,29 @@
 import React, { FC } from 'react';
+import { Link } from 'react-router-dom';
+import { ReactComponent as HomeIcon } from '../../assets/images/home-icon.svg';
+import { ReactComponent as LoginIcon } from '../../assets/images/login-icon.svg';
 import styles from './header.module.scss';
-import { NavLink } from 'react-router-dom';
-//--------------------------------------------------------------------------------
 
 const Header: FC = () => {
   return (
-    <header className={styles.header}>
-      Header
-      <nav>
-        <ul style={{ listStyle: 'none' }}>
-          <li>
-            <NavLink
-              to={'/'}
-              className={styles.sidebarLink}
-              style={({ isActive }) =>
-                isActive
-                  ? { opacity: 1, pointerEvents: 'none', color: 'red' }
-                  : { color: 'red', opacity: 0.5 }
-              }>
-              Main
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to={'profile'}
-              className={styles.sidebarLink}
-              style={({ isActive }) =>
-                isActive
-                  ? { opacity: 1, pointerEvents: 'none', color: 'red' }
-                  : { color: 'red', opacity: 0.5 }
-              }>
-              Profile
-            </NavLink>
-          </li>
-        </ul>
+    <div className={styles.container}>
+      <nav className={styles.nav}>
+        <Link to="/">
+          <HomeIcon className={`${styles.home_icon} ${styles.icon}`} />
+          <span className={styles.link_text}>Главная</span>
+        </Link>
+        <Link to="/login">
+          <LoginIcon className={styles.icon} />
+          <span className={styles.link_text}>Войти</span>
+        </Link>
       </nav>
-    </header>
+      <div className={styles.text_box}>
+        <h1 className={styles.title}>Когда вырасту</h1>
+        <p className={styles.description}>
+          Каково быть джуном в турбулентном мире
+        </p>
+      </div>
+    </div>
   );
 };
 

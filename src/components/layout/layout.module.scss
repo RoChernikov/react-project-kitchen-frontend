@@ -1,10 +1,57 @@
-.main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+@import '../../scss/mixins';
+
+.container {
   width: 100%;
-  max-width: 80%;
-  border: 4px dashed green;
-  box-sizing: border-box;
-  // flex-grow: 1;
+  background: url('../../assets/images/left-figure.png') 0px -41px no-repeat,
+    url('../../assets/images/center-figure.png') 50% 0px no-repeat,
+    url('../../assets/images/right-figure.png') 100% 19px no-repeat;
+}
+
+// @include mediaMinMax(1400px, 1600px) {
+//   .container {
+//     background-size: 15%, auto, 400px;
+//     background-position: 0px 65px, 50% 0px, 100% 114px;
+//   }
+// }
+
+@include mediaMax(1600px) {
+  .container {
+    background-size: 15%, auto, 400px;
+    background-position: 0px 65px, 50% 0px, 100% 114px;
+  }
+}
+
+@include mediaMax(1400px) {
+  .container {
+    background-size: 9%, auto, 400px;
+    background-position: 0px 65px, 50% 0px, 100% 114px;
+  }
+}
+
+@include mediaMax(1200px) {
+  .container {
+    background-size: 9%, auto, 400px;
+    background-position: 0px 65px, 50% 0px, 100% 84px;
+  }
+}
+
+@include mediaMax(900px) {
+  .container {
+    background-size: 15%, 300px, 300px;
+    background-position: 0px 65px, 50% 0px, 100% 111px;
+  }
+}
+
+@include mediaMax(700px) {
+  .container {
+    background-size: 15%, 300px, 300px;
+    background-position: 0px 65px, 50% 0px, 100% 139px;
+  }
+}
+
+@include mediaMax(700px) {
+  .container {
+    background-size: 15%, 180px, 0;
+    background-position: 0px 65px, 64% 0px, 0;
+  }
 }

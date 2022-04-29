@@ -6,6 +6,10 @@
   padding: 0;
 }
 
+html {
+  padding: 0;
+}
+
 body {
   font-family: 'AlegreyaSans', system-ui, Tahoma, sans-serif;
   font-size: 14px;
@@ -15,7 +19,6 @@ body {
   margin: 0;
   min-width: 320px;
   height: 100%;
-  background-color: rgb(94, 191, 255);
   display: flex;
   justify-content: center;
 }
