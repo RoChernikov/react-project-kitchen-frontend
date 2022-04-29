@@ -5,5 +5,5 @@
   "singleQuote": true,
   "bracketSpacing": true,
   "jsxBracketSameLine": true,
-  "printWidth": 80
+  "printWidth": 100
 }
