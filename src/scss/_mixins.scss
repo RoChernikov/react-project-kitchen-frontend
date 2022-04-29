@@ -19,6 +19,12 @@
   }
 }
 
+@mixin mediaMinMax($screenSizeMin, $screenSizeMax) {
+  @media (min-width: $screenSizeMin) and (max-width: $screenSizeMax) {
+    @content;
+  }
+}
+
 @mixin appearance {
   @keyframes appearance {
     0% {

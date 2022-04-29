@@ -70,7 +70,7 @@ const HomePage: FC<IHome> = ({
 
   return (
     <div className="home-page">
-      <Banner token={token} appName={appName} />
+      {/* <Banner token={token} appName={appName} /> */}
       <div className="container page">
         <div className="row">
           <MainView />
