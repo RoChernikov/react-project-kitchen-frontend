@@ -136,15 +136,16 @@ class Api {
     return axios.get(`${BASE_URL}/articles/${slug}`);
   }
 
-  getArticlesBy(by?: 'author' | 'tag', value: string = '', limit: number = 5, page: number = 0) {
+  getArticlesBy(
+    by?: 'author' | 'tag' | 'favorited',
+    value: string = '',
+    limit: number = 5,
+    page: number = 0
+  ) {
     return axios.get(
-      `${BASE_URL}/articles?${
-        by === 'author'
-          ? `author=${encodeURIComponent(value)}&`
-          : by === 'tag'
-          ? `tag=${encodeURIComponent(value)}&`
-          : ''
-      }${this._limit(limit, page === 0 || page < 0 ? 0 : page - 1)}`
+      `${BASE_URL}/articles?${by ? by : ''}=${encodeURIComponent(
+        value
+      )}&${this._limit(limit, page === 0 || page < 0 ? 0 : page - 1)}`
     );
   }
 
@@ -176,18 +177,12 @@ class Api {
     });
   }
 
-  favoritedBy(author: string, limit: number = 5, page: number) {
-    return axios.get(
-      `${BASE_URL}/articles?favorited=${encodeURIComponent(author)}&${this._limit(
-        limit,
-        page === 0 || page < 0 ? 0 : page - 1
-      )}`
-    );
-  }
-
   getFeed(limit: number = 10, page: number = 0) {
     return axios.get(
-      `${BASE_URL}/articles/feed?${this._limit(limit, page === 0 || page < 0 ? 0 : page - 1)}`,
+      `${BASE_URL}/articles/feed?${this._limit(
+        limit,
+        page === 0 || page < 0 ? 0 : page - 1
+      )}`,
       {
         headers: {
           Authorization: `Bearer ${getCookie('accessToken')}`,
