@@ -7,6 +7,7 @@ import RequireAuth from '../../hoc/require-auth';
 import '../../scss/_fonts.scss';
 const MainPage = lazy(() => import('../../pages/main-page'));
 const ProfilePage = lazy(() => import('../../pages/profile-page'));
+const NotFound = lazy(() => import('../../pages/not-found-page'));
 //--------------------------------------------------------------------------------
 
 const App: FC = () => {
@@ -32,6 +33,7 @@ const App: FC = () => {
               </Suspense>
             }
           />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
       {state?.backgroundLocation && (
