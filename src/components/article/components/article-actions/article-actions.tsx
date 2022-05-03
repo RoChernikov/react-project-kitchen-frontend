@@ -1,8 +1,8 @@
 import React, { FC, Dispatch, SetStateAction } from 'react';
 import { Link } from 'react-router-dom';
-import agent from '../../../../agent';
+//import agent from '../../../../../src_old/agent';
 import { connect } from 'react-redux';
-import { DELETE_ARTICLE } from '../../../../constants/actionTypes';
+import { DELETE_ARTICLE } from '../../../../../src_old/constants/actionTypes';
 
 // const mapDispatchToProps = (dispatch) => ({
 //   onClickDelete: (payload) => dispatch({ type: DELETE_ARTICLE, payload }),
@@ -10,8 +10,8 @@ import { DELETE_ARTICLE } from '../../../../constants/actionTypes';
 
 interface IArticleActions {
   article: any;
-  canModify: boolean;
-  onClickDelete?: (
+  canModify: boolean | null;
+  onClickDelete: (
     payload: Promise<string>
   ) => Dispatch<SetStateAction<string>>;
 }
@@ -22,7 +22,7 @@ const ArticleActions: FC<IArticleActions> = ({
   onClickDelete,
 }) => {
   const del = () => {
-    onClickDelete(agent.Articles.del(article.slug));
+    //onClickDelete(agent.Articles.del(article.slug));
   };
   if (canModify) {
     return (

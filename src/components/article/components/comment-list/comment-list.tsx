@@ -1,17 +1,17 @@
 import React, { FC } from 'react';
+import { TUser } from 'utils/types';
 import Comment from '../comment/comment';
-import { TAuthor } from '../../../../utils/types';
 
 interface ICommentList {
   comments: any; //На данный момент нет возможности проверить тип, так как комменты не постятся (500-тит сервер)
-  currentUser: TAuthor;
+  currentUser: TUser | null;
   slug: string;
 }
 
 const CommentList: FC<ICommentList> = ({ comments, currentUser, slug }) => {
   return (
     <div>
-      {comments.map((comment) => {
+      {comments.map((comment : any) => {
         return (
           <Comment
             comment={comment}
