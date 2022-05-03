@@ -29,7 +29,7 @@ const App: FC = () => {
             }
           />
           <Route
-            path="article/123"
+            path="articles/123"
             element={
               <Suspense fallback={<Loader />}>
                 <Article
