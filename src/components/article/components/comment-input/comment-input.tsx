@@ -1,10 +1,9 @@
 import { FC, ChangeEvent, SyntheticEvent, useCallback } from 'react';
-import agent from '../../../../agent';
+import agent from '../../../../../src_old/agent';
 import { connect } from 'react-redux';
 import { useState } from 'react';
-import { ADD_COMMENT } from '../../../../constants/actionTypes';
-
-import { TAuthor } from '../../../../utils/types';
+import { ADD_COMMENT } from '../../../../../src_old/constants/actionTypes';
+import { TUser } from 'utils/types';
 
 // const mapStateToProps = (state) => ({ ...state.body });
 
@@ -18,8 +17,8 @@ import { TAuthor } from '../../../../utils/types';
 
 interface ICommentInput {
   slug: string;
-  currentUser: TAuthor;
-  onSubmit?: (slug: string, {body}: any) => void;
+  currentUser: TUser;
+  onSubmit: (slug: string, {body}: any) => void;
 }
 
 const CommentInput: FC<ICommentInput> = ({ slug, onSubmit, currentUser }) => {

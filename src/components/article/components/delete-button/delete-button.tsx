@@ -1,7 +1,7 @@
 import React, { FC, Dispatch, SetStateAction, useEffect } from 'react';
-import agent from '../../../../agent';
+//import agent from '../../../../../src_old/agent';
 import { connect } from 'react-redux';
-import { DELETE_COMMENT } from '../../../../constants/actionTypes';
+import { DELETE_COMMENT } from '../../../../../src_old/constants/actionTypes';
 
 // const mapDispatchToProps = (dispatch) => ({
 //   onClick: (payload, commentId) =>
@@ -11,8 +11,8 @@ import { DELETE_COMMENT } from '../../../../constants/actionTypes';
 interface IDeleteButton {
   slug: string;
   commentId: string;
-  show: boolean;
-  onClick?: (
+  show: boolean | null;
+  onClick: (
     payload: Promise<string>,
     commentId: string
   ) => Dispatch<SetStateAction<string>>;
@@ -26,8 +26,8 @@ const DeleteButton: FC<IDeleteButton> = ({
   ...rest
 }) => {
   const del = () => {
-    const payload = agent.Comments.delete(slug, commentId);
-    onClick(payload, commentId);
+    //const payload = agent.Comments.delete(slug, commentId);
+    //onClick(payload, commentId);
   };
 
   if (show) {

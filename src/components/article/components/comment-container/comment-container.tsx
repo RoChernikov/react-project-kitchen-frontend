@@ -3,27 +3,33 @@ import CommentList from '../comment-list/comment-list';
 import { Link } from 'react-router-dom';
 import React from 'react';
 import { FC } from 'react';
-import { TAuthor } from '../../../../utils/types';
-import ListErrors from '../../../list-errors/list-errors';
+import { TUser } from 'utils/types';
+//import ListErrors from '../../../../../src_old/components/list-errors/list-errors';
 
 interface ICommentContainer {
   comments: any;
-  errors: any;
+  //errors: any;
   slug: string;
-  currentUser: TAuthor | null;
+  currentUser: TUser | null;
 }
 
 const CommentContainer: FC<ICommentContainer> = ({
   comments,
-  errors,
+  //errors,
   slug,
   currentUser,
 }) => {
   return currentUser ? (
     <div className="col-xs-12 col-md-8 offset-md-2">
       <div>
-        <ListErrors errors={errors} />
-        <CommentInput slug={slug} currentUser={currentUser} />
+        {/* <ListErrors errors={errors} /> */}
+        <CommentInput
+          slug={slug}
+          currentUser={currentUser}
+          onSubmit={function (slug: string, { body }: any): void {
+            throw new Error('Function not implemented.');
+          }}
+        />
       </div>
       <CommentList comments={comments} slug={slug} currentUser={currentUser} />
     </div>

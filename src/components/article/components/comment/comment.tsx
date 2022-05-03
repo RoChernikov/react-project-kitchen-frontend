@@ -1,11 +1,11 @@
-import React, { FC } from 'react';
+import React, { Dispatch, FC, SetStateAction } from 'react';
 import DeleteButton from '../delete-button/delete-button';
 import { Link } from 'react-router-dom';
-import { TAuthor } from '../../../../utils/types';
+import { TUser } from 'utils/types';
 
 interface IComment {
   comment: any; //На данный момент нет возможности проверить тип, так как комменты не постятся (500-тит сервер)
-  currentUser: TAuthor;
+  currentUser: TUser | null;
   slug: string;
 }
 
@@ -31,7 +31,17 @@ const Comment: FC<IComment> = ({ comment, currentUser, slug }) => {
         <span className="date-posted">
           {new Date(comment.createdAt).toDateString()}
         </span>
-        <DeleteButton show={show} slug={slug} commentId={comment.id} />
+        <DeleteButton
+          show={show}
+          slug={slug}
+          commentId={comment.id}
+          onClick={function (
+            payload: Promise<string>,
+            commentId: string
+          ): Dispatch<SetStateAction<string>> {
+            throw new Error('Function not implemented.');
+          }}
+        />
       </div>
     </div>
   );
