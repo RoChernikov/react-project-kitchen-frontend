@@ -1,38 +1,19 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
-import agent from '../../agent';
-import { connect } from 'react-redux';
-import {
-  ARTICLE_FAVORITED,
-  ARTICLE_UNFAVORITED,
-} from '../../constants/actionTypes';
 
 const FAVORITED_CLASS = 'btn btn-sm btn-primary';
 const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary';
 
-// const mapDispatchToProps = (dispatch) => ({
-//   favorite: (slug) =>
-//     dispatch({
-//       type: ARTICLE_FAVORITED,
-//       payload: agent.Articles.favorite(slug),
-//     }),
-//   unfavorite: (slug) =>
-//     dispatch({
-//       type: ARTICLE_UNFAVORITED,
-//       payload: agent.Articles.unfavorite(slug),
-//     }),
-// });
-
 interface IArticlePreview {
   article: {
-    slug: string,
-    favorited: boolean,
-    author: { username: string, image: string },
-    createdAt: Date,
-    favoritesCount: number,
-    title: string,
-    description: string,
-    tagList: [],
+    slug: string;
+    favorited: boolean;
+    author: { username: string; image: string };
+    createdAt: Date;
+    favoritesCount: number;
+    title: string;
+    description: string;
+    tagList: [];
   };
   unfavorite: (slug: string) => void;
   favorite: (slug: string) => void;
@@ -97,5 +78,4 @@ const ArticlePreview: FC<IArticlePreview> = ({
   );
 };
 
-// export default connect(() => ({}), mapDispatchToProps)(ArticlePreview);
 export default ArticlePreview;
