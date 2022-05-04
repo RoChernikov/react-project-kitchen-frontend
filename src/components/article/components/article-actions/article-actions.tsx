@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { DELETE_ARTICLE } from '../../../../../src_old/constants/actionTypes';
 import styles from './article-actions.module.scss';
-import { DeleteButton } from '../delete-button/delete-button';
+import { Button } from 'components/button/button';
+import TrashIcon from 'components/icons/trash-icon';
+import PlusIcon from 'components/icons/plus-icon';
 // const mapDispatchToProps = (dispatch) => ({
 //   onClickDelete: (payload) => dispatch({ type: DELETE_ARTICLE, payload }),
 // });
@@ -31,13 +33,19 @@ const ArticleActions: FC<IArticleActions> = ({
       <div className={styles.container}>
         <Link
           to={`/editor/${article.slug}`}
-          className="btn btn-outline-secondary btn-sm">
-          <i className="ion-edit"></i> Edit Article
+          className={styles.container__editbutton}>
+          <Button
+            type="primary"
+            color="primary"
+            icon={<PlusIcon />}
+            children="Подписаться"
+          />
         </Link>
-        <div className={styles.container__del}>
-          <DeleteButton></DeleteButton>
-          <p>Удалить запись</p>
-        </div>
+        <Button
+          type="secondary"
+          children="Удалить запись"
+          icon={<TrashIcon />}
+        />
 
       </div>
     );

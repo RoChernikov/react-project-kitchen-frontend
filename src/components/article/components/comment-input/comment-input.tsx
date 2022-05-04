@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { ADD_COMMENT } from '../../../../../src_old/constants/actionTypes';
 import { TUser } from 'utils/types';
 import styles from './comment-input.module.scss';
-import { BlueButton } from '../blue-button/blue-button';
+import { Button } from 'components/button/button';
 
 // const mapStateToProps = (state) => ({ ...state.body });
 
@@ -46,7 +46,7 @@ const CommentInput: FC<ICommentInput> = ({ slug, onSubmit, currentUser }) => {
       <div className={styles.line}>
         <textarea
           className={styles.textarea}
-          placeholder="Write a comment..."
+          placeholder="Напишите свой комментарий..."
           value={body}
           onChange={changeBody}
 
@@ -69,7 +69,7 @@ const CommentInput: FC<ICommentInput> = ({ slug, onSubmit, currentUser }) => {
             </span>
           </div>
         </div>
-        <BlueButton text={' Отправить комментарий'} />
+        <Button type="primary" color="primary" children="Отправить комментарий" />
       </div>
 
     </form>

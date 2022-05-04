@@ -36,6 +36,7 @@ const CommentContainer: FC<ICommentContainer> = ({
       <CommentList comments={comments} slug={slug} currentUser={currentUser} />
     </div>
   ) : (
+    //пока нет дизайна на залогиниться
     <div className="col-xs-12 col-md-8 offset-md-2">
       <p>
         <Link to="/login">Sign in</Link>

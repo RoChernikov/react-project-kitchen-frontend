@@ -2,7 +2,8 @@ import React, { Dispatch, FC, SetStateAction } from 'react';
 import ArticleActions from '../article-actions/article-actions';
 import { Link } from 'react-router-dom';
 import styles from './article-meta.module.scss';
-import { Like } from '../like/like';
+import LikeIcon from 'components/icons/like-icon';
+import { Button } from 'components/button/button';
 interface IArticleMeta {
   article: any;
   canModify: boolean | null;
@@ -10,7 +11,7 @@ interface IArticleMeta {
 
 const ArticleMeta: FC<IArticleMeta> = ({ article, canModify }) => {
   return (
-    <div className="article-meta">
+    <div>
       {/*
       <ArticleActions
         canModify={canModify}
@@ -34,7 +35,10 @@ const ArticleMeta: FC<IArticleMeta> = ({ article, canModify }) => {
             {new Date(article.createdAt).toDateString()}
           </p>
         </div>
-        <Like></Like>
+        <Button
+          type="secondary"
+          icon={<LikeIcon />}
+        />
       </div>
 
     </div>

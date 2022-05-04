@@ -1,8 +1,9 @@
 import React, { Dispatch, FC, SetStateAction } from 'react';
-import DeleteButton from '../delete-button/delete-button';
 import { Link } from 'react-router-dom';
 import { TUser } from 'utils/types';
 import styles from './comment.module.scss';
+import { Button } from 'components/button/button';
+import TrashIcon from 'components/icons/trash-icon';
 
 interface IComment {
   comment: any; //На данный момент нет возможности проверить тип, так как комменты не постятся (500-тит сервер)
@@ -16,7 +17,7 @@ const Comment: FC<IComment> = ({ comment, currentUser, slug }) => {
     <div className={styles.container}>
       <div className={styles.smallcontainer}>
         <div className={styles.box}>
-          <Link to={`/@${comment.author.username}`} className="comment-author">
+          <Link to={`/@${comment.author.username}`} >
             <img
               src={comment.author.image}
               className={styles.container__img}
@@ -32,8 +33,12 @@ const Comment: FC<IComment> = ({ comment, currentUser, slug }) => {
             </span>
           </div>
         </div>
+        <Button
+          type="secondary"
+          icon={<TrashIcon />}
+        />
+        {/*
         <DeleteButton
-        /*
         show={show}
         slug={slug}
         commentId={comment.id}
@@ -43,8 +48,8 @@ const Comment: FC<IComment> = ({ comment, currentUser, slug }) => {
         ): Dispatch<SetStateAction<string>> {
           throw new Error('Function not implemented.');
         }}
-        */
         />
+      */}
 
       </div>
       <div>
