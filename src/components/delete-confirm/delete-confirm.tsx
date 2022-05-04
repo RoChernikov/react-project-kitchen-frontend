@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styles from './delete-confirm.module.scss';
+import { Button } from 'components/button/button';
 //--------------------------------------------------------------------------------
 
 const DeleteConfirm: FC = () => {
@@ -9,10 +10,11 @@ const DeleteConfirm: FC = () => {
         Нажимая кнопку «Удалить запись», материал будет удален без возможности
         восстановления.
       </p>
-      <button
+      <Button color="secondary" children="Удалить запись" />
+      {/* <button
         style={{ height: 40, width: 148, marginTop: 32, marginBottom: 32 }}>
         Удалить запись
-      </button>{' '}
+      </button>{' '} */}
       {/* ЗАМЕНИТЬ КНОПКУ НА УНИВЕРСАЛЬНЫЙ КОМПОНЕНТ*/}
     </>
   );
