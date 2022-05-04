@@ -1,0 +1,100 @@
+.articleSmallPreview {
+  box-sizing: border-box;
+  padding: 24px 0;
+  max-width: 335px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.articleSmallPreview__info {
+  display: grid;
+  grid-template-columns: 40px 1fr 48px;
+  gap: 8px;
+  align-items: center;
+}
+
+.articleSmallPreview__image {
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  justify-self: center;
+}
+
+.articleSmallPreview__personal {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.articleSmallPreview__authorLink {
+  font-size: 16px;
+  line-height: 20px;
+  text-decoration: none;
+  color: #62626A;
+  transition: .3s;
+}
+
+.articleSmallPreview__authorLink:hover {
+  text-decoration: none;
+  color: #62626A;
+  opacity: .8;
+}
+
+.articleSmallPreview__date {
+  margin: 0;
+  font-size: 12px;
+  line-height: 16px;
+  color: #62626A;
+}
+
+.articleSmallPreview__likes {
+  display: flex;
+  gap: 8px;
+}
+
+.articleSmallPreview__likesCounter {
+  margin: 0;
+  font-size: 18px;
+  line-height: 24px;
+  color: #62626A;
+}
+
+.articleSmallPreview__likesIcon {
+  width: 24px;
+  height: 24px;
+  background-image: url(./like.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.articleSmallPreview__likesIcon:hover {
+  opacity: .8;
+}
+
+.articleSmallPreview__titleLink {
+  color: #0A0A0B;
+  font-size: 20px;
+  width: fit-content;
+  transition: .3s;
+}
+
+.articleSmallPreview__titleLink:hover {
+  text-decoration: none;
+  color: #0A0A0B;
+  opacity: .8;
+}
+
+@media screen and (max-width: 768px) {
+  .articleSmallPreview {
+    max-width: 227px;
+  }
+  
+  .articleSmallPreview__titleLink {
+    font-size: 18px;
+  }
+}
