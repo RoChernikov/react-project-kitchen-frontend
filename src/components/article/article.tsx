@@ -17,7 +17,8 @@ import CommentContainer from './components/comment-container/comment-container';
 import ArticleMeta from './components/article-meta/ArticleMeta';
 import api from '../../utils/api';
 import { AxiosResponse } from 'axios';
-
+import styles from './article.module.scss';
+import ArticleActions from '../article/components/article-actions/article-actions';
 interface IArticle {
   article: TArticle;
   comments: TComment[];
@@ -84,8 +85,17 @@ export const Article: React.FC<IArticle> = ({
   return (
     <div className="article-page">
       <div className="banner">
-        <div className="container">
-          <h1>{article.title}</h1>
+        <ArticleActions
+          canModify={canModify}
+          article={article}
+          onClickDelete={(function (
+            payload: Promise<string>
+          ): Dispatch<SetStateAction<string>> {
+            throw new Error('Function not implemented.');
+          })}
+        />
+        <div className={styles.container}>
+          <h1 className={styles.container__header}>{article.title}</h1>
           <ArticleMeta article={article} canModify={canModify} />
         </div>
       </div>
@@ -105,7 +115,7 @@ export const Article: React.FC<IArticle> = ({
             </ul>
           </div>
         </div>
-        <hr />
+
         <div className="article-actions"></div>
         <div className="row">
           <CommentContainer

@@ -12,7 +12,7 @@ export const mockStore = {
       favoritesCount: 3,
       author: {
         username: 'John Smith',
-        image: 'https://static.productionready.io/images/smiley-cyrus.jpg',
+        image: 'https://klike.net/uploads/posts/2019-05/1558692395_12.jpg',
         bio: 'My name is John',
         following: false,
       },

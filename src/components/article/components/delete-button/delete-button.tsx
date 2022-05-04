@@ -2,6 +2,7 @@ import React, { FC, Dispatch, SetStateAction, useEffect } from 'react';
 //import agent from '../../../../../src_old/agent';
 import { connect } from 'react-redux';
 import { DELETE_COMMENT } from '../../../../../src_old/constants/actionTypes';
+import styles from './delete-button.module.scss';
 
 // const mapDispatchToProps = (dispatch) => ({
 //   onClick: (payload, commentId) =>
@@ -32,9 +33,9 @@ const DeleteButton: FC<IDeleteButton> = ({
 
   if (show) {
     return (
-      <span className="mod-options">
-        <i className="ion-trash-a" onClick={del}></i>
-      </span>
+
+      <div className={styles.buttonico} onClick={del}></div>
+
     );
   }
   return null;
