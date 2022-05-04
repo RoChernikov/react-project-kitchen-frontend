@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { TUser } from 'utils/types';
 import Comment from '../comment/comment';
+import styles from './comment-list.module.scss';
 
 interface ICommentList {
   comments: any; //На данный момент нет возможности проверить тип, так как комменты не постятся (500-тит сервер)
@@ -11,7 +12,7 @@ interface ICommentList {
 const CommentList: FC<ICommentList> = ({ comments, currentUser, slug }) => {
   return (
     <div>
-      {comments.map((comment : any) => {
+      {comments.map((comment: any) => {
         return (
           <Comment
             comment={comment}

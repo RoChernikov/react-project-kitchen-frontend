@@ -5,6 +5,7 @@ import { Button } from 'components/button/button';
 import PlusIcon from 'components/icons/plus-icon';
 import MinusIcon from 'components/icons/minus-icon';
 import TrashIcon from 'components/icons/trash-icon';
+import LikeIcon from 'components/icons/like-icon';
 //--------------------------------------------------------------------------------
 
 const MainPage: FC = () => {
@@ -45,6 +46,7 @@ const MainPage: FC = () => {
           children="Удалить запись"
           icon={<TrashIcon />}
         />
+
         <Button
           type="secondary"
           children="Удалить запись"

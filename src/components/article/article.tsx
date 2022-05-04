@@ -17,7 +17,8 @@ import CommentContainer from './components/comment-container/comment-container';
 import ArticleMeta from './components/article-meta/ArticleMeta';
 import api from '../../utils/api';
 import { AxiosResponse } from 'axios';
-
+import styles from './article.module.scss';
+import ArticleActions from '../article/components/article-actions/article-actions';
 interface IArticle {
   article: TArticle;
   comments: TComment[];
@@ -84,28 +85,45 @@ export const Article: React.FC<IArticle> = ({
   return (
     <div className="article-page">
       <div className="banner">
-        <div className="container">
-          <h1>{article.title}</h1>
+        <ArticleActions
+          canModify={canModify}
+          article={article}
+          onClickDelete={(function (
+            payload: Promise<string>
+          ): Dispatch<SetStateAction<string>> {
+            throw new Error('Function not implemented.');
+          })}
+        />
+        <div className={styles.container}>
+          <h1 className={styles.container__header}>{article.title}</h1>
           <ArticleMeta article={article} canModify={canModify} />
         </div>
       </div>
-      <div className="container page">
+      <div className={styles.container}>
         <div className="row article-content">
           <div className="col-xs-12">
             {/* <div dangerouslySetInnerHTML={markup}></div> */}
-            <div>ARTICLE BODY</div>
-            <ul className="tag-list">
+            <div className={styles.container__text}>
+              По местной традиции рассказываю историю моего трудоустройства.
+              Это моя первая работа после четырёхлетнего перерыва. Сначала случился декрет, потом переезд в Амстердам. В новой стране я решила получать новую профессию и оказалась в 22-й когорте направления «Веб-разработка». В сентябре 2021 года я получила диплом. Два месяца, с октября по декабрь, стажировалась (удалённо, бесплатно и part-time) в российской веб-студии P.A.Group, они размещали партнёрскую вакансию через программу акселерации. С нового года я возобновила поиски работы, но уже в Нидерландах.
+              В моей excel-табличке 65 позиций, из них 31 — прямые отказы, остальные — отклики без ответа. Технических интервью было всего четыре, и я все завалила по банальной причине: решала мало задач с CodeWars. Этот навык критически важен, но я их ненавижу, эти задачи, и по вечерам вместо курсов по JS смотрю мультики с дочкой. Тогда через знакомых я познакомилась с девушкой-джуном, и теперь вместе раз-два в неделю мы разбираемся с методами сортировки массивов. Так я нашла подругу и преодолела внутреннее сопротивление.
+              Я обсудила мои неудачи ещё с двумя знакомыми-фронтами. Один прислал интересную задачу для тренировки и предложил сделать её ревью, а второй пригласил помочь ему с pet-проектом, до которого у него самого не доходят руки. И осевшие на дне памяти знания начали всплывать. И это единственный мой совет: если вы не можете собраться в кучу и тонете в ощущении собственной бестолковости, попросите помощи у друзей и знакомых. Возможно, вам нужна одна решённая задачка, чтобы вы снова почувствовали веру в себя.
+              Оффер я приняла от компании, создающей веб-приложения с использованием low-code/no-code платформы. HR сама нашла меня в LinkedIn. Я прошла два интервью: звонок-знакомство и детальное обсуждение позиции. Технического интервью не было, потому что работа не предполагает разработку приложений с нуля. Если вы не смотрели в сторону компаний low-code или, как я, даже не знали о них, погуглите. Возможно, это и ваш путь.
+              Казалось бы, к чему тогда задачки, pet-проекты и все буквы выше? Я надеюсь, что всё пригодится. Да, я не могу за выходные освоить библиотеку или написать тестовое на неизвестном мне фреймворке — значит, пойду маленькими шагами. Пожелайте мне удачи ))
+
+            </div>
+            <ul className={styles.container__tags}>
               {article.tagList.map((tag) => {
                 return (
-                  <li className="tag-default tag-pill tag-outline" key={tag}>
-                    {tag}
+                  <li className={styles.container__tag} key={tag}>
+                    {'# ' + tag}
                   </li>
                 );
               })}
             </ul>
           </div>
         </div>
-        <hr />
+
         <div className="article-actions"></div>
         <div className="row">
           <CommentContainer

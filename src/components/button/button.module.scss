@@ -50,14 +50,14 @@
       background-color: #cccccc;
     }
 
-    & > svg {
+    &>svg {
       object-position: center;
       width: 24px;
       height: 24px;
       margin-right: 8px;
       stroke: #fff;
 
-      & > path {
+      &>path {
         stroke: #fff;
       }
     }
@@ -72,10 +72,10 @@
       background-color: transparent;
       color: #e53b35;
 
-      & > svg {
+      &>svg {
         stroke: #e53b35;
 
-        & > path {
+        &>path {
           stroke: #e53b35;
         }
       }
@@ -85,10 +85,10 @@
       background-color: transparent;
       color: #cc342f;
 
-      & > svg {
+      &>svg {
         stroke: #cc342f;
 
-        & > path {
+        &>path {
           stroke: #cc342f;
         }
       }
@@ -97,25 +97,26 @@
     &[disabled] {
       color: #cccccc;
 
-      & > svg {
+      &>svg {
         stroke: #cccccc;
 
-        & > path {
+        &>path {
           stroke: #cccccc;
         }
       }
     }
 
-    & > svg {
+    &>svg {
       object-position: center;
       width: 24px;
       height: 24px;
       margin-right: 8px;
       stroke: #ff413b;
 
-      & > path {
+      &>path {
         stroke: #ff413b;
       }
     }
   }
+
 }

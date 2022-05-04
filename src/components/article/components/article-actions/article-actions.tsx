@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom';
 //import agent from '../../../../../src_old/agent';
 import { connect } from 'react-redux';
 import { DELETE_ARTICLE } from '../../../../../src_old/constants/actionTypes';
-
+import styles from './article-actions.module.scss';
+import { Button } from 'components/button/button';
+import TrashIcon from 'components/icons/trash-icon';
+import PlusIcon from 'components/icons/plus-icon';
 // const mapDispatchToProps = (dispatch) => ({
 //   onClickDelete: (payload) => dispatch({ type: DELETE_ARTICLE, payload }),
 // });
@@ -20,23 +23,31 @@ const ArticleActions: FC<IArticleActions> = ({
   article,
   canModify,
   onClickDelete,
+
 }) => {
   const del = () => {
     //onClickDelete(agent.Articles.del(article.slug));
   };
   if (canModify) {
     return (
-      <span>
+      <div className={styles.container}>
         <Link
           to={`/editor/${article.slug}`}
-          className="btn btn-outline-secondary btn-sm">
-          <i className="ion-edit"></i> Edit Article
+          className={styles.container__editbutton}>
+          <Button
+            type="primary"
+            color="primary"
+            icon={<PlusIcon />}
+            children="Подписаться"
+          />
         </Link>
+        <Button
+          type="secondary"
+          children="Удалить запись"
+          icon={<TrashIcon />}
+        />
 
-        <button className="btn btn-outline-danger btn-sm" onClick={del}>
-          <i className="ion-trash-a"></i> Delete Article
-        </button>
-      </span>
+      </div>
     );
   }
 
