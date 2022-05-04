@@ -33,15 +33,17 @@ const Comment: FC<IComment> = ({ comment, currentUser, slug }) => {
           </div>
         </div>
         <DeleteButton
-          show={show}
-          slug={slug}
-          commentId={comment.id}
-          onClick={function (
-            payload: Promise<string>,
-            commentId: string
-          ): Dispatch<SetStateAction<string>> {
-            throw new Error('Function not implemented.');
-          }}
+        /*
+        show={show}
+        slug={slug}
+        commentId={comment.id}
+        onClick={function (
+          payload: Promise<string>,
+          commentId: string
+        ): Dispatch<SetStateAction<string>> {
+          throw new Error('Function not implemented.');
+        }}
+        */
         />
 
       </div>

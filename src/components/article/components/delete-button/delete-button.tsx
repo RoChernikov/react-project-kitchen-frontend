@@ -10,6 +10,8 @@ import styles from './delete-button.module.scss';
 // });
 
 interface IDeleteButton {
+  onClick?: () => void;
+  /*
   slug: string;
   commentId: string;
   show: boolean | null;
@@ -17,29 +19,31 @@ interface IDeleteButton {
     payload: Promise<string>,
     commentId: string
   ) => Dispatch<SetStateAction<string>>;
+  */
 }
 
-const DeleteButton: FC<IDeleteButton> = ({
+export const DeleteButton: FC<IDeleteButton> = ({
+  /*
   slug,
   commentId,
   show,
+  */
   onClick,
-  ...rest
+  //...rest
 }) => {
-  const del = () => {
-    //const payload = agent.Comments.delete(slug, commentId);
-    //onClick(payload, commentId);
-  };
+  //const del = () => {
+  //const payload = agent.Comments.delete(slug, commentId);
+  //onClick(payload, commentId);
+  //};
 
-  if (show) {
-    return (
-
-      <div className={styles.buttonico} onClick={del}></div>
-
-    );
-  }
-  return null;
-};
+  //if (show) {
+  return (
+    <button className={styles.buttonico} onClick={onClick}>
+    </button>
+  );
+}
+//return null;
+//};
 
 // export default connect(() => ({}), mapDispatchToProps)(DeleteButton);
 

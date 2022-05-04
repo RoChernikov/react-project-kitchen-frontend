@@ -1,0 +1,29 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    max-width: 700px;
+    padding-top: 56px;
+    padding-bottom: 24px;
+
+    &__del {
+        display: flex;
+        align-items: center;
+        color: rgba(255, 65, 59, 1);
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 24px;
+        cursor: pointer;
+        font-family: 'Alegreya', sans-serif;
+        opacity: 1;
+        transition: opacity .7s ease;
+    }
+
+    &__del:hover {
+        opacity: 0.6;
+    }
+
+    &__del:focus {
+        outline: 0;
+    }
+}
