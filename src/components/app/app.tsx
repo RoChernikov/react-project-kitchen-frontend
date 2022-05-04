@@ -1,6 +1,8 @@
 import React, { Dispatch, FC, lazy, SetStateAction, Suspense } from 'react';
+import NotFound from 'pages/not-found-page';
 import Loader from '../loader/loader';
 import Modal from '../modal/modal';
+import DeleteConfirm from 'components/delete-confirm/delete-confirm';
 import Layout from '../layout';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import RequireAuth from '../../hoc/require-auth';
@@ -9,11 +11,10 @@ import Article from '../article/article';
 import { mockStore } from '../../utils/mock';
 const MainPage = lazy(() => import('../../pages/main-page'));
 const ProfilePage = lazy(() => import('../../pages/profile-page'));
-const NotFound = lazy(() => import('../../pages/not-found-page'));
 //--------------------------------------------------------------------------------
 
 const App: FC = () => {
-  const {articles, comments, user } = mockStore;
+  const { articles, comments, user } = mockStore;
   const location = useLocation();
   const state = location.state as { backgroundLocation?: Location };
   return (
@@ -56,11 +57,7 @@ const App: FC = () => {
           <Route
             path="modal"
             element={
-              <Modal
-                children={
-                  <div style={{ minHeight: 200, fontSize: 32 }}>TEST MODAL</div>
-                }
-              />
+              <Modal title="Удалить запись" children={<DeleteConfirm />} />
             }
           />
         </Routes>
