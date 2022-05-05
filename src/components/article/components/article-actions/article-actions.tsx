@@ -40,7 +40,7 @@ const ArticleActions: FC<IArticleActions> = ({
             type="primary"
             color="primary"
             icon={<PlusIcon />}
-            children="Подписаться"
+            children="Редактировать запись"
           />
         </Link>
         <Button
