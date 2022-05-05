@@ -2,11 +2,11 @@ import React, { FC } from 'react';
 import ArticlePreview from '../../components/article-preview/article-preview';
 import styles from './main-page.module.scss';
 import { useLocation, Link } from 'react-router-dom';
-import { Button } from 'components/button/button';
-import PlusIcon from 'components/icons/plus-icon';
-import MinusIcon from 'components/icons/minus-icon';
-import TrashIcon from 'components/icons/trash-icon';
-import LikeIcon from 'components/icons/like-icon';
+// import { Button } from 'components/button/button';
+// import PlusIcon from 'components/icons/plus-icon';
+// import MinusIcon from 'components/icons/minus-icon';
+// import TrashIcon from 'components/icons/trash-icon';
+// import LikeIcon from 'components/icons/like-icon';
 //--------------------------------------------------------------------------------
 
 const MainPage: FC = () => {
@@ -14,7 +14,7 @@ const MainPage: FC = () => {
   return (
     <div className={styles.main}>
       <ArticlePreview />
-      <h1>UI Kit</h1>
+      {/* <h1>UI Kit</h1>
       <p>Тест модалки</p>
       <Link
         to={`/modal`}
@@ -55,7 +55,7 @@ const MainPage: FC = () => {
           icon={<TrashIcon />}
           disabled
         />
-      </div>
+      </div> */}
     </div>
   );
 };
