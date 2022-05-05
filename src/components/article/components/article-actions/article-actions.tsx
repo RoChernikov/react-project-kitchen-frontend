@@ -11,6 +11,7 @@ import PlusIcon from 'components/icons/plus-icon';
 //   onClickDelete: (payload) => dispatch({ type: DELETE_ARTICLE, payload }),
 // });
 
+
 interface IArticleActions {
   article: any;
   canModify: boolean | null;
@@ -28,7 +29,8 @@ const ArticleActions: FC<IArticleActions> = ({
   const del = () => {
     //onClickDelete(agent.Articles.del(article.slug));
   };
-  if (canModify) {
+  console.log(document.documentElement.clientWidth);
+  if (canModify && document.documentElement.clientWidth >= 800) {
     return (
       <div className={styles.container}>
         <Link
@@ -44,6 +46,26 @@ const ArticleActions: FC<IArticleActions> = ({
         <Button
           type="secondary"
           children="Удалить запись"
+          icon={<TrashIcon />}
+        />
+
+      </div>
+    );
+  }
+  else {
+    return (
+      <div className={styles.container}>
+        <Link
+          to={`/editor/${article.slug}`}
+          className={styles.container__editbutton}>
+          <Button
+            type="primary"
+            color="primary"
+            icon={<PlusIcon />}
+          />
+        </Link>
+        <Button
+          type="secondary"
           icon={<TrashIcon />}
         />
 

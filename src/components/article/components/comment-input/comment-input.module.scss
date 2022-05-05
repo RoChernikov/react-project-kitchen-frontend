@@ -1,3 +1,5 @@
+@import '../../../../scss/mixins';
+
 .textarea {
     width: 100%;
     height: 104px;
@@ -10,9 +12,18 @@
     line-height: 24px;
 }
 
+@include breakpoint('textarea', 800px) {
+    font-size: 16px;
+    line-height: 20px;
+}
+
 .line {
     border-bottom: 0.1px solid #E5E5E5;
     padding: 16px 24px 16px 24px;
+}
+
+@include breakpoint('line', 800px) {
+    padding: 16px;
 }
 
 .box {
@@ -20,6 +31,10 @@
     flex-direction: row;
 
     padding-left: 24px;
+}
+
+@include breakpoint('box', 800px) {
+    padding-bottom: 10px;
 }
 
 
@@ -62,4 +77,15 @@
         padding-bottom: 24px;
         text-decoration: none;
     }
+}
+
+@include breakpoint('info', 800px) {
+    flex-direction: column;
+    padding: 21px;
+    max-width: 200px;
+}
+
+@include breakpoint('info', 400px) {
+    max-width: 250px;
+    padding: 16px;
 }

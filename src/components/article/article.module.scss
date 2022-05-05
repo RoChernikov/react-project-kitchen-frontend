@@ -1,3 +1,5 @@
+@import '../../scss/mixins';
+
 .container {
     margin: 0 auto;
     max-width: 700px;
@@ -46,4 +48,12 @@
     &__tag:focus {
         outline: 0;
     }
+}
+
+@include breakpoint('container', 800px) {
+    max-width: 453px;
+}
+
+@include breakpoint('container', 500px) {
+    max-width: 280px;
 }
