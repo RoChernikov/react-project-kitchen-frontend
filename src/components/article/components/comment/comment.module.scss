@@ -1,0 +1,82 @@
+@import '../../../../scss/mixins';
+
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    background-color: none;
+    max-width: 700px;
+    padding: 0 24px 16px 24px;
+    border-radius: 4px 4px 4px 4px;
+    border: 0.1px solid #E5E5E5;
+    margin-bottom: 24px;
+
+    &__text {
+        color: rgba(10, 10, 11, 1);
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 24px;
+        font-family: 'Alegreya', sans-serif;
+    }
+
+    &__img {
+        width: 31px;
+        height: 31px;
+        border-radius: 100px
+    }
+}
+
+@include breakpoint('container', 800px) {
+    max-width: 421px;
+
+    &__text {
+        font-size: 16px;
+        line-height: 20px;
+    }
+}
+
+@include breakpoint('container', 400px) {
+    max-width: 280px;
+}
+
+
+.smallcontainer {
+    padding-top: 24px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        padding-left: 13px;
+    }
+
+    &__name {
+        font-family: 'Alegreya Sans', sans-serif;
+        color: rgba(10, 10, 11, 1);
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 20px;
+        padding-bottom: 4px;
+        text-decoration: none;
+
+    }
+
+    &__date {
+        font-family: 'Alegreya Sans', sans-serif;
+        color: rgba(10, 10, 11, 1);
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16px;
+        padding-bottom: 24px;
+        text-decoration: none;
+    }
+}
