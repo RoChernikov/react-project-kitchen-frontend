@@ -17,9 +17,11 @@ class Api {
 
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++AUTH
   signIn(data: IUserApi) {
-    return axios.post(`${BASE_URL}/users/login`, {
-      ...data,
-    });
+    return axios
+      .post(`${BASE_URL}/users/login`, {
+        ...data,
+      })
+      .then((res) => res.data);
   }
 
   register(data: IUserApi) {
