@@ -1,7 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import ArticlePreview from '../../components/article-preview/article-preview';
 import styles from './main-page.module.scss';
 import { useLocation, Link } from 'react-router-dom';
+import { useAppSelector } from 'services/hooks';
+import { selectArticles } from 'services/selectors/articles';
 // import { Button } from 'components/button/button';
 // import PlusIcon from 'components/icons/plus-icon';
 // import MinusIcon from 'components/icons/minus-icon';
@@ -11,9 +13,19 @@ import { useLocation, Link } from 'react-router-dom';
 
 const MainPage: FC = () => {
   const location = useLocation();
+  const articles = useAppSelector(selectArticles);
+
   return (
     <div className={styles.main}>
-      <ArticlePreview />
+      <ArticlePreview
+        article={articles[0]}
+        unfavorite={function (slug: string): void {
+          throw new Error('Function not implemented.');
+        }}
+        favorite={function (slug: string): void {
+          throw new Error('Function not implemented.');
+        }}
+      />
       {/* <h1>UI Kit</h1>
       <p>Тест модалки</p>
       <Link

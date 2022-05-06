@@ -3,26 +3,18 @@ import { Link } from 'react-router-dom';
 import styles from './article-preview.module.scss';
 import imgPath from '../../assets/images/author-image.jpg';
 import { ReactComponent as LikeDefault } from '../../assets/images/like-default.svg';
+import { TArticle } from 'utils/types';
 
 const FAVORITED_CLASS = 'btn btn-sm btn-primary';
 const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary';
 
 interface IArticlePreview {
-  article: {
-    slug: string;
-    favorited: boolean;
-    author: { username: string; image: string };
-    createdAt: string;
-    favoritesCount: number;
-    title: string;
-    description: string;
-    tagList: [];
-  };
+  article: TArticle;
   unfavorite: (slug: string) => void;
   favorite: (slug: string) => void;
 }
 
-const ArticlePreview: FC = () => {
+const ArticlePreview: FC<IArticlePreview> = ({ article }) => {
   // const favoriteButtonClass = article.favorited
   //   ? FAVORITED_CLASS
   //   : NOT_FAVORITED_CLASS;
@@ -40,37 +32,34 @@ const ArticlePreview: FC = () => {
     <div className={styles.article_preview}>
       <div className={styles.header}>
         <div className={styles.author}>
-          <img src={imgPath} alt="" className={styles.author_avatar} />
+          <img src={article?.author?.image} alt="" className={styles.author_avatar} />
           <div className={styles.author_text}>
-            <p className={styles.author_name}>Екатерина Молокова</p>
-            <p className={styles.date}>09 апреля 2022</p>
+            <p className={styles.author_name}>{article?.author?.username}</p>
+            <p className={styles.date}>{article?.createdAt}</p>
           </div>
         </div>
         <div className={styles.likes}>
-          <span className={styles.likes_count}>1</span>
+          <span className={styles.likes_count}>{article?.favoritesCount}</span>
           <LikeDefault className={styles.like_icon} />
         </div>
       </div>
       <div className={styles.article_main}>
-        <h1 className={styles.title}>История трудоустройства</h1>
-        <p className={styles.article_text}>
-          Это моя первая работа после четырёхлетнего перерыва. Сначала случился
-          декрет, потом переезд в Амстердам. В новой стране я решила получать
-          новую профессию и оказалась в 22-й когорте направления
-          «Веб-разработка».
-        </p>
+        <h1 className={styles.title}>{article?.title}</h1>
+        <p className={styles.article_text}>{article?.body}</p>
       </div>
       <div className={styles.article_footer}>
         <Link to="" className={styles.readmore}>
           Читать дальше
         </Link>
-        <div className={styles.tags}>
-          <p className={`${styles.tag} ${styles.active_tag}`}>#перваяработа</p>
-          <p className={styles.tag}>#перваяработа</p>
-          <p className={styles.tag}>#перваяработа</p>
-          <p className={styles.tag}>#перваяработа</p>
-          <p className={styles.tag}>#перваяработа</p>
-        </div>
+        <ul className={styles.tags}>
+          {article?.tagList.map((tag) => {
+            return (
+              <li className="tag-default tag-pill tag-outline" key={tag}>
+                {tag}
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </div>
   );
