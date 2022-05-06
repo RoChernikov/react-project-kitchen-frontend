@@ -18,7 +18,7 @@ import { Button } from 'components/button/button';
 // });
 
 interface ICommentInput {
-  slug: string;
+  slug: string | undefined;
   currentUser: TUser;
   onSubmit: (slug: string, { body }: any) => void;
 }
@@ -34,7 +34,7 @@ const CommentInput: FC<ICommentInput> = ({ slug, onSubmit, currentUser }) => {
     (evt: SyntheticEvent) => {
       evt.preventDefault();
       console.log("body", body);
-      onSubmit(slug, { body });
+      //onSubmit(slug, { body });
       setBody('');
     },
     [onSubmit, slug, body]

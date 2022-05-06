@@ -10,7 +10,7 @@ import styles from './comment-container.module.scss';
 interface ICommentContainer {
   comments: any;
   //errors: any;
-  slug: string;
+  slug: string | undefined;
   currentUser: TUser | null;
 }
 
