@@ -1,8 +1,6 @@
 import { combineReducers } from 'redux';
-import { articleSlice } from './article';
+import { articleSlice } from './articles';
 
 export const rootReducer = combineReducers({
-  /*сюды редьюсеры из импортированных слайсов, типо*/
-
   articles: articleSlice.reducer,
 });

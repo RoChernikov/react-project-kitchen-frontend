@@ -1,4 +1,4 @@
-import React, { Dispatch, FC, lazy, SetStateAction, Suspense } from 'react';
+import React, { Dispatch, FC, lazy, SetStateAction, Suspense, useEffect } from 'react';
 import NotFound from 'pages/not-found-page';
 import Loader from '../loader/loader';
 import Modal from '../modal/modal';
@@ -9,14 +9,25 @@ import RequireAuth from '../../hoc/require-auth';
 import '../../scss/_fonts.scss';
 import Article from '../article/article';
 import { mockStore } from '../../utils/mock';
+import { useAppDispatch, useAppSelector } from 'services/hooks';
+import getArticlesData from 'services/thunks/articles';
+import { selectArticles } from 'services/selectors/articles';
 const MainPage = lazy(() => import('../../pages/main-page'));
 const ProfilePage = lazy(() => import('../../pages/profile-page'));
 //--------------------------------------------------------------------------------
 
 const App: FC = () => {
-  const { articles, comments, user } = mockStore;
+  const { user } = mockStore;
   const location = useLocation();
   const state = location.state as { backgroundLocation?: Location };
+  const dispatch = useAppDispatch();
+  const articles = useAppSelector(selectArticles);
+
+  useEffect(() => {
+    dispatch(getArticlesData());
+  }, [dispatch]);
+  
+  console.log(articles)
   return (
     <>
       <Routes location={state?.backgroundLocation || location}>
@@ -30,12 +41,10 @@ const App: FC = () => {
             }
           />
           <Route
-            path="articles/123"
+            path="articles/:id"
             element={
               <Suspense fallback={<Loader />}>
                 <Article
-                  article={articles[0]}
-                  comments={comments}
                   currentUser={user}
                 />
               </Suspense>

@@ -13,6 +13,7 @@ export type TArticle = {
   tagList: string[];
   title: string;
   updatedAt: string;
+  comments: TComment[];
 };
 
 export type TAuthor = {

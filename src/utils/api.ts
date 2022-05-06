@@ -75,7 +75,9 @@ class Api {
 
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++COMMENTS
   getComments(slug: string) {
-    return axios.get(`${BASE_URL}/articles/${slug}/comments/`);
+    return axios
+      .get(`${BASE_URL}/articles/${slug}/comments/`)
+      .then((response) => response.data.comments);
   }
 
   addComment(slug: string, data: ICommentApi) {
@@ -133,7 +135,9 @@ class Api {
   }
 
   getArticle(slug: string) {
-    return axios.get(`${BASE_URL}/articles/${slug}`);
+    return axios
+      .get(`${BASE_URL}/articles/${slug}`)
+      .then((response) => response.data.article);
   }
 
   getArticlesBy(
@@ -142,11 +146,13 @@ class Api {
     limit: number = 5,
     page: number = 0
   ) {
-    return axios.get(
-      `${BASE_URL}/articles?${by ? by : ''}=${encodeURIComponent(
-        value
-      )}&${this._limit(limit, page === 0 || page < 0 ? 0 : page - 1)}`
-    );
+    return axios
+      .get(
+        `${BASE_URL}/articles?${by ? by : ''}=${encodeURIComponent(
+          value
+        )}&${this._limit(limit, page === 0 || page < 0 ? 0 : page - 1)}`
+      )
+      .then((response) => response.data);
   }
 
   deleteArticle(slug: string) {

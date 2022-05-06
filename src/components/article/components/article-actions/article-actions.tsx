@@ -29,12 +29,11 @@ const ArticleActions: FC<IArticleActions> = ({
   const del = () => {
     //onClickDelete(agent.Articles.del(article.slug));
   };
-  console.log(document.documentElement.clientWidth);
-  if (canModify && document.documentElement.clientWidth >= 800) {
+  if (true) {
     return (
       <div className={styles.container}>
         <Link
-          to={`/editor/${article.slug}`}
+          to={`/editor/${article?.slug}`}
           className={styles.container__editbutton}>
           <Button
             type="primary"
@@ -48,32 +47,10 @@ const ArticleActions: FC<IArticleActions> = ({
           children="Удалить запись"
           icon={<TrashIcon />}
         />
-
       </div>
     );
   }
-  else {
-    return (
-      <div className={styles.container}>
-        <Link
-          to={`/editor/${article.slug}`}
-          className={styles.container__editbutton}>
-          <Button
-            type="primary"
-            color="primary"
-            icon={<PlusIcon />}
-          />
-        </Link>
-        <Button
-          type="secondary"
-          icon={<TrashIcon />}
-        />
-
-      </div>
-    );
-  }
-
-  return <span></span>;
+  return null;
 };
 
 // export default connect(() => ({}), mapDispatchToProps)(ArticleActions);
