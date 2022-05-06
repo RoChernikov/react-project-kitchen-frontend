@@ -2,6 +2,8 @@ export type TErrors = {
   [name: string]: string;
 };
 
+export type TStatus = 'pending' | 'success' | 'failed';
+
 export type TArticle = {
   author: TAuthor;
   body: string;
@@ -33,7 +35,6 @@ export type TComment = {
 export type TUser = {
   username: string;
   email: string;
-  token: string;
   bio?: string;
   image: string;
 };
