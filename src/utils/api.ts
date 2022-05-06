@@ -152,7 +152,7 @@ class Api {
           value
         )}&${this._limit(limit, page === 0 || page < 0 ? 0 : page - 1)}`
       )
-      .then((response) => response.data);
+      .then((response) => response.data.articles);
   }
 
   deleteArticle(slug: string) {
