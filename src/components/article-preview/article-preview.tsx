@@ -32,7 +32,11 @@ const ArticlePreview: FC<IArticlePreview> = ({ article }) => {
     <div className={styles.article_preview}>
       <div className={styles.header}>
         <div className={styles.author}>
-          <img src={article?.author?.image} alt="" className={styles.author_avatar} />
+          <img
+            src={article?.author?.image}
+            alt=""
+            className={styles.author_avatar}
+          />
           <div className={styles.author_text}>
             <p className={styles.author_name}>{article?.author?.username}</p>
             <p className={styles.date}>{article?.createdAt}</p>
@@ -51,15 +55,18 @@ const ArticlePreview: FC<IArticlePreview> = ({ article }) => {
         <Link to="" className={styles.readmore}>
           Читать дальше
         </Link>
-        <ul className={styles.tags}>
+        <div className={styles.tags}>
+          <div className={`${styles.tag} ${styles.active_tag}`}>
+            #перваяработа
+          </div>
           {article?.tagList.map((tag) => {
             return (
-              <li className="tag-default tag-pill tag-outline" key={tag}>
-                {tag}
-              </li>
+              <div className={`${styles.tag}`} key={tag}>
+                {`#${tag}`}
+              </div>
             );
           })}
-        </ul>
+        </div>
       </div>
     </div>
   );
