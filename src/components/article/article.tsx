@@ -9,7 +9,7 @@ import {
 } from 'services/selectors/articles';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'services/hooks';
-import getCurrentArticleData from 'services/thunks/currentArticle';
+import { getCurrentArticleData } from 'services/slices/articles';
 
 interface IArticle {
   // article: TArticle;

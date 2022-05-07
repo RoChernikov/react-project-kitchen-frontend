@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AppThunk } from 'services/store';
+import api from 'utils/api';
 import { TArticle, TComment } from 'utils/types';
 
 type TInitialState = {
@@ -80,5 +82,32 @@ export const {
   resetCurrentArticle,
   resetArticles,
 } = articleSlice.actions;
+
+
+export const getArticlesData: AppThunk = () => (dispatch) => {
+  dispatch(getArticlesRequest());
+  api
+    .getArticlesBy()
+    .then((data) => {
+      dispatch(getArticlesSuccess(data));
+    })
+    .catch((err) => {
+      dispatch(getArticlesFailed());
+      console.log(`Ошибка загрузки списка статей: ${err}`);
+    });
+};
+
+export const getCurrentArticleData: AppThunk = (slug: string) => (dispatch) => {
+  dispatch(getCurrentArticleRequest());
+  Promise.all([api.getArticle(slug), api.getComments(slug)])
+    .then((data) => {
+      dispatch(getCurrentArticleSuccess(data));
+    })
+    .catch((err) => {
+      dispatch(getCurrentArticleFailed());
+      console.log(`Ошибка загрузки статьи: ${err}`);
+    });
+};
+
 
 export default articleSlice.reducer;

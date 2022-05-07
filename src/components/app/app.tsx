@@ -1,4 +1,4 @@
-import React, { Dispatch, FC, lazy, SetStateAction, Suspense, useEffect } from 'react';
+import React, { Dispatch, FC, lazy, Suspense, useEffect } from 'react';
 import NotFound from 'pages/not-found-page';
 import Loader from '../loader/loader';
 import Modal from '../modal/modal';
@@ -10,8 +10,8 @@ import '../../scss/_fonts.scss';
 import Article from '../article/article';
 import { mockStore } from '../../utils/mock';
 import { useAppDispatch, useAppSelector } from 'services/hooks';
-import getArticlesData from 'services/thunks/articles';
 import { selectArticles } from 'services/selectors/articles';
+import { getArticlesData } from 'services/slices/articles';
 const MainPage = lazy(() => import('../../pages/main-page'));
 const ProfilePage = lazy(() => import('../../pages/profile-page'));
 //--------------------------------------------------------------------------------
