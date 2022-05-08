@@ -9,7 +9,7 @@ type TInitialState = {
   status: TStatus;
   user: TUser;
   isAuth: boolean;
-  loginErrors: TErrors;
+  errors: TErrors;
   following: boolean;
 };
 
@@ -22,7 +22,7 @@ export const initialState: TInitialState = {
     image: '',
   },
   isAuth: !!getCookie('accessToken'),
-  loginErrors: {},
+  errors: {},
   following: false,
 };
 
@@ -45,8 +45,18 @@ export const profileSlice = createSlice({
     setAuth(state, action: PayloadAction<boolean>) {
       state.isAuth = action.payload;
     },
-    setLoginErrors(state, action: PayloadAction<TErrors>) {
-      state.loginErrors = action.payload;
+    setErrors(state, action: PayloadAction<TErrors>) {
+      state.errors = action.payload;
+    },
+    signOut(state) {
+      state.user = {
+        username: '',
+        email: '',
+        bio: '',
+        image: '',
+      };
+      state.isAuth = false;
+      deleteCookie('accessToken');
     },
   },
 });
@@ -57,7 +67,8 @@ export const {
   setStatusFailed,
   setUser,
   setAuth,
-  setLoginErrors,
+  setErrors,
+  signOut,
 } = profileSlice.actions;
 
 export const signIn: AppThunk = (data: IUserApi) => (dispatch: AppDispatch) => {
@@ -68,13 +79,62 @@ export const signIn: AppThunk = (data: IUserApi) => (dispatch: AppDispatch) => {
       dispatch(setUser(res.user));
       dispatch(setAuth(true));
       dispatch(setStatusSuccess());
-      dispatch(setLoginErrors({}));
+      dispatch(setErrors({}));
+    })
+    .catch((err) => {
+      dispatch(setStatusFailed());
+      dispatch(setAuth(false));
+      console.log(err.message);
+      dispatch(setErrors(err.response.data.errors));
+    });
+};
+
+export const register: AppThunk =
+  (data: IUserApi) => (dispatch: AppDispatch) => {
+    dispatch(setStatusPending());
+    Api.register(data)
+      .then((res) => {
+        setCookie('accessToken', res.user.token);
+        dispatch(setUser(res.user));
+        dispatch(setAuth(true));
+        dispatch(setStatusSuccess());
+        dispatch(setErrors({}));
+      })
+      .catch((err) => {
+        dispatch(setStatusFailed());
+        dispatch(setAuth(false));
+        console.log(err.message);
+        dispatch(setErrors(err.response.data.errors));
+      });
+  };
+
+export const getUser: AppThunk = () => (dispatch: AppDispatch) => {
+  dispatch(setStatusPending());
+  Api.getUser()
+    .then((res) => {
+      dispatch(setUser(res.user));
+      dispatch(setStatusSuccess());
     })
     .catch((err) => {
       dispatch(setStatusFailed());
       console.log(err.message);
-      dispatch(setLoginErrors(err.response.data.errors));
+      dispatch(setErrors(err.response.data.errors));
     });
 };
+
+export const patchUser: AppThunk =
+  (data: IUserApi) => (dispatch: AppDispatch) => {
+    dispatch(setStatusPending());
+    Api.patchUser(data)
+      .then((res) => {
+        dispatch(setUser(res.user));
+        dispatch(setStatusSuccess());
+      })
+      .catch((err) => {
+        dispatch(setStatusFailed());
+        console.log(err.message);
+        dispatch(setErrors(err.response.data.errors));
+      });
+  };
 
 export default profileSlice.reducer;
