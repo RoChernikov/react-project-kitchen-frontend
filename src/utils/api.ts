@@ -91,7 +91,7 @@ class Api {
           Authorization: `Bearer ${getCookie('accessToken')}`,
         },
       }
-    );
+    ).then((response) => response.data);
   }
 
   deleteComment(slug: string, commentId: string) {

@@ -1,9 +1,11 @@
-import React, { Dispatch, FC, SetStateAction } from 'react';
+import { FC, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { TComment, TUser } from 'utils/types';
 import styles from './comment.module.scss';
 import { Button } from 'components/button/button';
 import TrashIcon from 'components/icons/trash-icon';
+import { useAppDispatch } from 'services/hooks';
+import { deleteComment } from 'services/slices/articles';
 
 interface IComment {
   comment: TComment;
@@ -12,7 +14,14 @@ interface IComment {
 }
 
 const Comment: FC<IComment> = ({ comment, currentUser, slug }) => {
+  const dispatch = useAppDispatch();
+
   const show = currentUser && currentUser.username === comment.author.username;
+
+  const onCommentDelete = useCallback(() => {
+    dispatch(deleteComment(slug, comment.id));
+  }, [dispatch]);
+
   return (
     <div className={styles.container}>
       <div className={styles.smallcontainer}>
@@ -35,20 +44,13 @@ const Comment: FC<IComment> = ({ comment, currentUser, slug }) => {
             </span>
           </div>
         </div>
-        <Button type="secondary" icon={<TrashIcon />} />
-        {/*
-        <DeleteButton
-        show={show}
-        slug={slug}
-        commentId={comment.id}
-        onClick={function (
-          payload: Promise<string>,
-          commentId: string
-        ): Dispatch<SetStateAction<string>> {
-          throw new Error('Function not implemented.');
-        }}
-        />
-      */}
+        {show && (
+          <Button
+            type="secondary"
+            icon={<TrashIcon />}
+            onClick={onCommentDelete}
+          />
+        )}
       </div>
       <div>
         <p className={styles.container__text}>{comment.body}</p>

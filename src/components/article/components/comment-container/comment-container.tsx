@@ -28,9 +28,6 @@ const CommentContainer: FC<ICommentContainer> = ({
         <CommentInput
           slug={slug}
           currentUser={currentUser}
-          onSubmit={function (slug: string, { body }: any): void {
-            throw new Error('Function not implemented.');
-          }}
         />
       </div>
       <CommentList comments={comments} slug={slug} currentUser={currentUser} />
@@ -44,7 +41,6 @@ const CommentContainer: FC<ICommentContainer> = ({
         <Link to="/register">sign up</Link>
         &nbsp;to add comments on this article.
       </p>
-
       <CommentList comments={comments} slug={slug} currentUser={currentUser} />
     </div>
   );
