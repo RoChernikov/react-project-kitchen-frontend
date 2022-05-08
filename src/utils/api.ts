@@ -25,29 +25,35 @@ class Api {
   }
 
   register(data: IUserApi) {
-    return axios.post(`${BASE_URL}/users`, {
-      ...data,
-    });
+    return axios
+      .post(`${BASE_URL}/users`, {
+        ...data,
+      })
+      .then((res) => res.data);
   }
 
   patchUser(data: IUserApi) {
-    return axios.put(
-      `${BASE_URL}/user`,
-      { ...data },
-      {
-        headers: {
-          Authorization: `Bearer ${getCookie('accessToken')}`,
-        },
-      }
-    );
+    return axios
+      .put(
+        `${BASE_URL}/user`,
+        { ...data },
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie('accessToken')}`,
+          },
+        }
+      )
+      .then((res) => res.data);
   }
 
   getUser() {
-    return axios.get(`${BASE_URL}/user`, {
-      headers: {
-        Authorization: `Bearer ${getCookie('accessToken')}`,
-      },
-    });
+    return axios
+      .get(`${BASE_URL}/user`, {
+        headers: {
+          Authorization: `Bearer ${getCookie('accessToken')}`,
+        },
+      })
+      .then((res) => res.data);
   }
 
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++PROFILE
