@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk } from 'services/store';
 import api from 'utils/api';
+import { ICommentApi } from 'utils/interfaces';
 import { TArticle, TComment } from 'utils/types';
 
 type TInitialState = {
@@ -16,6 +17,10 @@ type TInitialState = {
   articlesFailed: boolean;
   currentArticlesRequest: boolean;
   currentArticlesFailed: boolean;
+  addCommentRequest: boolean;
+  addCommentFailed: boolean;
+  deleteCommentRequest: boolean;
+  deleteCommentFailed: boolean;
 };
 
 export const initialState: TInitialState = {
@@ -31,6 +36,10 @@ export const initialState: TInitialState = {
   articlesFailed: false,
   currentArticlesRequest: false,
   currentArticlesFailed: false,
+  addCommentRequest: false,
+  addCommentFailed: false,
+  deleteCommentRequest: false,
+  deleteCommentFailed: false,
 };
 
 export const articleSlice = createSlice({
@@ -66,6 +75,33 @@ export const articleSlice = createSlice({
     resetCurrentArticle(state) {
       state.currentArticle = null;
     },
+    addCommentRequest(state) {
+      state.addCommentRequest = true;
+    },
+    addCommentFailed(state) {
+      state.addCommentFailed = true;
+      state.addCommentRequest = false;
+    },
+    addCommentSuccess(state, action: PayloadAction<TComment>) {
+      // commentErrors: action.error ? action.payload.errors : null,
+      state.currentArticle?.comments.push(action.payload);
+    },
+    deleteCommentRequest(state) {
+      state.deleteCommentRequest = true;
+    },
+    deleteCommentFailed(state) {
+      state.deleteCommentFailed = true;
+      state.deleteCommentRequest = false;
+    },
+    deleteCommentSuccess(state, action: PayloadAction<string>) {
+      if (state.currentArticle) {
+        state.currentArticle.comments = state.currentArticle?.comments.filter(
+          (comment) => comment.id !== action.payload
+        );
+      } else {
+        return initialState;
+      }
+    },
     resetArticles() {
       return initialState;
     },
@@ -80,9 +116,14 @@ export const {
   getCurrentArticleRequest,
   getCurrentArticleFailed,
   resetCurrentArticle,
+  addCommentRequest,
+  addCommentFailed,
+  addCommentSuccess,
+  deleteCommentRequest,
+  deleteCommentFailed,
+  deleteCommentSuccess,
   resetArticles,
 } = articleSlice.actions;
-
 
 export const getArticlesData: AppThunk = () => (dispatch) => {
   dispatch(getArticlesRequest());
@@ -109,5 +150,32 @@ export const getCurrentArticleData: AppThunk = (slug: string) => (dispatch) => {
     });
 };
 
+export const postComment: AppThunk =
+  (slug: string, comment: ICommentApi) => (dispatch) => {
+    dispatch(addCommentRequest());
+    api
+      .addComment(slug, comment)
+      .then((data) => {
+        dispatch(addCommentSuccess(data));
+      })
+      .catch((err) => {
+        dispatch(addCommentFailed());
+        console.log(`Ошибка добавления комментария: ${err}`);
+      });
+  };
+
+export const deleteComment: AppThunk =
+  (slug: string, commentId: string) => (dispatch) => {
+    dispatch(deleteCommentRequest());
+    api
+      .deleteComment(slug, commentId)
+      .then(() => {
+        dispatch(deleteComment(commentId));
+      })
+      .catch((err) => {
+        dispatch(deleteCommentFailed());
+        console.log(`Ошибка удаления комментария: ${err}`);
+      });
+  };
 
 export default articleSlice.reducer;

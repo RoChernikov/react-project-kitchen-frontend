@@ -6,6 +6,8 @@ import { ADD_COMMENT } from '../../../../../src_old/constants/actionTypes';
 import { TUser } from 'utils/types';
 import styles from './comment-input.module.scss';
 import { Button } from 'components/button/button';
+import { useAppDispatch } from 'services/hooks';
+import { postComment } from 'services/slices/articles';
 
 // const mapStateToProps = (state) => ({ ...state.body });
 
@@ -20,10 +22,11 @@ import { Button } from 'components/button/button';
 interface ICommentInput {
   slug: string | undefined;
   currentUser: TUser;
-  onSubmit: (slug: string, { body }: any) => void;
 }
 
-const CommentInput: FC<ICommentInput> = ({ slug, onSubmit, currentUser }) => {
+const CommentInput: FC<ICommentInput> = ({ slug, currentUser }) => {
+  const dispatch = useAppDispatch();
+
   const [body, setBody] = useState('');
 
   const changeBody = (evt: ChangeEvent<HTMLTextAreaElement>) => {
@@ -33,26 +36,22 @@ const CommentInput: FC<ICommentInput> = ({ slug, onSubmit, currentUser }) => {
   const createComment = useCallback(
     (evt: SyntheticEvent) => {
       evt.preventDefault();
-      console.log("body", body);
-      //onSubmit(slug, { body });
+      dispatch(postComment(slug, { body }));
       setBody('');
     },
-    [onSubmit, slug, body]
+    [dispatch, slug, body]
   );
 
   return (
-
-    <form onSubmit={createComment} >
+    <form onSubmit={createComment}>
       <div className={styles.line}>
         <textarea
           className={styles.textarea}
           placeholder="Напишите свой комментарий..."
           value={body}
           onChange={changeBody}
-
         />
       </div>
-
       <div className={styles.info}>
         <div className={styles.box}>
           <img
@@ -61,21 +60,22 @@ const CommentInput: FC<ICommentInput> = ({ slug, onSubmit, currentUser }) => {
             alt={currentUser.username}
           />
           <div className={styles.info__smallbox}>
-            <div className={styles.info__name}>
-              {currentUser.username}
-            </div>
+            <div className={styles.info__name}>{currentUser.username}</div>
             <span className={styles.info__date}>
-              09 апреля 2021 {/* вообще странное место для даты, ее что, обновлять пока чел пишет коммент? */}
+              09 апреля 2021{' '}
+              {/* вообще странное место для даты, ее что, обновлять пока чел пишет коммент? */}
             </span>
           </div>
         </div>
-        <Button type="primary" color="primary" children="Отправить комментарий" />
+        <Button
+          type="primary"
+          color="primary"
+          children="Отправить комментарий"
+        />
       </div>
-
     </form>
-
   );
 };
 
 // export default connect(mapStateToProps, mapDispatchToProps)(CommentInput);
-export default CommentInput
+export default CommentInput;
