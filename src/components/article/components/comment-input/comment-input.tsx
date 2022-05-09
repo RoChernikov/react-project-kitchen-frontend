@@ -1,31 +1,20 @@
 import { FC, ChangeEvent, SyntheticEvent, useCallback } from 'react';
-import agent from '../../../../../src_old/agent';
-import { connect } from 'react-redux';
 import { useState } from 'react';
-import { ADD_COMMENT } from '../../../../../src_old/constants/actionTypes';
-import { TUser } from 'utils/types';
 import styles from './comment-input.module.scss';
 import { Button } from 'components/button/button';
-import { useAppDispatch } from 'services/hooks';
+import { useAppDispatch, useAppSelector } from 'services/hooks';
 import { postComment } from 'services/slices/articles';
-
-// const mapStateToProps = (state) => ({ ...state.body });
-
-// const mapDispatchToProps = (dispatch) => ({
-//   onSubmit: (slug, { body }) =>
-//     dispatch({
-//       type: ADD_COMMENT,
-//       payload: agent.Comments.create(slug, { body }),
-//     }),
-// });
+import { selectCurrentUser } from 'services/selectors/profile';
+import { toLocalDate } from 'utils/date-time';
 
 interface ICommentInput {
   slug: string | undefined;
-  currentUser: TUser;
 }
 
-const CommentInput: FC<ICommentInput> = ({ slug, currentUser }) => {
+const CommentInput: FC<ICommentInput> = ({ slug }) => {
   const dispatch = useAppDispatch();
+  const currentUser = useAppSelector(selectCurrentUser);
+  const currentDate = toLocalDate();
 
   const [body, setBody] = useState('');
 
@@ -36,7 +25,7 @@ const CommentInput: FC<ICommentInput> = ({ slug, currentUser }) => {
   const createComment = useCallback(
     (evt: SyntheticEvent) => {
       evt.preventDefault();
-      dispatch(postComment(slug, { body }));
+      dispatch(postComment(slug, { comment: { body } }));
       setBody('');
     },
     [dispatch, slug, body]
@@ -62,8 +51,7 @@ const CommentInput: FC<ICommentInput> = ({ slug, currentUser }) => {
           <div className={styles.info__smallbox}>
             <div className={styles.info__name}>{currentUser.username}</div>
             <span className={styles.info__date}>
-              09 апреля 2021{' '}
-              {/* вообще странное место для даты, ее что, обновлять пока чел пишет коммент? */}
+              {currentDate}
             </span>
           </div>
         </div>
@@ -71,6 +59,7 @@ const CommentInput: FC<ICommentInput> = ({ slug, currentUser }) => {
           type="primary"
           color="primary"
           children="Отправить комментарий"
+          disabled={body ? false : true}
         />
       </div>
     </form>

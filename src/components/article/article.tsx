@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import { TUser } from 'utils/types';
 import CommentContainer from './components/comment-container/comment-container';
-import ArticleMeta from './components/article-meta/ArticleMeta';
+import ArticleMeta from './components/article-meta/article-meta';
 import styles from './article.module.scss';
 import ArticleActions from '../article/components/article-actions/article-actions';
 import {
@@ -10,38 +10,15 @@ import {
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'services/hooks';
 import { getCurrentArticleData } from 'services/slices/articles';
+import { selectCurrentUser } from 'services/selectors/profile';
 
-interface IArticle {
-  // article: TArticle;
-  // comments: TComment[];
-  currentUser: TUser | null;
-  // commentErrors: TErrors | undefined;
-  // inProgress: boolean | undefined;
-  // tagList: string[];
-  // title: string;
-  // description: string;
-  // body: string;
-  // tagInput: string;
-  // articleSlug: string;
-  // onUpdateField: (key: string, value: string) => void;
-  // onAddTag: () => Dispatch<SetStateAction<string>>;
-  // onRemoveTag: (tag: string) => Dispatch<SetStateAction<string>>;
-  // onLoad: (
-  //   payload: [AxiosResponse<any, any>, AxiosResponse<any, any>]
-  // ) => Dispatch<SetStateAction<string>>;
-  // onLoad: any;
-  // onUnload: () => void;
-  // onSubmit: (promise: Promise<string>) => Dispatch<SetStateAction<string>>;
-  // match: any;
-}
-
-export const Article: React.FC<IArticle> = ({
+export const Article: React.FC = ({
   //commentErrors,
-  currentUser,
 }) => {
   const dispatch = useAppDispatch();
   const article = useAppSelector(selectCurrentArticle);
   const { id } = useParams();
+  const currentUser = useAppSelector(selectCurrentUser);
 
   useEffect(() => {
     dispatch(getCurrentArticleData(id));
@@ -50,7 +27,7 @@ export const Article: React.FC<IArticle> = ({
   const canModify =
     currentUser && currentUser.username === article?.author?.username;
 
-  const del = function (
+  const onAfticleDelete = function (
     payload: Promise<string>
   ): Dispatch<SetStateAction<string>> {
     throw new Error('Function not implemented.');
@@ -62,7 +39,7 @@ export const Article: React.FC<IArticle> = ({
         <ArticleActions
           canModify={canModify}
           article={article}
-          onClickDelete={del}
+          onClickDelete={onAfticleDelete}
         />
         <div className={styles.container}>
           <h1 className={styles.container__header}>{article?.title}</h1>

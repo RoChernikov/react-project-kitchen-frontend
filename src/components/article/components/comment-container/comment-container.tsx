@@ -1,7 +1,6 @@
 import CommentInput from '../comment-input/comment-input';
 import CommentList from '../comment-list/comment-list';
 import { Link } from 'react-router-dom';
-import React from 'react';
 import { FC } from 'react';
 import { TUser } from 'utils/types';
 import styles from './comment-container.module.scss';
@@ -27,13 +26,12 @@ const CommentContainer: FC<ICommentContainer> = ({
         {/* <ListErrors errors={errors} /> */}
         <CommentInput
           slug={slug}
-          currentUser={currentUser}
+          //currentUser={currentUser}
         />
       </div>
       <CommentList comments={comments} slug={slug} currentUser={currentUser} />
     </div>
   ) : (
-    //пока нет дизайна на залогиниться
     <div className="col-xs-12 col-md-8 offset-md-2">
       <p>
         <Link to="/login">Sign in</Link>

@@ -1,10 +1,9 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { TComment, TUser } from 'utils/types';
 import Comment from '../comment/comment';
-import styles from './comment-list.module.scss';
 
 interface ICommentList {
-  comments: TComment[]; //На данный момент нет возможности проверить тип, так как комменты не постятся (500-тит сервер)
+  comments: TComment[];
   currentUser: TUser | null;
   slug: string | undefined;
 }
@@ -15,7 +14,7 @@ const CommentList: FC<ICommentList> = ({ comments, currentUser, slug }) => {
       {comments?.map((comment: TComment) => (
         <Comment
           comment={comment}
-          currentUser={currentUser}
+          //currentUser={currentUser}
           slug={slug}
           key={comment.id}
         />

@@ -1,25 +1,39 @@
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { TComment, TUser } from 'utils/types';
+import { TComment } from 'utils/types';
 import styles from './comment.module.scss';
 import { Button } from 'components/button/button';
 import TrashIcon from 'components/icons/trash-icon';
-import { useAppDispatch } from 'services/hooks';
+import { useAppDispatch, useAppSelector } from 'services/hooks';
 import { deleteComment } from 'services/slices/articles';
+import { signIn } from 'services/slices/profile';
+import { selectCurrentUser } from 'services/selectors/profile';
+import { toLocalDate } from 'utils/date-time';
 
 interface IComment {
   comment: TComment;
-  currentUser: TUser | null;
   slug: string | undefined;
 }
 
-const Comment: FC<IComment> = ({ comment, currentUser, slug }) => {
+const Comment: FC<IComment> = ({ comment, slug }) => {
   const dispatch = useAppDispatch();
-
-  const show = currentUser && currentUser.username === comment.author.username;
+  const currentUser = useAppSelector(selectCurrentUser);
+  const showActions = currentUser && currentUser?.username === comment.author.username;
+  const localCommentDate = toLocalDate(comment.createdAt);
+  
 
   const onCommentDelete = useCallback(() => {
+    console.log(comment);
     dispatch(deleteComment(slug, comment.id));
+  }, [dispatch]);
+
+  useEffect(() => {
+    // временный хардкор логин
+    dispatch(
+      signIn({
+        user: { username: 'julia', email: 'julia@gmail.com', password: '123' },
+      })
+    );
   }, [dispatch]);
 
   return (
@@ -40,11 +54,11 @@ const Comment: FC<IComment> = ({ comment, currentUser, slug }) => {
               {comment.author.username}
             </Link>
             <span className={styles.box__date}>
-              {new Date(comment.createdAt).toDateString()}
+              {localCommentDate}
             </span>
           </div>
         </div>
-        {show && (
+        {showActions && (
           <Button
             type="secondary"
             icon={<TrashIcon />}

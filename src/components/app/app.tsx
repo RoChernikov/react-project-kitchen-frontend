@@ -12,12 +12,12 @@ import { mockStore } from '../../utils/mock';
 import { useAppDispatch, useAppSelector } from 'services/hooks';
 import { selectArticles } from 'services/selectors/articles';
 import { getArticlesData } from 'services/slices/articles';
+import { signIn } from 'services/slices/profile';
 const MainPage = lazy(() => import('../../pages/main-page'));
 const ProfilePage = lazy(() => import('../../pages/profile-page'));
 //--------------------------------------------------------------------------------
 
 const App: FC = () => {
-  const { user } = mockStore;
   const location = useLocation();
   const state = location.state as { backgroundLocation?: Location };
   const dispatch = useAppDispatch();
@@ -26,8 +26,7 @@ const App: FC = () => {
   useEffect(() => {
     dispatch(getArticlesData());
   }, [dispatch]);
-  
-  console.log(articles)
+
   return (
     <>
       <Routes location={state?.backgroundLocation || location}>
@@ -44,9 +43,7 @@ const App: FC = () => {
             path="articles/:id"
             element={
               <Suspense fallback={<Loader />}>
-                <Article
-                  currentUser={user}
-                />
+                <Article />
               </Suspense>
             }
           />

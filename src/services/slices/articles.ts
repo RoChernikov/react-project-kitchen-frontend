@@ -84,7 +84,7 @@ export const articleSlice = createSlice({
     },
     addCommentSuccess(state, action: PayloadAction<TComment>) {
       // commentErrors: action.error ? action.payload.errors : null,
-      state.currentArticle?.comments.push(action.payload);
+      state.currentArticle?.comments.unshift(action.payload);
     },
     deleteCommentRequest(state) {
       state.deleteCommentRequest = true;
@@ -166,11 +166,12 @@ export const postComment: AppThunk =
 
 export const deleteComment: AppThunk =
   (slug: string, commentId: string) => (dispatch) => {
+    console.log('deleteComment Thunk', commentId)
     dispatch(deleteCommentRequest());
     api
       .deleteComment(slug, commentId)
       .then(() => {
-        dispatch(deleteComment(commentId));
+        dispatch(deleteCommentSuccess(commentId));
       })
       .catch((err) => {
         dispatch(deleteCommentFailed());
