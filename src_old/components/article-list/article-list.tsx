@@ -3,7 +3,7 @@ import ListPagination from '../list-pagination/list-pagination';
 import React, { FC } from 'react';
 
 export type TArticle = {
-  slug: string,
+  slug: string;
 };
 
 export interface IArticleList {

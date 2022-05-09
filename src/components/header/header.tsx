@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { ReactComponent as HomeIcon } from '../../assets/images/home-icon.svg';
 import { ReactComponent as LoginIcon } from '../../assets/images/login-icon.svg';

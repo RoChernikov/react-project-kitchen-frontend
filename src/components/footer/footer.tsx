@@ -7,7 +7,7 @@ const Footer: FC<any> = () => {
       <div className={styles.container}>
         <p className={styles.container__text}>© Когда вырасту</p>
         <p className={styles.container__text}>
-          Сделано студентами Яндекс Практикума
+          Сделано студентами Яндекс.Практикума
         </p>
       </div>
     </div>

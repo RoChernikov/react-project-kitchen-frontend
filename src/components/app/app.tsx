@@ -1,4 +1,4 @@
-import React, { Dispatch, FC, lazy, Suspense, useEffect } from 'react';
+import { FC, lazy, Suspense, useEffect } from 'react';
 import NotFound from 'pages/not-found-page';
 import Loader from '../loader/loader';
 import Modal from '../modal/modal';
@@ -7,12 +7,10 @@ import Layout from '../layout';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import RequireAuth from '../../hoc/require-auth';
 import '../../scss/_fonts.scss';
-import Article from '../article/article';
-import { mockStore } from '../../utils/mock';
-import { useAppDispatch, useAppSelector } from 'services/hooks';
-import { selectArticles } from 'services/selectors/articles';
+import { useAppDispatch } from 'services/hooks';
 import { getArticlesData } from 'services/slices/articles';
 import { signIn } from 'services/slices/profile';
+import ArticlePage from 'pages/article-page';
 const MainPage = lazy(() => import('../../pages/main-page'));
 const ProfilePage = lazy(() => import('../../pages/profile-page'));
 //--------------------------------------------------------------------------------
@@ -21,10 +19,15 @@ const App: FC = () => {
   const location = useLocation();
   const state = location.state as { backgroundLocation?: Location };
   const dispatch = useAppDispatch();
-  const articles = useAppSelector(selectArticles);
 
   useEffect(() => {
     dispatch(getArticlesData());
+    // временный хардкор логин
+    dispatch(
+      signIn({
+        user: { username: 'john', email: 'john@gmail.com', password: '123' },
+      })
+    );
   }, [dispatch]);
 
   return (
@@ -43,7 +46,7 @@ const App: FC = () => {
             path="articles/:id"
             element={
               <Suspense fallback={<Loader />}>
-                <Article />
+                <ArticlePage />
               </Suspense>
             }
           />

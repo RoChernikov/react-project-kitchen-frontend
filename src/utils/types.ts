@@ -7,6 +7,7 @@ export type TStatus = 'pending' | 'success' | 'failed';
 export type TArticle = {
   author: TAuthor;
   body: string;
+  link: string;
   createdAt: string;
   description: string;
   favorited: boolean;
