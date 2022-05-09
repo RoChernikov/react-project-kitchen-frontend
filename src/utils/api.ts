@@ -151,7 +151,7 @@ class Api {
   getArticlesBy(
     by?: 'author' | 'tag' | 'favorited',
     value: string = '',
-    limit: number = 5,
+    limit: number = 0,
     page: number = 0
   ) {
     return axios

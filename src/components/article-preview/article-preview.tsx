@@ -4,14 +4,16 @@ import styles from './article-preview.module.scss';
 import imgPath from '../../assets/images/author-image.jpg';
 import { ReactComponent as LikeDefault } from '../../assets/images/like-default.svg';
 import { TArticle } from 'utils/types';
+import { toLocalDate } from 'utils/date-time';
+import { Like } from 'components/like-button/like-button';
 
 const FAVORITED_CLASS = 'btn btn-sm btn-primary';
 const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary';
 
 interface IArticlePreview {
   article: TArticle;
-  unfavorite: (slug: string) => void;
-  favorite: (slug: string) => void;
+  // unfavorite: (slug: string) => void;
+  // favorite: (slug: string) => void;
 }
 
 const ArticlePreview: FC<IArticlePreview> = ({ article }) => {
@@ -31,37 +33,34 @@ const ArticlePreview: FC<IArticlePreview> = ({ article }) => {
   return (
     <div className={styles.article_preview}>
       <div className={styles.header}>
-        <div className={styles.author}>
+        <Link to={`/profile/`} className={styles.author}>
           <img
             src={article?.author?.image}
-            alt=""
+            alt={`${article?.author?.username} avatar`}
             className={styles.author_avatar}
           />
           <div className={styles.author_text}>
             <p className={styles.author_name}>{article?.author?.username}</p>
-            <p className={styles.date}>{article?.createdAt}</p>
+            <p className={styles.date}>{toLocalDate(article?.createdAt)}</p>
           </div>
-        </div>
+        </Link>
         <div className={styles.likes}>
           <span className={styles.likes_count}>{article?.favoritesCount}</span>
-          <LikeDefault className={styles.like_icon} />
+          <Like/>
         </div>
       </div>
       <div className={styles.article_main}>
         <h1 className={styles.title}>{article?.title}</h1>
-        <p className={styles.article_text}>{article?.body}</p>
+        <p className={styles.article_text}>{article?.description}</p>
       </div>
       <div className={styles.article_footer}>
-        <Link to="" className={styles.readmore}>
+        <Link to={`/articles/${article?.slug}`} className={styles.readmore}>
           Читать дальше
         </Link>
         <div className={styles.tags}>
-          <div className={`${styles.tag} ${styles.active_tag}`}>
-            #перваяработа
-          </div>
-          {article?.tagList.map((tag) => {
+          {article?.tagList.map((tag, index) => {
             return (
-              <div className={`${styles.tag}`} key={tag}>
+              <div className={`${styles.tag}`} key={index}>
                 {`#${tag}`}
               </div>
             );

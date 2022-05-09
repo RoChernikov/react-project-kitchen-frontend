@@ -25,18 +25,18 @@ const ArticleMeta: FC<IArticleMeta> = ({ article, canModify }) => {
       />*/}
       <div className={styles.panel}>
         <div className={styles.info}>
-          <Link to={`/@${article?.author?.username}`} className={styles.info__link}>
+          <Link
+            to={`/@${article?.author?.username}`}
+            className={styles.info__link}>
             <p className={styles.info__text}>{article?.author?.username}</p>
           </Link>
-          <p className={styles.info__text}>
-            {currentDate}
-          </p>
+          <p className={styles.info__text}>{currentDate}</p>
+          <div className={styles.info__likes}>
+            <span>{article?.favoritesCount}</span>
+            <Like />
+          </div>
         </div>
-        <Like></Like>
       </div>
-      <Link to={`/@${article?.author?.username}`}>
-        <img src={article?.author?.image} alt={article?.author?.username} className={styles.panel__img} />
-      </Link>
     </div>
   );
 };
