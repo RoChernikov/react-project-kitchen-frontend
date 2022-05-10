@@ -1,5 +1,5 @@
-import React, { FC, Dispatch, SetStateAction } from 'react';
-import { Link } from 'react-router-dom';
+import React, { FC, Dispatch, SetStateAction, SyntheticEvent } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 //import agent from '../../../../../src_old/agent';
 import { connect } from 'react-redux';
 import { DELETE_ARTICLE } from '../../../../../src_old/constants/actionTypes';
@@ -11,37 +11,39 @@ import PlusIcon from 'components/icons/plus-icon';
 //   onClickDelete: (payload) => dispatch({ type: DELETE_ARTICLE, payload }),
 // });
 
-
 interface IArticleActions {
   article: any;
   canModify: boolean | null;
-  onClickDelete: (
-    payload: Promise<string>
-  ) => Dispatch<SetStateAction<string>>;
+  onClickDelete: (payload: Promise<string>) => Dispatch<SetStateAction<string>>;
 }
 
 const ArticleActions: FC<IArticleActions> = ({
   article,
   canModify,
   onClickDelete,
-
 }) => {
-  const del = () => {
+  const history = useNavigate();
+  
+  const onDeleteClick = () => {
     //onClickDelete(agent.Articles.del(article.slug));
   };
+
+  function onEditClick() {
+    history(`/editor/${article?.slug}`);
+}
   if (true) {
     return (
       <div className={styles.container}>
-        <Link
-          to={`/editor/${article?.slug}`}
+        <div
           className={styles.container__editbutton}>
           <Button
             type="primary"
             color="primary"
             icon={<PlusIcon />}
             children="Редактировать запись"
+            onClick={onEditClick}
           />
-        </Link>
+        </div>
         <Button
           type="secondary"
           children="Удалить запись"

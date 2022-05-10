@@ -1,7 +1,7 @@
-import { ChangeEvent, SyntheticEvent, useState } from 'react';
-import styles from './edit-article.module.scss';
+import { ChangeEvent, FC, SyntheticEvent, useState } from 'react';
+import styles from './editor-page.module.scss';
 
-export const EditArticle = () => {
+export const EditorPage: FC = () => {
   const mockArticleData = {
     title: 'История трудоустройства',
     about: 'Это моя первая работа после четырёхлетнего перерыва. Сначала случился декрет, потом переезд в Амстердам. В новой стране я решила получать новую профессию и оказалась в 22-й когорте направления «Веб-разработка».',

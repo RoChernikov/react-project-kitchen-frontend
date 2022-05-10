@@ -15,6 +15,7 @@ import ArticlePage from 'pages/article-page';
 import RegisterPage from 'pages/register-page';
 import SettingsPage from 'pages/settings-page';
 import NewArticlePage from 'pages/new-article-page';
+import { EditorPage } from 'pages/editor-page';
 const MainPage = lazy(() => import('../../pages/main-page'));
 const ProfilePage = lazy(() => import('../../pages/profile-page'));
 //--------------------------------------------------------------------------------
@@ -96,6 +97,14 @@ const App: FC = () => {
             element={
               <Suspense fallback={<Loader />}>
                 <NewArticlePage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="editor"
+            element={
+              <Suspense fallback={<Loader />}>
+                <EditorPage />
               </Suspense>
             }
           />
