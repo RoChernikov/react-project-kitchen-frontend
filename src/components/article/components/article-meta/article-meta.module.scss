@@ -3,8 +3,8 @@
 .info {
     max-width: 700px;
     display: flex;
+    align-items: center;
     background-color: transparent;
-
     padding-bottom: 24px;
     padding-top: 24px;
 
@@ -16,11 +16,18 @@
         line-height: 24px;
 
     }
-
     &__link {
         text-decoration: none;
         padding-right: 24px;
     }
+
+    &__likes {
+      display: flex;
+      margin-left: auto;
+      padding-left: 8px;
+      font-size: 22px;
+  }
+
 }
 
 @include breakpoint('info', 800px) {
@@ -29,20 +36,6 @@
 
 @include breakpoint('info', 500px) {
     max-width: 280px;
-}
-
-.panel {
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-
-    &__img {
-        max-width: 700px;
-        padding-bottom: 24px;
-    }
-
 }
 
 @include breakpoint('panel', 800px) {

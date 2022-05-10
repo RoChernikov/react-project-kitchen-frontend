@@ -11,9 +11,9 @@ const MinusIcon: FC = () => {
       <path
         d="M5 12H19"
         stroke="#0A0A0B"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

@@ -1,4 +1,4 @@
-import React, { Dispatch, FC, lazy, SetStateAction, Suspense } from 'react';
+import { FC, lazy, Suspense, useEffect } from 'react';
 import NotFound from 'pages/not-found-page';
 import Loader from '../loader/loader';
 import Modal from '../modal/modal';
@@ -7,17 +7,35 @@ import Layout from '../layout';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import RequireAuth from '../../hoc/require-auth';
 import '../../scss/_fonts.scss';
-import Article from '../article/article';
-import { mockStore } from '../../utils/mock';
+import { useAppDispatch } from 'services/hooks';
+import { getArticlesData } from 'services/slices/articles';
+import { patchUser, signIn } from 'services/slices/profile';
 import LoginPage from 'pages/login-page';
+import ArticlePage from 'pages/article-page';
 const MainPage = lazy(() => import('../../pages/main-page'));
 const ProfilePage = lazy(() => import('../../pages/profile-page'));
 //--------------------------------------------------------------------------------
 
 const App: FC = () => {
-  const { articles, comments, user } = mockStore;
   const location = useLocation();
   const state = location.state as { backgroundLocation?: Location };
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getArticlesData());
+    // временный хардкод логин
+    dispatch(
+      signIn({
+        user: { username: 'john', email: 'john@gmail.com', password: '123' },
+      })
+    );
+    // dispatch(
+    //   patchUser({
+    //     user: { image: 'https://klike.net/uploads/posts/2019-05/1558692542_28.jpg' },
+    //   })
+    // );
+  }, [dispatch]);
+
   return (
     <>
       <Routes location={state?.backgroundLocation || location}>
@@ -31,14 +49,10 @@ const App: FC = () => {
             }
           />
           <Route
-            path="articles/123"
+            path="articles/:id"
             element={
               <Suspense fallback={<Loader />}>
-                <Article
-                  article={articles[0]}
-                  comments={comments}
-                  currentUser={user}
-                />
+                <ArticlePage />
               </Suspense>
             }
           />

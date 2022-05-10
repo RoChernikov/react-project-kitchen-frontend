@@ -17,35 +17,43 @@ class Api {
 
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++AUTH
   signIn(data: IUserApi) {
-    return axios.post(`${BASE_URL}/users/login`, {
-      ...data,
-    });
+    return axios
+      .post(`${BASE_URL}/users/login`, {
+        ...data,
+      })
+      .then((res) => res.data);
   }
 
   register(data: IUserApi) {
-    return axios.post(`${BASE_URL}/users`, {
-      ...data,
-    });
+    return axios
+      .post(`${BASE_URL}/users`, {
+        ...data,
+      })
+      .then((res) => res.data);
   }
 
   patchUser(data: IUserApi) {
-    return axios.put(
-      `${BASE_URL}/user`,
-      { ...data },
-      {
-        headers: {
-          Authorization: `Bearer ${getCookie('accessToken')}`,
-        },
-      }
-    );
+    return axios
+      .put(
+        `${BASE_URL}/user`,
+        { ...data },
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie('accessToken')}`,
+          },
+        }
+      )
+      .then((res) => res.data);
   }
 
   getUser() {
-    return axios.get(`${BASE_URL}/user`, {
-      headers: {
-        Authorization: `Bearer ${getCookie('accessToken')}`,
-      },
-    });
+    return axios
+      .get(`${BASE_URL}/user`, {
+        headers: {
+          Authorization: `Bearer ${getCookie('accessToken')}`,
+        },
+      })
+      .then((res) => res.data);
   }
 
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++PROFILE
@@ -75,7 +83,9 @@ class Api {
 
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++COMMENTS
   getComments(slug: string) {
-    return axios.get(`${BASE_URL}/articles/${slug}/comments/`);
+    return axios
+      .get(`${BASE_URL}/articles/${slug}/comments/`)
+      .then((response) => response.data.comments);
   }
 
   addComment(slug: string, data: ICommentApi) {
@@ -87,7 +97,7 @@ class Api {
           Authorization: `Bearer ${getCookie('accessToken')}`,
         },
       }
-    );
+    ).then((response) => response.data.comment);
   }
 
   deleteComment(slug: string, commentId: string) {
@@ -133,20 +143,24 @@ class Api {
   }
 
   getArticle(slug: string) {
-    return axios.get(`${BASE_URL}/articles/${slug}`);
+    return axios
+      .get(`${BASE_URL}/articles/${slug}`)
+      .then((response) => response.data.article);
   }
 
   getArticlesBy(
     by?: 'author' | 'tag' | 'favorited',
     value: string = '',
-    limit: number = 5,
+    limit: number = 0,
     page: number = 0
   ) {
-    return axios.get(
-      `${BASE_URL}/articles?${by ? by : ''}=${encodeURIComponent(
-        value
-      )}&${this._limit(limit, page === 0 || page < 0 ? 0 : page - 1)}`
-    );
+    return axios
+      .get(
+        `${BASE_URL}/articles?${by ? by : ''}=${encodeURIComponent(
+          value
+        )}&${this._limit(limit, page === 0 || page < 0 ? 0 : page - 1)}`
+      )
+      .then((response) => response.data.articles);
   }
 
   deleteArticle(slug: string) {
