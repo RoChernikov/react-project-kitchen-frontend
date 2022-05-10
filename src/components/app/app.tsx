@@ -12,6 +12,7 @@ import { getArticlesData } from 'services/slices/articles';
 import { patchUser, signIn } from 'services/slices/profile';
 import LoginPage from 'pages/login-page';
 import ArticlePage from 'pages/article-page';
+import RegisterPage from 'pages/register-page';
 const MainPage = lazy(() => import('../../pages/main-page'));
 const ProfilePage = lazy(() => import('../../pages/profile-page'));
 //--------------------------------------------------------------------------------
@@ -69,6 +70,14 @@ const App: FC = () => {
             element={
               <Suspense fallback={<Loader />}>
                 <LoginPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="register"
+            element={
+              <Suspense fallback={<Loader />}>
+                <RegisterPage />
               </Suspense>
             }
           />
