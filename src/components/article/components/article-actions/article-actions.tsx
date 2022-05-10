@@ -1,26 +1,19 @@
-import React, { FC, Dispatch, SetStateAction, SyntheticEvent } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-//import agent from '../../../../../src_old/agent';
-import { connect } from 'react-redux';
-import { DELETE_ARTICLE } from '../../../../../src_old/constants/actionTypes';
+import { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './article-actions.module.scss';
 import { Button } from 'components/button/button';
 import TrashIcon from 'components/icons/trash-icon';
 import PlusIcon from 'components/icons/plus-icon';
-// const mapDispatchToProps = (dispatch) => ({
-//   onClickDelete: (payload) => dispatch({ type: DELETE_ARTICLE, payload }),
-// });
+import { TArticle } from 'utils/types';
 
 interface IArticleActions {
-  article: any;
+  article?: TArticle | null;
   canModify: boolean | null;
-  onClickDelete: (payload: Promise<string>) => Dispatch<SetStateAction<string>>;
 }
 
 const ArticleActions: FC<IArticleActions> = ({
   article,
-  canModify,
-  onClickDelete,
+  canModify
 }) => {
   const history = useNavigate();
   
@@ -31,7 +24,7 @@ const ArticleActions: FC<IArticleActions> = ({
   function onEditClick() {
     history(`/editor/${article?.slug}`);
 }
-  if (true) {
+  if (canModify) {
     return (
       <div className={styles.container}>
         <div

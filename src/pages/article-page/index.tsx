@@ -26,18 +26,11 @@ export const ArticlePage: React.FC = (
   const canModify =
     currentUser && currentUser.username === article?.author?.username;
 
-  const onAfticleDelete = function (
-    payload: Promise<string>
-  ): Dispatch<SetStateAction<string>> {
-    throw new Error('Function not implemented.');
-  };
-
   return (
     <>
       <ArticleActions
         canModify={canModify}
         article={article}
-        onClickDelete={onAfticleDelete}
       />
       <div className={styles.container}>
         <h1 className={styles.container__header}>{article?.title}</h1>
