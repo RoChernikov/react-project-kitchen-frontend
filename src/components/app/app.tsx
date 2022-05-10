@@ -9,7 +9,7 @@ import RequireAuth from '../../hoc/require-auth';
 import '../../scss/_fonts.scss';
 import { useAppDispatch } from 'services/hooks';
 import { getArticlesData } from 'services/slices/articles';
-import { signIn } from 'services/slices/profile';
+import { patchUser, signIn } from 'services/slices/profile';
 import ArticlePage from 'pages/article-page';
 const MainPage = lazy(() => import('../../pages/main-page'));
 const ProfilePage = lazy(() => import('../../pages/profile-page'));
@@ -22,12 +22,17 @@ const App: FC = () => {
 
   useEffect(() => {
     dispatch(getArticlesData());
-    // временный хардкор логин
+    // временный хардкод логин
     dispatch(
       signIn({
         user: { username: 'john', email: 'john@gmail.com', password: '123' },
       })
     );
+    // dispatch(
+    //   patchUser({
+    //     user: { image: 'https://klike.net/uploads/posts/2019-05/1558692542_28.jpg' },
+    //   })
+    // );
   }, [dispatch]);
 
   return (
