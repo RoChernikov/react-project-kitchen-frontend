@@ -10,6 +10,7 @@ import '../../scss/_fonts.scss';
 import { useAppDispatch } from 'services/hooks';
 import { getArticlesData } from 'services/slices/articles';
 import { patchUser, signIn } from 'services/slices/profile';
+import LoginPage from 'pages/login-page';
 import ArticlePage from 'pages/article-page';
 const MainPage = lazy(() => import('../../pages/main-page'));
 const ProfilePage = lazy(() => import('../../pages/profile-page'));
@@ -60,6 +61,14 @@ const App: FC = () => {
             element={
               <Suspense fallback={<Loader />}>
                 <ProfilePage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="login"
+            element={
+              <Suspense fallback={<Loader />}>
+                <LoginPage />
               </Suspense>
             }
           />
