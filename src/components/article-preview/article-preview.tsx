@@ -46,13 +46,15 @@ const ArticlePreview: FC<IArticlePreview> = ({ article }) => {
         </Link>
         <div className={styles.likes}>
           <span className={styles.likes_count}>{article?.favoritesCount}</span>
-          <Like/>
+          <Like />
         </div>
       </div>
-      <div className={styles.article_main}>
-        <h1 className={styles.title}>{article?.title}</h1>
-        <p className={styles.article_text}>{article?.description}</p>
-      </div>
+      <Link to={`/articles/${article?.slug}`} className={styles.article_main}>
+        <div className={styles.article_main}>
+          <h1 className={styles.title}>{article?.title}</h1>
+          <p className={styles.article_text}>{article?.description}</p>
+        </div>
+      </Link>
       <div className={styles.article_footer}>
         <Link to={`/articles/${article?.slug}`} className={styles.readmore}>
           Читать дальше

@@ -58,6 +58,10 @@
 
 .article_main {
   margin-bottom: 16px;
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 .title {

@@ -9,6 +9,7 @@ import { deleteComment } from 'services/slices/articles';
 import { signIn } from 'services/slices/profile';
 import { selectCurrentUser } from 'services/selectors/profile';
 import { toLocalDate } from 'utils/date-time';
+import { Like } from 'components/like-button/like-button';
 
 interface IComment {
   comment: TComment;
@@ -18,23 +19,13 @@ interface IComment {
 const Comment: FC<IComment> = ({ comment, slug }) => {
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector(selectCurrentUser);
-  const showActions = currentUser && currentUser?.username === comment.author.username;
+  const showActions =
+    currentUser && currentUser?.username === comment.author.username;
   const localCommentDate = toLocalDate(comment.createdAt);
-  
 
   const onCommentDelete = useCallback(() => {
-    console.log(comment);
     dispatch(deleteComment(slug, comment.id));
-  }, [dispatch]);
-
-  useEffect(() => {
-    // временный хардкор логин
-    dispatch(
-      signIn({
-        user: { username: 'julia', email: 'julia@gmail.com', password: '123' },
-      })
-    );
-  }, [dispatch]);
+  }, [comment, dispatch, slug]);
 
   return (
     <div className={styles.container}>
@@ -53,17 +44,19 @@ const Comment: FC<IComment> = ({ comment, slug }) => {
               className={styles.box__name}>
               {comment.author.username}
             </Link>
-            <span className={styles.box__date}>
-              {localCommentDate}
-            </span>
+            <span className={styles.box__date}>{localCommentDate}</span>
           </div>
         </div>
-        {showActions && (
-          <Button
-            type="secondary"
-            icon={<TrashIcon />}
-            onClick={onCommentDelete}
-          />
+        {showActions ? (
+          <div className={styles.box__trash}>
+            <Button
+              type="secondary"
+              icon={<TrashIcon />}
+              onClick={onCommentDelete}
+            />
+          </div>
+        ) : (
+          <Like />
         )}
       </div>
       <div>
