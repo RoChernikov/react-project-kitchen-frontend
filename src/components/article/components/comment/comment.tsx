@@ -21,7 +21,6 @@ const Comment: FC<IComment> = ({ comment, slug }) => {
   const showActions = currentUser && currentUser?.username === comment.author.username;
   const localCommentDate = toLocalDate(comment.createdAt);
   
-
   const onCommentDelete = useCallback(() => {
     console.log(comment);
     dispatch(deleteComment(slug, comment.id));

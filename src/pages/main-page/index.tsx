@@ -22,8 +22,6 @@ const MainPage: FC = () => {
       {articles.map((article) => (
         <ArticlePreview article={article} key={article.slug} />
       ))}
-      <PopularTags />
-      <PopularArticles />
     </div>
   );
 };

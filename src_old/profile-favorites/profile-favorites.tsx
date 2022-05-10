@@ -7,7 +7,7 @@ import {
   PROFILE_PAGE_LOADED,
   PROFILE_PAGE_UNLOADED,
 } from '../../constants/actionTypes';
-import { EditProfileSettings, FollowUserButton } from '../profile/profile';
+import { EditProfileSettings, FollowUserButton } from '../../src/pages/profile/profile';
 
 // const mapDispatchToProps = (dispatch) => ({
 //   onLoad: (pager, payload) =>

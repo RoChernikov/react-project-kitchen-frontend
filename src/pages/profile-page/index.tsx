@@ -20,4 +20,4 @@ const ProfilePage: FC = () => {
   );
 };
 
-export default ProfilePage;
+//export default ProfilePage;
