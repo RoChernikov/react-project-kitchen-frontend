@@ -12,13 +12,13 @@ const Header: FC = () => {
   return (
     <div className={styles.container}>
       <nav className={styles.nav}>
-        <Link to="/">
-          <HomeIcon className={`${styles.home_icon} ${styles.icon}`} />
-          <span className={styles.link_text}>Главная</span>
+        <Link className={styles.nav__link} to="/">
+          <HomeIcon className={styles.nav__icon} />
+          <span className={styles.nav__text}>Главная</span>
         </Link>
-        <Link to="/login">
-          <LoginIcon className={styles.icon} />
-          <span className={styles.link_text}>Войти</span>
+        <Link className={styles.nav__link} to="/login">
+          <LoginIcon className={styles.nav__icon} />
+          <span className={styles.nav__text}>Войти</span>
         </Link>
       </nav>
       <Button

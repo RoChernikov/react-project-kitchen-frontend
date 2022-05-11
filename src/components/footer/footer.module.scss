@@ -14,28 +14,26 @@
     font-size: 16px;
     line-height: 24px;
   }
+
+  @include mediaMax(1198px) {
+    max-width: 1000px;
+  }
+  @include mediaMax(1020px) {
+    max-width: 800px;
+  }
+  @include mediaMax(800px) {
+    max-width: 600px;
+  }
+  @include mediaMax(600px) {
+    max-width: 300px;
+    flex-direction: column;
+    margin: 0;
+    padding-left: 20px;
+  }
 }
 
 .box {
+  width: 100%;
   max-width: 1920px;
   border-top: 1px solid rgba(204, 204, 204, 1);
-}
-
-@include breakpoint('container', 1198px) {
-  max-width: 1000px;
-}
-
-@include breakpoint('container', 1020px) {
-  max-width: 800px;
-}
-
-@include breakpoint('container', 800px) {
-  max-width: 600px;
-}
-
-@include breakpoint('container', 600px) {
-  max-width: 300px;
-  flex-direction: column;
-  margin: 0;
-  padding-left: 20px;
 }

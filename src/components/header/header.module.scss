@@ -10,6 +10,37 @@
 .nav {
   display: flex;
   justify-content: space-between;
+
+  &__link {
+    transition: all 0.3s ease;
+    color: #008aff;
+    &:hover {
+      color: #007ce5;
+      text-decoration: underline;
+    }
+
+    &:hover .nav__icon {
+      & path {
+        stroke: #007ce5;
+      }
+    }
+  }
+
+  &__text {
+    margin-left: 8px;
+    font-family: 'Alegreya Sans', sans-serif;
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 500;
+  }
+
+  &__icon {
+    vertical-align: middle;
+    & path {
+      transition: all 0.3s ease;
+      stroke: #008aff;
+    }
+  }
 }
 
 .link_text {

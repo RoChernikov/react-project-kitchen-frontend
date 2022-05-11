@@ -3,6 +3,10 @@
   margin: 0 auto;
   padding: 40px 0;
   border-bottom: 1px solid #d4d7de;
+
+  &:last-child {
+    border-bottom: none;
+  }
 }
 
 .header {
