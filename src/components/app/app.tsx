@@ -10,15 +10,14 @@ import '../../scss/_fonts.scss';
 import { useAppDispatch } from 'services/hooks';
 import { getArticlesData } from 'services/slices/articles';
 import { signIn } from 'services/slices/profile';
-import LoginPage from 'pages/login-page';
-import ArticlePage from 'pages/article-page';
-import RegisterPage from 'pages/register-page';
-import SettingsPage from 'pages/settings-page';
-import NewArticlePage from 'pages/new-article-page';
-import { EditorPage } from 'pages/editor-page';
 const MainPage = lazy(() => import('../../pages/main-page'));
+const LoginPage = lazy(() => import('../../pages/login-page'));
+const RegisterPage = lazy(() => import('../../pages/register-page'));
+const SettingsPage = lazy(() => import('../../pages/settings-page'));
+const ArticlePage = lazy(() => import('../../pages/article-page'));
+const NewArticlePage = lazy(() => import('../../pages/new-article-page'));
+const EditorPage = lazy(() => import('../../pages/editor-page'));
 const ProfilePage = lazy(() => import('../../pages/profile'));
-//import ProfilePage from 'pages/profile/index';
 //--------------------------------------------------------------------------------
 
 const App: FC = () => {
@@ -29,11 +28,11 @@ const App: FC = () => {
   useEffect(() => {
     dispatch(getArticlesData());
     // временный хардкод логин
-    dispatch(
-      signIn({
-        user: { username: 'julia', email: 'julia@gmail.com', password: '123' },
-      })
-    );
+    // dispatch(
+    //   signIn({
+    //     user: { email: '111@mail.ru', password: '111' },
+    //   })
+    // );
     // dispatch(
     //   patchUser({
     //     user: { image: 'https://klike.net/uploads/posts/2019-05/1558692542_28.jpg' },

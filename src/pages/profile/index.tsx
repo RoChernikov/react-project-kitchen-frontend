@@ -19,7 +19,6 @@ import { Button } from 'components/button/button';
 import PlusIcon from 'components/icons/plus-icon';
 import MinusIcon from 'components/icons/minus-icon';
 
-
 // export const EditProfileSettings = ({ isUser }) => {
 //   if (isUser) {
 //     return (
@@ -108,23 +107,25 @@ interface IProfile {
   currentPage: number;
 }
 
-const ProfilePage: FC = ({
-  // onLoad,
-  // onUnload,
-  // match,
-  // profile = {
-  //   username: 'username',
-  //   bio: 'bio',
-  //   image: 'image',
-  // },
-  // currentUser,
-  // onFollow,
-  // onUnfollow,
-  // pager,
-  // articles,
-  // articlesCount,
-  // currentPage,
-}) => {
+const ProfilePage: FC = (
+  {
+    // onLoad,
+    // onUnload,
+    // match,
+    // profile = {
+    //   username: 'username',
+    //   bio: 'bio',
+    //   image: 'image',
+    // },
+    // currentUser,
+    // onFollow,
+    // onUnfollow,
+    // pager,
+    // articles,
+    // articlesCount,
+    // currentPage,
+  }
+) => {
   // useEffect(() => {
   //   onLoad(
   //     Promise.all([
@@ -144,7 +145,7 @@ const ProfilePage: FC = ({
     // временный хардкор логин
     dispatch(
       signIn({
-        user: { username: 'julia', email: 'julia@gmail.com', password: '123' },
+        user: { email: '111@mail.ru', password: '111' },
       })
     );
   }, [dispatch]);
@@ -180,7 +181,9 @@ const ProfilePage: FC = ({
                 alt={currentUser.username}
               />
             </div>
-            <h4 className={styles.usercontainer__text}>{currentUser.username}</h4>
+            <h4 className={styles.usercontainer__text}>
+              {currentUser.username}
+            </h4>
             <Button
               type="primary"
               color="primary"
@@ -202,7 +205,6 @@ const ProfilePage: FC = ({
                     follow={onFollow}
                     unfollow={onUnfollow}
                   /> */}
-
           </div>
 
           <ArticlePreview article={articles[0]} />
@@ -217,7 +219,6 @@ const ProfilePage: FC = ({
           </div>
           */}
         </div>
-
       )}
     </>
   );
