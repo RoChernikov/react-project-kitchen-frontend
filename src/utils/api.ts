@@ -121,15 +121,17 @@ class Api {
 
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ARTICLES
   createArticle(data: IArticleApi) {
-    return axios.post(
-      `${BASE_URL}/articles`,
-      { ...data },
-      {
-        headers: {
-          Authorization: `Bearer ${getCookie('accessToken')}`,
-        },
-      }
-    );
+    return axios
+      .post(
+        `${BASE_URL}/articles`,
+        { ...data },
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie('accessToken')}`,
+          },
+        }
+      )
+      .then((response) => response.data.article);
   }
 
   updateArticle(slug: string, data: IArticleApi) {

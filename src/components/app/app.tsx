@@ -92,7 +92,7 @@ const App: FC = () => {
             }
           />
           <Route
-            path="newarticle"
+            path="new-article"
             element={
               <Suspense fallback={<Loader />}>
                 <NewArticlePage />

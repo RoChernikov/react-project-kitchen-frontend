@@ -1,12 +1,60 @@
-import React, { FC, useState, useCallback, SyntheticEvent } from 'react';
+import React, {
+  FC,
+  useState,
+  useCallback,
+  SyntheticEvent,
+  ChangeEvent,
+} from 'react';
 import styles from './new-article-page.module.scss';
 import { Button } from 'components/button/button';
+import { useAppDispatch, useAppSelector } from 'services/hooks';
+import { addArticle } from 'services/slices/articles';
+import { useNavigate } from 'react-router-dom';
+import { selectCurrentArticle } from 'services/selectors/articles';
 
 const NewArticlePage: FC = () => {
-  const handleNewArticleSubmit = useCallback((evt: SyntheticEvent) => {
+  const dispatch = useAppDispatch();
+  const history = useNavigate();
+  const article = useAppSelector(selectCurrentArticle);
+  const [title, setTitle] = useState<string>('');
+  const [description, setAbout] = useState<string>('');
+  const [link, setImage] = useState<string>('');
+  const [body, setText] = useState<string>('');
+  const [tags, setTags] = useState<string>('');
+
+  const onTitleChange = (evt: ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault();
-    console.log('newArticle');
-  }, []);
+    setTitle(evt.target.value);
+  };
+  const onAboutChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    setAbout(evt.target.value);
+  };
+  const onImageChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    setImage(evt.target.value);
+  };
+  const onTextChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
+    setText(evt.target.value);
+  };
+  const onTagsChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    setTags(evt.target.value);
+  };
+  const handleNewArticleSubmit = useCallback(
+    (evt: SyntheticEvent) => {
+      evt.preventDefault();
+      const newArticleData = {
+        article: {
+          title,
+          description,
+          body,
+          link,
+          tagList: tags.split(','),
+        },
+      };
+      dispatch(addArticle(newArticleData));
+      history(`/articles/${article?.slug}`);
+    },
+    [article?.slug, body, description, dispatch, history, link, tags, title]
+  );
 
   return (
     <section className={styles.newArticle}>
@@ -15,55 +63,74 @@ const NewArticlePage: FC = () => {
         <fieldset className={styles.newArticle__fieldset}>
           <label className={styles.newArticle__label}>
             Название статьи
-            <input className={styles.newArticle__input}></input>
+            <input
+              name="title"
+              onChange={onTitleChange}
+              value={title}
+              required
+              className={styles.newArticle__input}></input>
           </label>
           <div className={styles.newArticle__errorsWrapper}>
             <p className={styles.newArticle__errorText}>
               {/* тут нужна валидация, пока оставлю так */}
             </p>
           </div>
-
           <label className={styles.newArticle__label}>
             О чем статья
-            <input className={styles.newArticle__input}></input>
+            <input
+              name="description"
+              onChange={onAboutChange}
+              value={description}
+              required
+              className={styles.newArticle__input}></input>
           </label>
           <div className={styles.newArticle__errorsWrapper}>
             <p className={styles.newArticle__errorText}>
               {/* тут нужна валидация, пока оставлю так */}
             </p>
           </div>
-
           <label className={styles.newArticle__label}>
             URL изображения (опционально)
-            <input className={styles.newArticle__input}></input>
+            <input
+              name="link"
+              onChange={onImageChange}
+              value={link}
+              required
+              className={styles.newArticle__input}></input>
           </label>
           <div className={styles.newArticle__errorsWrapper}>
             <p className={styles.newArticle__errorText}>
               {/* тут нужна валидация, пока оставлю так */}
             </p>
           </div>
-
           <label className={styles.newArticle__label}>
             Текст статьи
-            <input
-              className={`${styles.newArticle__input} ${styles.newArticle__input_wide}`}></input>
+            <textarea
+              name="body"
+              onChange={onTextChange}
+              value={body}
+              required
+              className={`${styles.newArticle__input} ${styles.newArticle__input_wide}`}></textarea>
           </label>
           <div className={styles.newArticle__errorsWrapper}>
             <p className={styles.newArticle__errorText}>
               {/* тут нужна валидация, пока оставлю так */}
             </p>
           </div>
-
           <label className={styles.newArticle__label}>
             Теги (через запятую)
-            <input className={styles.newArticle__input}></input>
+            <input
+              name="tags"
+              onChange={onTagsChange}
+              value={tags}
+              required
+              className={styles.newArticle__input}></input>
           </label>
           <div className={styles.newArticle__errorsWrapper}>
             <p className={styles.newArticle__errorText}>
               {/* тут нужна валидация, пока оставлю так */}
             </p>
           </div>
-
           <div className={styles.newArticle__button}>
             <Button
               color="primary"
