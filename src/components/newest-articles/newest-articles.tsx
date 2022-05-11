@@ -71,7 +71,7 @@ const NewestArticles:FC = () => {
         <h2>No newest articles yet</h2>
         : (
           <>
-          <h1>Популярные материалы</h1><ul className={styles.newestArticles__list}>
+          <h1>Свежие материалы</h1><ul className={styles.newestArticles__list}>
               {sortedArticlesByDate.map((article: TArticle) => {
                 return (
                   <li key={article.updatedAt} className={styles.newestArticles__item}>
