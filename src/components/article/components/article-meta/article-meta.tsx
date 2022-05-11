@@ -1,16 +1,28 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './article-meta.module.scss';
-import { Like } from '../../../like-button/like-button';
+import { LikeButton } from '../../../like-button/like-button';
 import { toLocalDate } from 'utils/date-time';
+import { TArticle } from 'utils/types';
+import { useAppDispatch } from 'services/hooks';
+import { likeArticle, unlikeArticle } from 'services/slices/articles';
 
 interface IArticleMeta {
-  article: any;
-  canModify: boolean | null;
+  article: TArticle | null | undefined;
 }
 
-const ArticleMeta: FC<IArticleMeta> = ({ article, canModify }) => {
+const ArticleMeta: FC<IArticleMeta> = ({ article }) => {
+  const dispatch = useAppDispatch();
   const currentDate = toLocalDate(article?.createdAt);
+
+  const onLikeClick = () => {
+    if (article && !article.favorited) {
+      dispatch(likeArticle(article.slug));
+    } else {
+      if (article && article.favorited) dispatch(unlikeArticle(article.slug));
+    }
+  };
+
   return (
     <div>
       {/*
@@ -33,7 +45,7 @@ const ArticleMeta: FC<IArticleMeta> = ({ article, canModify }) => {
           <p className={styles.info__text}>{currentDate}</p>
           <div className={styles.info__likes}>
             <span>{article?.favoritesCount}</span>
-            <Like />
+            <LikeButton onClick={onLikeClick} active={article?.favorited} />
           </div>
         </div>
       </div>

@@ -9,11 +9,15 @@ import RequireAuth from '../../hoc/require-auth';
 import '../../scss/_fonts.scss';
 import { useAppDispatch } from 'services/hooks';
 import { getArticlesData } from 'services/slices/articles';
-import { patchUser, register, signIn } from 'services/slices/profile';
+import { signIn } from 'services/slices/profile';
+import LoginPage from 'pages/login-page';
 import ArticlePage from 'pages/article-page';
-import ProfilePage from 'pages/profile';
+import RegisterPage from 'pages/register-page';
+import SettingsPage from 'pages/settings-page';
+import NewArticlePage from 'pages/new-article-page';
+import { EditorPage } from 'pages/editor-page';
 const MainPage = lazy(() => import('../../pages/main-page'));
-
+const ProfilePage = lazy(() => import('../../pages/profile-page'));
 //--------------------------------------------------------------------------------
 
 const App: FC = () => {
@@ -25,23 +29,15 @@ const App: FC = () => {
     dispatch(getArticlesData());
     // временный хардкод логин
     dispatch(
-      register({
-        user: { username: 'julia', email: 'julia@gmail.com', password: '123' },
-      })
-    );
-    dispatch(
-      patchUser({
-        user: {
-          bio: 'About me',
-          image: 'https://klike.net/uploads/posts/2019-05/1558692542_28.jpg',
-        },
-      })
-    );
-    dispatch(
       signIn({
         user: { username: 'julia', email: 'julia@gmail.com', password: '123' },
       })
     );
+    // dispatch(
+    //   patchUser({
+    //     user: { image: 'https://klike.net/uploads/posts/2019-05/1558692542_28.jpg' },
+    //   })
+    // );
   }, [dispatch]);
 
   return (
@@ -69,6 +65,46 @@ const App: FC = () => {
             element={
               <Suspense fallback={<Loader />}>
                 <ProfilePage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="login"
+            element={
+              <Suspense fallback={<Loader />}>
+                <LoginPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="register"
+            element={
+              <Suspense fallback={<Loader />}>
+                <RegisterPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="settings"
+            element={
+              <Suspense fallback={<Loader />}>
+                <SettingsPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="newarticle"
+            element={
+              <Suspense fallback={<Loader />}>
+                <NewArticlePage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="editor"
+            element={
+              <Suspense fallback={<Loader />}>
+                <EditorPage />
               </Suspense>
             }
           />

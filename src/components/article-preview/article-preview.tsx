@@ -5,7 +5,7 @@ import imgPath from '../../assets/images/author-image.jpg';
 import { ReactComponent as LikeDefault } from '../../assets/images/like-default.svg';
 import { TArticle } from 'utils/types';
 import { toLocalDate } from 'utils/date-time';
-import { Like } from 'components/like-button/like-button';
+import { LikeButton } from 'components/like-button/like-button';
 
 const FAVORITED_CLASS = 'btn btn-sm btn-primary';
 const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary';
@@ -44,15 +44,17 @@ const ArticlePreview: FC<IArticlePreview> = ({ article }) => {
             <p className={styles.date}>{toLocalDate(article?.createdAt)}</p>
           </div>
         </Link>
-        <div className={styles.likes}>
+        <Link to={`/articles/${article?.slug}`} className={styles.likes}>
           <span className={styles.likes_count}>{article?.favoritesCount}</span>
-          <Like/>
+          <LikeButton active={article?.favorited} />
+        </Link>
+      </div>
+      <Link to={`/articles/${article?.slug}`} className={styles.article_main}>
+        <div className={styles.article_main}>
+          <h1 className={styles.title}>{article?.title}</h1>
+          <p className={styles.article_text}>{article?.description}</p>
         </div>
-      </div>
-      <div className={styles.article_main}>
-        <h1 className={styles.title}>{article?.title}</h1>
-        <p className={styles.article_text}>{article?.description}</p>
-      </div>
+      </Link>
       <div className={styles.article_footer}>
         <Link to={`/articles/${article?.slug}`} className={styles.readmore}>
           Читать дальше
