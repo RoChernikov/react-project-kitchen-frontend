@@ -9,20 +9,16 @@ import PopularTags from 'components/popular-tags/popular-tags';
 const MainPage: FC = () => {
   const articles = useAppSelector(selectArticles);
 
-  if (!articles) {
-    return <div className="article-preview">Loading...</div>;
-  }
-
   if (articles.length === 0) {
     return <div className="article-preview">No articles are here... yet.</div>;
   }
 
   return (
-    <div className={styles.main}>
+    <ul className={styles.main}>
       {articles.map((article) => (
         <ArticlePreview article={article} key={article.slug} />
       ))}
-    </div>
+    </ul>
   );
 };
 

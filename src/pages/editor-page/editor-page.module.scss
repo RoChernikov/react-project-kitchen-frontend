@@ -1,8 +1,11 @@
+@import '../../scss/mixins';
+
 .editArticle {
   padding: 40px 20px 150px;
   margin: 0 auto;
   max-width: 540px;
   width: 100%;
+  animation: appearance 0.2s forwards;
 }
 
 .editArticle__title {
@@ -57,17 +60,17 @@
 .editArticle__submitBtn {
   box-sizing: border-box;
   padding: 8px 16px;
-  background-color: #008AFF;
+  background-color: #008aff;
   font-size: 18px;
   line-height: 24px;
   font-weight: 500;
   color: #ffffff;
   border: none;
   border-radius: 4px;
-  transition: .3s;
+  transition: 0.3s;
 
   &:hover {
-    opacity: .8;
+    opacity: 0.8;
   }
 }
 
@@ -78,17 +81,17 @@
   font-size: 18px;
   line-height: 24px;
   font-weight: 500;
-  color: #FF413B;
+  color: #ff413b;
   border: none;
   border-radius: 4px;
-  transition: .3s;
+  transition: 0.3s;
 
   display: flex;
   align-items: center;
   gap: 8px;
 
   &:hover {
-    opacity: .8;
+    opacity: 0.8;
   }
 }
 
@@ -110,3 +113,5 @@
     font-size: 16px;
   }
 }
+
+@include appearance;

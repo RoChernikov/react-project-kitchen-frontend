@@ -9,7 +9,6 @@ import RequireAuth from '../../hoc/require-auth';
 import '../../scss/_fonts.scss';
 import { useAppDispatch } from 'services/hooks';
 import { getArticlesData } from 'services/slices/articles';
-import { signIn } from 'services/slices/profile';
 const MainPage = lazy(() => import('../../pages/main-page'));
 const LoginPage = lazy(() => import('../../pages/login-page'));
 const RegisterPage = lazy(() => import('../../pages/register-page'));
