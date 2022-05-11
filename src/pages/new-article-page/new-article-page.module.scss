@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 56px;
+  padding: 56px 20px 0px;
   animation: appearance 0.2s forwards;
 
   &__title {
@@ -65,6 +65,16 @@
     border-radius: 4px;
   }
 
+  &__input:focus {
+    outline: none;
+    background-color: #f5f5f5;
+    border: 1px solid #a3a3a3;
+  }
+
+  &__input_wide {
+    height: 132px;
+  }
+
   &__errorsWrapper {
     height: 24px;
   }
@@ -80,11 +90,22 @@
 
   &__button {
     align-self: flex-end;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    background-color: #008aff;
-    color: #fff;
+  }
+}
+
+@include mediaMax(900px) {
+  .newArticle {
+    padding-top: 64px;
+
+    &__title {
+      font-size: 32px;
+    }
+  }
+}
+
+@include mediaMax(500px) {
+  .newArticle {
+    padding-top: 72px;
   }
 }
 
