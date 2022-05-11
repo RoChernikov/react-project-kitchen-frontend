@@ -9,12 +9,13 @@ import RequireAuth from '../../hoc/require-auth';
 import '../../scss/_fonts.scss';
 import { useAppDispatch } from 'services/hooks';
 import { getArticlesData } from 'services/slices/articles';
-import { patchUser, signIn } from 'services/slices/profile';
+import { signIn } from 'services/slices/profile';
 import LoginPage from 'pages/login-page';
 import ArticlePage from 'pages/article-page';
 import RegisterPage from 'pages/register-page';
 import SettingsPage from 'pages/settings-page';
 import NewArticlePage from 'pages/new-article-page';
+import { EditorPage } from 'pages/editor-page';
 const MainPage = lazy(() => import('../../pages/main-page'));
 const ProfilePage = lazy(() => import('../../pages/profile-page'));
 //--------------------------------------------------------------------------------
@@ -29,7 +30,7 @@ const App: FC = () => {
     // временный хардкод логин
     dispatch(
       signIn({
-        user: { username: 'john', email: 'john@gmail.com', password: '123' },
+        user: { username: 'julia', email: 'julia@gmail.com', password: '123' },
       })
     );
     // dispatch(
@@ -96,6 +97,14 @@ const App: FC = () => {
             element={
               <Suspense fallback={<Loader />}>
                 <NewArticlePage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="editor"
+            element={
+              <Suspense fallback={<Loader />}>
+                <EditorPage />
               </Suspense>
             }
           />

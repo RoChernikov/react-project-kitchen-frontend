@@ -10,9 +10,6 @@ import CommentContainer from 'components/article/components/comment-container/co
 import styles from './article.module.scss';
 
 export const ArticlePage: React.FC = (
-  {
-    //commentErrors,
-  }
 ) => {
   const dispatch = useAppDispatch();
   const article = useAppSelector(selectCurrentArticle);
@@ -26,22 +23,15 @@ export const ArticlePage: React.FC = (
   const canModify =
     currentUser && currentUser.username === article?.author?.username;
 
-  const onAfticleDelete = function (
-    payload: Promise<string>
-  ): Dispatch<SetStateAction<string>> {
-    throw new Error('Function not implemented.');
-  };
-
   return (
     <>
       <ArticleActions
         canModify={canModify}
         article={article}
-        onClickDelete={onAfticleDelete}
       />
       <div className={styles.container}>
         <h1 className={styles.container__header}>{article?.title}</h1>
-        <ArticleMeta article={article} canModify={canModify} />
+        <ArticleMeta article={article}/>
         <img
           src={article?.link}
           alt={`${article?.title} illustration`}

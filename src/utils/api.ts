@@ -89,15 +89,17 @@ class Api {
   }
 
   addComment(slug: string, data: ICommentApi) {
-    return axios.post(
-      `${BASE_URL}/articles/${slug}/comments`,
-      { ...data },
-      {
-        headers: {
-          Authorization: `Bearer ${getCookie('accessToken')}`,
-        },
-      }
-    ).then((response) => response.data.comment);
+    return axios
+      .post(
+        `${BASE_URL}/articles/${slug}/comments`,
+        { ...data },
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie('accessToken')}`,
+          },
+        }
+      )
+      .then((response) => response.data.comment);
   }
 
   deleteComment(slug: string, commentId: string) {
@@ -144,7 +146,11 @@ class Api {
 
   getArticle(slug: string) {
     return axios
-      .get(`${BASE_URL}/articles/${slug}`)
+      .get(`${BASE_URL}/articles/${slug}`, {
+        headers: {
+          Authorization: `Bearer ${getCookie('accessToken')}`,
+        },
+      })
       .then((response) => response.data.article);
   }
 
@@ -158,7 +164,12 @@ class Api {
       .get(
         `${BASE_URL}/articles?${by ? by : ''}=${encodeURIComponent(
           value
-        )}&${this._limit(limit, page === 0 || page < 0 ? 0 : page - 1)}`
+        )}&${this._limit(limit, page === 0 || page < 0 ? 0 : page - 1)}`,
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie('accessToken')}`,
+          },
+        }
       )
       .then((response) => response.data.articles);
   }
@@ -172,23 +183,27 @@ class Api {
   }
 
   favoriteArticle(slug: string) {
-    return axios.post(
-      `${BASE_URL}/articles/${slug}/favorite`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${getCookie('accessToken')}`,
-        },
-      }
-    );
+    return axios
+      .post(
+        `${BASE_URL}/articles/${slug}/favorite`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie('accessToken')}`,
+          },
+        }
+      )
+      .then((response) => response.data.article);
   }
 
   unfavoriteArticle(slug: string) {
-    return axios.delete(`${BASE_URL}/articles/${slug}/favorite`, {
-      headers: {
-        Authorization: `Bearer ${getCookie('accessToken')}`,
-      },
-    });
+    return axios
+      .delete(`${BASE_URL}/articles/${slug}/favorite`, {
+        headers: {
+          Authorization: `Bearer ${getCookie('accessToken')}`,
+        },
+      })
+      .then((response) => response.data.article);
   }
 
   getFeed(limit: number = 10, page: number = 0) {

@@ -102,6 +102,16 @@ export const articleSlice = createSlice({
         return initialState;
       }
     },
+    toggleArticleSuccess(state, action: PayloadAction<TArticle>) {
+      state.articles.forEach((article) => {
+        if (state.currentArticle && article?.slug === action.payload.slug) {
+          state.currentArticle.favorited = action.payload.favorited;
+          state.currentArticle.favoritesCount = action.payload.favoritesCount;
+          article.favorited = action.payload.favorited;
+          article.favoritesCount = action.payload.favoritesCount;
+        }
+      });
+    },
     resetArticles() {
       return initialState;
     },
@@ -122,6 +132,7 @@ export const {
   deleteCommentRequest,
   deleteCommentFailed,
   deleteCommentSuccess,
+  toggleArticleSuccess,
   resetArticles,
 } = articleSlice.actions;
 
@@ -166,7 +177,6 @@ export const postComment: AppThunk =
 
 export const deleteComment: AppThunk =
   (slug: string, commentId: string) => (dispatch) => {
-    console.log('deleteComment Thunk', commentId)
     dispatch(deleteCommentRequest());
     api
       .deleteComment(slug, commentId)
@@ -178,5 +188,27 @@ export const deleteComment: AppThunk =
         console.log(`Ошибка удаления комментария: ${err}`);
       });
   };
+
+export const likeArticle: AppThunk = (slug: string) => (dispatch) => {
+  api
+    .favoriteArticle(slug)
+    .then((article) => {
+      dispatch(toggleArticleSuccess(article));
+    })
+    .catch((err) => {
+      console.log(`Ошибка лайка статьи: ${err}`);
+    });
+};
+
+export const unlikeArticle: AppThunk = (slug: string) => (dispatch) => {
+  api
+    .unfavoriteArticle(slug)
+    .then((article) => {
+      dispatch(toggleArticleSuccess(article));
+    })
+    .catch((err) => {
+      console.log(`Ошибка удаления лайка статьи: ${err}`);
+    });
+};
 
 export default articleSlice.reducer;

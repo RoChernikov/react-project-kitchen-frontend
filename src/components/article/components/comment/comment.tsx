@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect } from 'react';
+import { FC, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { TComment } from 'utils/types';
 import styles from './comment.module.scss';
@@ -6,10 +6,9 @@ import { Button } from 'components/button/button';
 import TrashIcon from 'components/icons/trash-icon';
 import { useAppDispatch, useAppSelector } from 'services/hooks';
 import { deleteComment } from 'services/slices/articles';
-import { signIn } from 'services/slices/profile';
 import { selectCurrentUser } from 'services/selectors/profile';
 import { toLocalDate } from 'utils/date-time';
-import { Like } from 'components/like-button/like-button';
+import { LikeButton } from 'components/like-button/like-button';
 
 interface IComment {
   comment: TComment;
@@ -56,7 +55,7 @@ const Comment: FC<IComment> = ({ comment, slug }) => {
             />
           </div>
         ) : (
-          <Like />
+          <LikeButton />
         )}
       </div>
       <div>
