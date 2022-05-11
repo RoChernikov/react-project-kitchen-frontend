@@ -5,7 +5,7 @@
   display: flex;
   justify-content: space-between;
   height: 121px;
-  padding: 49px 0 48px 0;
+  padding: 49px 20px 48px 0;
   margin: 0 auto;
 
   &__text {
@@ -16,14 +16,14 @@
   }
 
   @include mediaMax(1198px) {
-    max-width: 1000px;
-  }
-  @include mediaMax(1020px) {
     max-width: 800px;
   }
+
+
   @include mediaMax(800px) {
     max-width: 600px;
   }
+
   @include mediaMax(600px) {
     max-width: 300px;
     flex-direction: column;
