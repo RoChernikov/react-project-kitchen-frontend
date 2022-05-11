@@ -14,6 +14,11 @@ import { selectCurrentUser } from 'services/selectors/profile';
 import { signIn } from 'services/slices/profile';
 import { selectArticles } from 'services/selectors/articles';
 import ArticlePreview from 'components/article-preview/article-preview';
+import styles from './profile-page.module.scss';
+import { Button } from 'components/button/button';
+import PlusIcon from 'components/icons/plus-icon';
+import MinusIcon from 'components/icons/minus-icon';
+
 
 // export const EditProfileSettings = ({ isUser }) => {
 //   if (isUser) {
@@ -167,37 +172,52 @@ const ProfilePage: FC = ({
     <>
       {!currentUser ? null : (
         <div className="profile-page">
-          <div className="user-info">
-            <div className="container">
-              <div className="row">
-                <div className="col-xs-12 col-md-10 offset-md-1">
-                  <img
-                    src={currentUser.image}
-                    className="user-img"
-                    alt={currentUser.username}
-                  />
-                  <h4>{currentUser.username}</h4>
-                  <p>{currentUser.bio}</p>
-                  {/* <EditProfileSettings isUser={isUser} />
+          <div className={styles.usercontainer}>
+            <div className={styles.avatar}>
+              <img
+                src={currentUser.image}
+                className={styles.avatar__img}
+                alt={currentUser.username}
+              />
+            </div>
+            <h4 className={styles.usercontainer__text}>{currentUser.username}</h4>
+            <Button
+              type="primary"
+              color="primary"
+              icon={<PlusIcon />}
+              children="Подписаться"
+            />
+            <br />
+            <Button
+              type="primary"
+              color="primary"
+              icon={<MinusIcon />}
+              children="Отписаться"
+            />
+
+            {/* <EditProfileSettings isUser={isUser} />
                   <FollowUserButton
                     isUser={isUser}
                     user={profile}
                     follow={onFollow}
                     unfollow={onUnfollow}
                   /> */}
-                </div>
-              </div>
-            </div>
+
           </div>
+
+          <ArticlePreview article={articles[0]} />
+          {/*
           <div className="container">
             <div className="row">
               <div className="col-xs-12 col-md-10 offset-md-1">
                 <div className="articles-toggle">{renderTabs()}</div>
-                <ArticlePreview article={articles[0]}/>
+                <ArticlePreview article={articles[0]} />
               </div>
             </div>
           </div>
+          */}
         </div>
+
       )}
     </>
   );
