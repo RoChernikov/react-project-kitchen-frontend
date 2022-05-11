@@ -3,8 +3,12 @@ import { Link } from 'react-router-dom';
 import { ReactComponent as HomeIcon } from '../../assets/images/home-icon.svg';
 import { ReactComponent as LoginIcon } from '../../assets/images/login-icon.svg';
 import styles from './header.module.scss';
+import { Button } from 'components/button/button';
+import { useAppDispatch } from 'services/hooks';
+import { signOut } from 'services/slices/profile';
 
 const Header: FC = () => {
+  const dispatch = useAppDispatch();
   return (
     <div className={styles.container}>
       <nav className={styles.nav}>
@@ -17,6 +21,13 @@ const Header: FC = () => {
           <span className={styles.link_text}>Войти</span>
         </Link>
       </nav>
+      <Button
+        color="secondary"
+        children="LOGOUT BUTTON"
+        onClick={() => {
+          dispatch(signOut());
+        }}
+      />
       <div className={styles.text_box}>
         <h1 className={styles.title}>Когда вырасту</h1>
         <p className={styles.description}>

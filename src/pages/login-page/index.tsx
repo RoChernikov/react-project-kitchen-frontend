@@ -1,15 +1,32 @@
 import React, { FC, useState, useCallback, SyntheticEvent } from 'react';
 import styles from './login-page.module.scss';
 import { Link } from 'react-router-dom';
+import { signIn } from 'services/slices/profile';
+import { useAppDispatch, useAppSelector } from 'services/hooks';
+import { userErrors, isAuth } from 'services/selectors/profile';
+import { Navigate, useLocation } from 'react-router-dom';
 
 const LoginPage: FC = () => {
+  const location = useLocation();
+  console.log(location);
+  // const goBackPath = location.state?.from.pathname;
+  const dispatch = useAppDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const loginErrors = useAppSelector(userErrors);
+  const auth = useAppSelector(isAuth);
 
-  const handleLoginSubmit = useCallback((evt: SyntheticEvent) => {
-    evt.preventDefault();
-    console.log('login');
-  }, []);
+  const handleLoginSubmit = useCallback(
+    (evt: SyntheticEvent) => {
+      evt.preventDefault();
+      dispatch(signIn({ user: { email: email, password: password } }));
+    },
+    [dispatch, email, password]
+  );
+
+  if (auth) {
+    return <Navigate to={{ pathname: '/' }} />;
+  }
 
   return (
     <section className={styles.login}>
@@ -21,17 +38,40 @@ const LoginPage: FC = () => {
         <fieldset className={styles.login__fieldset}>
           <label className={styles.login__label}>
             Email
-            <input className={styles.login__input}></input>
+            <input
+              className={styles.login__input}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}></input>
           </label>
           <div className={styles.login__errorsWrapper}>
-            <p className={styles.login__errorText}>Ошибка</p>
+            {Object.keys(loginErrors).length !== 0 && (
+              <p className={styles.login__errorText}>
+                {loginErrors.email === "can't be blank"
+                  ? 'Поле не может быть пустым'
+                  : 'Некорректный логин или пароль'}
+              </p>
+            )}
+            {/* тут нужна валидация, пока оставлю так */}
           </div>
           <label className={styles.login__label}>
             Пароль
-            <input className={styles.login__input}></input>
+            <input
+              type="password"
+              className={styles.login__input}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}></input>
           </label>
           <div className={styles.login__errorsWrapper}>
-            <p className={styles.login__errorText}>Ошибка</p>
+            {Object.keys(loginErrors).length !== 0 && loginErrors.password && (
+              <p className={styles.login__errorText}>
+                {loginErrors.password === "can't be blank"
+                  ? 'Поле не может быть пустым'
+                  : 'Некорректный логин или пароль'}
+              </p>
+            )}
+            {/* тут нужна валидация, пока оставлю так */}
           </div>
           <button className={styles.login__button}>Войти</button>
         </fieldset>
