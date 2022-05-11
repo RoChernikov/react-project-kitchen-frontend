@@ -33,7 +33,7 @@ const ArticlePreview: FC<IArticlePreview> = ({ article }) => {
   return (
     <div className={styles.article_preview}>
       <div className={styles.header}>
-        <Link to={`/profile/`} className={styles.author}>
+        <Link to={`/profile/@${article.author.username}`} className={styles.author}>
           <img
             src={article?.author?.image}
             alt={`${article?.author?.username} avatar`}
