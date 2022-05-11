@@ -1,3 +1,4 @@
+import { HeaderMenu } from 'components/header-menu/header-menu';
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { ReactComponent as HomeIcon } from '../../assets/images/home-icon.svg';
@@ -12,10 +13,13 @@ const Header: FC = () => {
           <HomeIcon className={`${styles.home_icon} ${styles.icon}`} />
           <span className={styles.link_text}>Главная</span>
         </Link>
-        <Link to="/login">
-          <LoginIcon className={styles.icon} />
-          <span className={styles.link_text}>Войти</span>
-        </Link>
+        <div className={styles.header_menu}>
+          <HeaderMenu />
+          <Link to="/login">
+            <LoginIcon className={styles.icon} />
+            <span className={styles.link_text}>Войти</span>
+          </Link>
+        </div>
       </nav>
       <div className={styles.text_box}>
         <h1 className={styles.title}>Когда вырасту</h1>
