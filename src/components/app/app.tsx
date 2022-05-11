@@ -17,7 +17,8 @@ import SettingsPage from 'pages/settings-page';
 import NewArticlePage from 'pages/new-article-page';
 import { EditorPage } from 'pages/editor-page';
 const MainPage = lazy(() => import('../../pages/main-page'));
-const ProfilePage = lazy(() => import('../../pages/profile-page'));
+const ProfilePage = lazy(() => import('../../pages/profile'));
+//import ProfilePage from 'pages/profile/index';
 //--------------------------------------------------------------------------------
 
 const App: FC = () => {
@@ -61,7 +62,7 @@ const App: FC = () => {
             }
           />
           <Route
-            path="profile/:id"
+            path="profile"
             element={
               <Suspense fallback={<Loader />}>
                 <ProfilePage />
