@@ -63,6 +63,7 @@
 @include mediaMax(900px) {
   .container {
     max-width: 600px;
+    padding: 35px 0 24px;
   }
   .title {
     font-size: 60px;
@@ -86,8 +87,18 @@
 @include mediaMax(500px) {
   .container {
     max-width: 300px;
+    padding: 35px 0 17px;
   }
   .title {
-    font-size: 50px;
+    font-size: 40px;
+  }
+  .text_box {
+    align-items: flex-start;
+  }
+  .description {
+    font-size: 16px;
+    line-height: 1;
+    max-width: 139px;
+    padding-top: 13px;
   }
 }
