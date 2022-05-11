@@ -9,7 +9,7 @@ import RequireAuth from '../../hoc/require-auth';
 import '../../scss/_fonts.scss';
 import { useAppDispatch } from 'services/hooks';
 import { getArticlesData } from 'services/slices/articles';
-import { patchUser, signIn } from 'services/slices/profile';
+import { signIn } from 'services/slices/profile';
 import LoginPage from 'pages/login-page';
 import ArticlePage from 'pages/article-page';
 import RegisterPage from 'pages/register-page';
@@ -30,7 +30,7 @@ const App: FC = () => {
     // временный хардкод логин
     dispatch(
       signIn({
-        user: { username: 'john', email: 'john@gmail.com', password: '123' },
+        user: { username: 'julia', email: 'julia@gmail.com', password: '123' },
       })
     );
     // dispatch(

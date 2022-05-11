@@ -1,14 +1,19 @@
 import React, { FC } from 'react';
 
-const LikeIcon: FC = () => {
-    return (
-        <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <path d="M19.1328 2.31877L19.1332 2.3191C19.5513 2.73699 19.8829
+interface ILikeIcon {
+  active?: boolean;
+}
+
+const LikeIcon: FC<ILikeIcon> = ({ active = false }) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill={active ? '#62626A' : 'none'}
+      xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M19.1328 2.31877L19.1332 2.3191C19.5513 2.73699 19.8829
                3.23316 20.1092 3.77926C20.3355 4.32537 20.4519 4.9107
                20.4519 5.50183C20.4519 6.09295 20.3355 6.67828 20.1092
                7.22439C19.8829 7.77049 19.5513 8.26666 19.1332 8.68455L19.133
@@ -20,10 +25,12 @@ const LikeIcon: FC = () => {
                2.31893L12.7674 2.31877C13.1853 1.90068 13.6815 1.56902 14.2276
                1.34274C14.7737 1.11647 15.359 1 15.9501 1C16.5412 1 17.1266
                1.11647 17.6727 1.34274C18.2188 1.56902 18.715 1.90068 19.1328 2.31877Z"
-                stroke="#62626A" stroke-width="2" stroke-linecap="round" />
-
-        </svg>
-    );
+        stroke="#62626A"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
 };
 
 export default LikeIcon;
