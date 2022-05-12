@@ -47,7 +47,7 @@ const NewArticlePage: FC = () => {
           description,
           body,
           link,
-          tagList: tags.split(','),
+          tagList: Array.from(new Set(tags.split(','))),
         },
       };
       dispatch(addArticle(newArticleData));
