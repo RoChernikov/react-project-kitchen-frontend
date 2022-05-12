@@ -7,7 +7,8 @@
   flex-direction: column;
   align-items: center;
   padding: 56px 20px 0px;
-  animation: appearance 0.2s forwards;
+  opacity: 0;
+  animation: appearance 0.2s 0.1s forwards;
 
   &__title {
     text-align: center;

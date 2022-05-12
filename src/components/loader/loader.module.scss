@@ -6,7 +6,9 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  animation: appearance 0.2s forwards;
+  opacity: 0;
+  opacity: 0;
+  animation: appearance 0.2s 0.1s forwards;
 }
 
 .loader {

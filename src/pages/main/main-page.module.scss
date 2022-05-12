@@ -5,7 +5,8 @@
   height: 100%;
   list-style: none;
   margin-bottom: 0;
-  animation: appearance 0.2s forwards;
+  opacity: 0;
+  animation: appearance 0.2s 0.1s forwards;
 }
 
 .container {
@@ -28,7 +29,6 @@
     max-width: 420px;
   }
 }
-
 
 .rightbord {
   display: grid;
