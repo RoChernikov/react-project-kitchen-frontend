@@ -68,7 +68,9 @@ const MainPage: FC = () => {
           })}
         </ul>
         <div className={styles.rightbord}>
+
           <PopularTags />
+
           <div>
             <PopularArticles />
           </div>
