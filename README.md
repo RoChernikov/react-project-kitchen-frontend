@@ -21,11 +21,11 @@ HTML, SCSS, TypeScript, React.js, Redux
 - Клонировать этот репозиторий
 - Выполнить npm install && npm start в терминале, находясь в папке проекта
 
-##Авторы
+## Авторы
 
-[Юлия Жеребцова](https://github.com/yuliazherebtsova)
-[Наташа Солнцева](https://github.com/NatashaSolntseva)
-[Анна Чирва](https://github.com/Leprecocoa)
-[Анна Чижик](https://github.com/Frantsuzova)
-[Родион Черников](https://github.com/RoChernikov)
-[Артемий Кузин](https://github.com/kuzinartemiy)
+- [Юлия Жеребцова](https://github.com/yuliazherebtsova)
+- [Наташа Солнцева](https://github.com/NatashaSolntseva)
+- [Анна Чирва](https://github.com/Leprecocoa)
+- [Анна Чижик](https://github.com/Frantsuzova)
+- [Родион Черников](https://github.com/RoChernikov)
+- [Артемий Кузин](https://github.com/kuzinartemiy)
