@@ -5,7 +5,8 @@
   height: 100%;
   list-style: none;
   margin-bottom: 0;
-  animation: appearance 0.2s forwards;
+  opacity: 0;
+  animation: appearance 0.2s 0.1s forwards;
 }
 
 .container {
@@ -29,7 +30,6 @@
   }
 }
 
-
 .rightbord {
   display: grid;
   grid-auto-flow: row;
@@ -38,6 +38,13 @@
   @include mediaMax(800px) {
     grid-row-gap: 40px;
   }
+}
+
+.endMsg {
+  text-align: center;
+  line-height: 3;
+  font-size: 18px;
+  font-weight: 700;
 }
 
 @include appearance;

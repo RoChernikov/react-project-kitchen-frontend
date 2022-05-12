@@ -8,7 +8,8 @@
   left: 0;
   background: rgba(0, 0, 0, 0.4);
   opacity: 0;
-  animation: appearance 0.2s forwards;
+  opacity: 0;
+  animation: appearance 0.2s 0.1s forwards;
 }
 
 @include appearance;
