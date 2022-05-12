@@ -1,18 +1,24 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppThunk } from 'services/store';
+import { AppThunk, AppDispatch } from 'services/store';
 import api from 'utils/api';
 import { IArticleApi, ICommentApi } from 'utils/interfaces';
-import { TArticle, TComment } from 'utils/types';
+import { TArticle, TComment, TStatus } from 'utils/types';
 
 type TInitialState = {
   currentArticle: TArticle | null | undefined;
   articles: TArticle[];
+  lazyArticles: TArticle[];
+  fetchLazyArticles: TArticle[];
+  fetchLazyStatus: TStatus;
   tags: string[];
   tag: string | null;
   tab: string | null;
   pager: any;
   inProgress: boolean;
   editTags: string[];
+  lazyArticlesRequest: boolean;
+  lazyArticlesSuccess: boolean;
+  lazyArticlesFailed: boolean;
   articlesRequest: boolean;
   articlesFailed: boolean;
   currentArticlesRequest: boolean;
@@ -26,12 +32,18 @@ type TInitialState = {
 export const initialState: TInitialState = {
   currentArticle: null,
   articles: [],
+  lazyArticles: [],
+  fetchLazyArticles: [],
+  fetchLazyStatus: 'success',
   tags: [],
   tag: null,
   tab: null,
   pager: null,
   inProgress: true,
   editTags: [],
+  lazyArticlesRequest: false,
+  lazyArticlesSuccess: false,
+  lazyArticlesFailed: false,
   articlesRequest: false,
   articlesFailed: false,
   currentArticlesRequest: false,
@@ -46,6 +58,32 @@ export const articleSlice = createSlice({
   name: 'articles',
   initialState,
   reducers: {
+    getLazyArticlesRequest(state) {
+      state.lazyArticlesRequest = true;
+    },
+    getLazyArticlesSuccess(state, action: PayloadAction<TArticle[]>) {
+      state.lazyArticles = action.payload;
+      state.lazyArticlesSuccess = true;
+      state.lazyArticlesFailed = false;
+      state.lazyArticlesRequest = false;
+    },
+    getLazyArticlesFailed(state) {
+      state.lazyArticlesSuccess = false;
+      state.lazyArticlesFailed = true;
+      state.lazyArticlesRequest = false;
+    },
+    setLazyArticles(state, action: PayloadAction<TArticle[]>) {
+      state.lazyArticles = [...state.lazyArticles, ...action.payload];
+    },
+    fetchLazyArticlesPending(state) {
+      state.fetchLazyStatus = 'pending';
+    },
+    fetchLazyArticlesSuccess(state, action: PayloadAction<TArticle[]>) {
+      state.fetchLazyStatus = 'success';
+    },
+    fetchLazyArticlesFailed(state) {
+      state.fetchLazyStatus = 'failed';
+    },
     getArticlesRequest(state) {
       state.articlesRequest = true;
     },
@@ -130,6 +168,10 @@ export const articleSlice = createSlice({
 });
 
 export const {
+  getLazyArticlesRequest,
+  getLazyArticlesSuccess,
+  getLazyArticlesFailed,
+  setLazyArticles,
   getArticlesRequest,
   getArticlesSuccess,
   getArticlesFailed,
@@ -149,7 +191,19 @@ export const {
   resetArticles,
 } = articleSlice.actions;
 
-export const getArticlesData: AppThunk = () => (dispatch) => {
+export const getLazyArticles: AppThunk =
+  (articlesByPage: number) => (dispatch: AppDispatch) => {
+    dispatch(getLazyArticlesRequest());
+    api
+      .getArticlesBy(undefined, undefined, articlesByPage, 1)
+      .then((data) => dispatch(getLazyArticlesSuccess(data)))
+      .catch((err) => {
+        dispatch(getLazyArticlesFailed());
+        console.log(`Ошибка загрузки списка статей: ${err}`);
+      });
+  };
+
+export const getArticlesData: AppThunk = () => (dispatch: AppDispatch) => {
   dispatch(getArticlesRequest());
   api
     .getArticlesBy()
@@ -162,20 +216,21 @@ export const getArticlesData: AppThunk = () => (dispatch) => {
     });
 };
 
-export const getCurrentArticleData: AppThunk = (slug: string) => (dispatch) => {
-  dispatch(getCurrentArticleRequest());
-  Promise.all([api.getArticle(slug), api.getComments(slug)])
-    .then((data) => {
-      dispatch(getCurrentArticleSuccess(data));
-    })
-    .catch((err) => {
-      dispatch(getCurrentArticleFailed());
-      console.log(`Ошибка загрузки статьи: ${err}`);
-    });
-};
+export const getCurrentArticleData: AppThunk =
+  (slug: string) => (dispatch: AppDispatch) => {
+    dispatch(getCurrentArticleRequest());
+    Promise.all([api.getArticle(slug), api.getComments(slug)])
+      .then((data) => {
+        dispatch(getCurrentArticleSuccess(data));
+      })
+      .catch((err) => {
+        dispatch(getCurrentArticleFailed());
+        console.log(`Ошибка загрузки статьи: ${err}`);
+      });
+  };
 
 export const postComment: AppThunk =
-  (slug: string, comment: ICommentApi) => (dispatch) => {
+  (slug: string, comment: ICommentApi) => (dispatch: AppDispatch) => {
     dispatch(addCommentRequest());
     api
       .addComment(slug, comment)
@@ -189,7 +244,7 @@ export const postComment: AppThunk =
   };
 
 export const deleteComment: AppThunk =
-  (slug: string, commentId: string) => (dispatch) => {
+  (slug: string, commentId: string) => (dispatch: AppDispatch) => {
     dispatch(deleteCommentRequest());
     api
       .deleteComment(slug, commentId)
@@ -202,48 +257,52 @@ export const deleteComment: AppThunk =
       });
   };
 
-export const likeArticle: AppThunk = (slug: string) => (dispatch) => {
-  api
-    .favoriteArticle(slug)
-    .then((article) => {
-      dispatch(toggleArticleSuccess(article));
-    })
-    .catch((err) => {
-      console.log(`Ошибка лайка статьи: ${err}`);
-    });
-};
+export const likeArticle: AppThunk =
+  (slug: string) => (dispatch: AppDispatch) => {
+    api
+      .favoriteArticle(slug)
+      .then((article) => {
+        dispatch(toggleArticleSuccess(article));
+      })
+      .catch((err) => {
+        console.log(`Ошибка лайка статьи: ${err}`);
+      });
+  };
 
-export const unlikeArticle: AppThunk = (slug: string) => (dispatch) => {
-  api
-    .unfavoriteArticle(slug)
-    .then((article) => {
-      dispatch(toggleArticleSuccess(article));
-    })
-    .catch((err) => {
-      console.log(`Ошибка удаления лайка статьи: ${err}`);
-    });
-};
+export const unlikeArticle: AppThunk =
+  (slug: string) => (dispatch: AppDispatch) => {
+    api
+      .unfavoriteArticle(slug)
+      .then((article) => {
+        dispatch(toggleArticleSuccess(article));
+      })
+      .catch((err) => {
+        console.log(`Ошибка удаления лайка статьи: ${err}`);
+      });
+  };
 
-export const deleteArticle: AppThunk = (slug: string) => (dispatch) => {
-  api
-    .deleteArticle(slug)
-    .then(() => {
-      dispatch(deleteArticleSuccess(slug));
-    })
-    .catch((err) => {
-      console.log(`Ошибка удаления статьи: ${err}`);
-    });
-};
+export const deleteArticle: AppThunk =
+  (slug: string) => (dispatch: AppDispatch) => {
+    api
+      .deleteArticle(slug)
+      .then(() => {
+        dispatch(deleteArticleSuccess(slug));
+      })
+      .catch((err) => {
+        console.log(`Ошибка удаления статьи: ${err}`);
+      });
+  };
 
-export const addArticle: AppThunk = (data: IArticleApi) => (dispatch) => {
-  api
-    .createArticle(data)
-    .then((article) => {
-      dispatch(addArticleSuccess(article));
-    })
-    .catch((err) => {
-      console.log(`Ошибка публикации статьи: ${err}`);
-    });
-};
+export const addArticle: AppThunk =
+  (data: IArticleApi) => (dispatch: AppDispatch) => {
+    api
+      .createArticle(data)
+      .then((article) => {
+        dispatch(addArticleSuccess(article));
+      })
+      .catch((err) => {
+        console.log(`Ошибка публикации статьи: ${err}`);
+      });
+  };
 
 export default articleSlice.reducer;

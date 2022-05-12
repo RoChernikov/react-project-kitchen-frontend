@@ -40,4 +40,11 @@
   }
 }
 
+.endMsg {
+  text-align: center;
+  line-height: 3;
+  font-size: 18px;
+  font-weight: 700;
+}
+
 @include appearance;
