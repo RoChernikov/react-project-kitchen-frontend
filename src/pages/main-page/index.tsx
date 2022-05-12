@@ -14,11 +14,20 @@ const MainPage: FC = () => {
   }
 
   return (
-    <ul className={styles.main}>
-      {articles.map((article) => (
-        <ArticlePreview article={article} key={article.slug} />
-      ))}
-    </ul>
+    <div className={styles.container}>
+      <ul className={styles.main}>
+        {articles.map((article) => (
+          <ArticlePreview article={article} key={article.slug} />
+        ))}
+      </ul>
+      <div className={styles.rightbord}>
+        <PopularTags />
+        <div>
+          <PopularArticles />
+        </div>
+      </div>
+
+    </div>
   );
 };
 
