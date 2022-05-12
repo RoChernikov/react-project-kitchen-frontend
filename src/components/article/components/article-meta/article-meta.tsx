@@ -25,16 +25,6 @@ const ArticleMeta: FC<IArticleMeta> = ({ article }) => {
 
   return (
     <div>
-      {/*
-      <ArticleActions
-        canModify={canModify}
-        article={article}
-        onClickDelete={(function (
-          payload: Promise<string>
-        ): Dispatch<SetStateAction<string>> {
-          throw new Error('Function not implemented.');
-        })}
-      />*/}
       <div className={styles.panel}>
         <div className={styles.info}>
           <Link

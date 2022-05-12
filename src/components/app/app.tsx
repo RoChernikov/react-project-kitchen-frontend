@@ -4,11 +4,12 @@ import Loader from '../loader/loader';
 import Modal from '../modal/modal';
 import DeleteConfirm from 'components/delete-confirm/delete-confirm';
 import Layout from '../layout';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import RequireAuth from '../../hoc/require-auth';
 import '../../scss/_fonts.scss';
-import { useAppDispatch } from 'services/hooks';
-import { getArticlesData } from 'services/slices/articles';
+import { useAppDispatch, useAppSelector } from 'services/hooks';
+import { deleteArticle, getArticlesData } from 'services/slices/articles';
+import { selectCurrentArticle } from 'services/selectors/articles';
 const MainPage = lazy(() => import('../../pages/main-page'));
 const LoginPage = lazy(() => import('../../pages/login-page'));
 const RegisterPage = lazy(() => import('../../pages/register-page'));
@@ -21,22 +22,18 @@ const ProfilePage = lazy(() => import('../../pages/profile'));
 
 const App: FC = () => {
   const location = useLocation();
+  const history = useNavigate();
   const state = location.state as { backgroundLocation?: Location };
+  const article = useAppSelector(selectCurrentArticle);
   const dispatch = useAppDispatch();
+
+  const handleArticleDelete = () => {
+    dispatch(deleteArticle(article?.slug));
+    history(`/`);
+  };
 
   useEffect(() => {
     dispatch(getArticlesData());
-    // временный хардкод логин
-    // dispatch(
-    //   signIn({
-    //     user: { email: '111@mail.ru', password: '111' },
-    //   })
-    // );
-    // dispatch(
-    //   patchUser({
-    //     user: { image: 'https://klike.net/uploads/posts/2019-05/1558692542_28.jpg' },
-    //   })
-    // );
   }, [dispatch]);
 
   return (
@@ -115,7 +112,10 @@ const App: FC = () => {
           <Route
             path="modal"
             element={
-              <Modal title="Удалить запись" children={<DeleteConfirm />} />
+              <Modal
+                title="Удалить запись"
+                children={<DeleteConfirm onClick={handleArticleDelete} />}
+              />
             }
           />
         </Routes>

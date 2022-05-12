@@ -14,7 +14,7 @@ const DeleteConfirm: FC<{
       </p>
       <Button
         type="primary"
-        color="primary"
+        color="secondary"
         children="Удалить запись"
         onClick={onClick}
       />

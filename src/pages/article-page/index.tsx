@@ -17,6 +17,7 @@ export const ArticlePage: React.FC = (
   const currentUser = useAppSelector(selectCurrentUser);
 
   useEffect(() => {
+    console.log(id)
     dispatch(getCurrentArticleData(id));
   }, [dispatch, id]);
 
