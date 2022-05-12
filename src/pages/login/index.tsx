@@ -4,13 +4,10 @@ import { Link } from 'react-router-dom';
 import { signIn } from 'services/slices/profile';
 import { useAppDispatch, useAppSelector } from 'services/hooks';
 import { userErrors, isAuth } from 'services/selectors/profile';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { Button } from 'components/button/button';
 
 const LoginPage: FC = () => {
-  const location = useLocation();
-  console.log(location);
-  // const goBackPath = location.state?.from.pathname;
   const dispatch = useAppDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
