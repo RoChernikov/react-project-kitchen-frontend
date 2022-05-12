@@ -10,7 +10,7 @@ import { signOut } from 'services/slices/profile';
 const Header: FC = () => {
   const dispatch = useAppDispatch();
   const history = useNavigate();
-  
+
   return (
     <div className={styles.container}>
       <nav className={styles.nav}>
