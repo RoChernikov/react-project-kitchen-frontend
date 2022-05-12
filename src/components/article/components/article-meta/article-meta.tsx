@@ -24,7 +24,6 @@ const ArticleMeta: FC<IArticleMeta> = ({ article }) => {
   };
 
   return (
-    <div>
       <div className={styles.panel}>
         <div className={styles.info}>
           <Link
@@ -39,7 +38,6 @@ const ArticleMeta: FC<IArticleMeta> = ({ article }) => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
