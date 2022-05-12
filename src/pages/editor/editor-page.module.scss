@@ -5,7 +5,8 @@
   margin: 0 auto;
   max-width: 540px;
   width: 100%;
-  animation: appearance 0.2s forwards;
+  opacity: 0;
+  animation: appearance 0.2s 0.1s forwards;
 }
 
 .editArticle__title {

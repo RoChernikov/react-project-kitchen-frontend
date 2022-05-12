@@ -64,6 +64,7 @@ export const articleSlice = createSlice({
     ) {
       state.currentArticle = action.payload[0];
       state.currentArticle.comments = action.payload[1];
+      state.currentArticlesRequest = false;
     },
     getCurrentArticleRequest(state) {
       state.currentArticlesRequest = true;
@@ -114,7 +115,9 @@ export const articleSlice = createSlice({
     },
     deleteArticleSuccess(state, action: PayloadAction<string>) {
       state.currentArticle = initialState.currentArticle;
-      state.articles = state.articles.filter((article) => article?.slug !== action.payload);
+      state.articles = state.articles.filter(
+        (article) => article?.slug !== action.payload
+      );
     },
     addArticleSuccess(state, action: PayloadAction<TArticle>) {
       state.currentArticle = action.payload;
