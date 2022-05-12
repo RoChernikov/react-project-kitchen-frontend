@@ -1,10 +1,31 @@
 @import '../../scss/mixins';
 
+.mainbox {
+  max-width: 1140px;
+  display: grid;
+  margin: 0 auto;
+  gap: 81px;
+  padding-top: 56px;
+  grid-template-columns: 1.7fr 0.9fr;
+
+  @include mediaMax(1198px) {
+    max-width: 720px;
+  }
+
+  @include mediaMax(900px) {
+    max-width: 620px;
+  }
+
+  @include mediaMax(700px) {
+    max-width: 420px;
+  }
+}
+
 .container {
   margin: 0 auto;
   max-width: 700px;
   background-color: #fff;
-  padding: 40px 0;
+  //padding: 40px 0;
   opacity: 0;
   animation: appearance 0.2s 0.1s forwards;
 
