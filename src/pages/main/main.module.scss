@@ -17,6 +17,7 @@
   gap: 81px;
   padding-top: 56px;
 
+
   @include mediaMax(1198px) {
     max-width: 720px;
   }
@@ -33,6 +34,7 @@
 .rightbord {
   display: grid;
   grid-auto-flow: row;
+  align-self: start;
   grid-row-gap: 56px;
 
   @include mediaMax(800px) {
