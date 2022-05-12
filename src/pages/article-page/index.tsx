@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { selectCurrentArticle } from 'services/selectors/articles';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'services/hooks';
@@ -36,8 +36,6 @@ export const ArticlePage: React.FC = (
           src={article?.link}
           alt={`${article?.title} illustration`}
           className={styles.panel__img} 
-          // в новой версии дизайна с сервера приходит картинка, которая будет тут отображаться.
-          // чтобы ее увидеть, нужно запостить статью из новой формы со ссылкой на иллюстрацию, сейчас пусто
         />
         <div className={styles.container__text}>{article?.body}</div>
         <ul className={styles.container__tags}>

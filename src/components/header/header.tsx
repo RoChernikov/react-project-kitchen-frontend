@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { ReactComponent as HomeIcon } from '../../assets/images/home-icon.svg';
 import { ReactComponent as LoginIcon } from '../../assets/images/login-icon.svg';
 import styles from './header.module.scss';
@@ -9,6 +9,8 @@ import { signOut } from 'services/slices/profile';
 
 const Header: FC = () => {
   const dispatch = useAppDispatch();
+  const history = useNavigate();
+  
   return (
     <div className={styles.container}>
       <nav className={styles.nav}>
@@ -26,6 +28,13 @@ const Header: FC = () => {
         children="LOGOUT BUTTON"
         onClick={() => {
           dispatch(signOut());
+        }}
+      />
+      <Button
+        color="secondary"
+        children="NEW ARTICLE"
+        onClick={() => {
+          history("/new-article")
         }}
       />
       <div className={styles.text_box}>

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk } from 'services/store';
 import api from 'utils/api';
-import { ICommentApi } from 'utils/interfaces';
+import { IArticleApi, ICommentApi } from 'utils/interfaces';
 import { TArticle, TComment } from 'utils/types';
 
 type TInitialState = {
@@ -112,6 +112,14 @@ export const articleSlice = createSlice({
         }
       });
     },
+    deleteArticleSuccess(state, action: PayloadAction<string>) {
+      state.currentArticle = initialState.currentArticle;
+      state.articles = state.articles.filter((article) => article?.slug !== action.payload);
+    },
+    addArticleSuccess(state, action: PayloadAction<TArticle>) {
+      state.currentArticle = action.payload;
+      state.articles.unshift(action.payload);
+    },
     resetArticles() {
       return initialState;
     },
@@ -133,6 +141,8 @@ export const {
   deleteCommentFailed,
   deleteCommentSuccess,
   toggleArticleSuccess,
+  deleteArticleSuccess,
+  addArticleSuccess,
   resetArticles,
 } = articleSlice.actions;
 
@@ -208,6 +218,28 @@ export const unlikeArticle: AppThunk = (slug: string) => (dispatch) => {
     })
     .catch((err) => {
       console.log(`Ошибка удаления лайка статьи: ${err}`);
+    });
+};
+
+export const deleteArticle: AppThunk = (slug: string) => (dispatch) => {
+  api
+    .deleteArticle(slug)
+    .then(() => {
+      dispatch(deleteArticleSuccess(slug));
+    })
+    .catch((err) => {
+      console.log(`Ошибка удаления статьи: ${err}`);
+    });
+};
+
+export const addArticle: AppThunk = (data: IArticleApi) => (dispatch) => {
+  api
+    .createArticle(data)
+    .then((article) => {
+      dispatch(addArticleSuccess(article));
+    })
+    .catch((err) => {
+      console.log(`Ошибка публикации статьи: ${err}`);
     });
 };
 
