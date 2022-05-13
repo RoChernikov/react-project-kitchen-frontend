@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import {
   selectCurrentArticle,
   currentArticleRequest,
 } from 'services/selectors/articles';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'services/hooks';
-import { getCurrentArticleData } from 'services/slices/articles';
+import { getCurrentArticle } from 'services/slices/articles';
 import { selectCurrentUser } from 'services/selectors/profile';
 import ArticleActions from 'components/article/components/article-actions/article-actions';
 import ArticleMeta from 'components/article/components/article-meta/article-meta';
@@ -14,7 +14,7 @@ import styles from './article.module.scss';
 import Loader from 'components/loader/loader';
 import NewestArticles from 'components/newest-articles/newest-articles';
 
-export const ArticlePage: React.FC = () => {
+export const ArticlePage: FC = () => {
   const dispatch = useAppDispatch();
   const article = useAppSelector(selectCurrentArticle);
   const { id } = useParams();
@@ -22,8 +22,8 @@ export const ArticlePage: React.FC = () => {
   const request = useAppSelector(currentArticleRequest);
 
   useEffect(() => {
-    dispatch(getCurrentArticleData(id));
-  }, [dispatch, id]);
+      dispatch(getCurrentArticle(id));
+  }, []);
 
   const canModify =
     currentUser && currentUser.username === article?.author?.username;
@@ -48,7 +48,7 @@ export const ArticlePage: React.FC = () => {
                 {article?.tagList?.map((tag) => {
                   return (
                     <li className={styles.container__tag} key={tag}>
-                      {'# ' + tag}
+                      {tag.length ? `#${tag}` : ''}
                     </li>
                   );
                 })}

@@ -1,50 +1,80 @@
-import { ChangeEvent, FC, SyntheticEvent, useState } from 'react';
+import { ChangeEvent, FC, SyntheticEvent, useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Button } from 'components/button/button';
+import TrashIcon from 'components/icons/trash-icon';
+import { useAppDispatch, useAppSelector } from 'services/hooks';
+import { selectCurrentArticle } from 'services/selectors/articles';
+import { editArticle, getCurrentArticle } from 'services/slices/articles';
 import styles from './editor-page.module.scss';
 
 const EditorPage: FC = () => {
-  const mockArticleData = {
-    title: 'История трудоустройства',
-    about:
-      'Это моя первая работа после четырёхлетнего перерыва. Сначала случился декрет, потом переезд в Амстердам. В новой стране я решила получать новую профессию и оказалась в 22-й когорте направления «Веб-разработка».',
-    image: 'http://site.ru/1351351.jpg',
-    text: 'По местной традиции рассказываю историю моего трудоустройства. Это моя первая работа после четырёхлетнего перерыва. Сначала случился декрет, потом переезд в Амстердам. В новой стране я решила получать новую профессию и оказалась в 22-й когорте направления «Веб-разработка». В сентябре 2021 года я получила диплом. Два месяца, с октября по декабрь, стажировалась (удалённо, бесплатно и part-time) в российской веб-студии P.A.Group, они размещали партнёрскую вакансию через программу акселерации. С нового года я возобновила поиски работы, но уже в Нидерландах. В моей excel-табличке 65 позиций, из них 31 — прямые отказы, остальные — отклики без ответа. Технических интервью было всего четыре, и я все завалила по банальной причине: решала мало задач с CodeWars. Этот навык критически важен, но я их ненавижу, эти задачи, и по вечерам вместо курсов по JS смотрю мультики с дочкой. Тогда через знакомых я познакомилась с девушкой-джуном, и теперь вместе раз-два в неделю мы разбираемся с методами сортировки массивов. Так я нашла подругу и преодолела внутреннее сопротивление.Я обсудила мои неудачи ещё с двумя знакомыми-фронтами. Один прислал интересную задачу для тренировки и предложил сделать её ревью, а второй пригласил помочь ему с pet-проектом, до которого у него самого не доходят руки. И осевшие на дне памяти знания начали всплывать. И это единственный мой совет: если вы не можете собраться в кучу и тонете в ощущении собственной бестолковости, попросите помощи у друзей и знакомых. Возможно, вам нужна одна решённая задачка, чтобы вы снова почувствовали веру в себя.Оффер я приняла от компании, создающей веб-приложения с использованием low-code/no-code платформы. HR сама нашла меня в LinkedIn. Я прошла два интервью: звонок-знакомство и детальное обсуждение позиции. Технического интервью не было, потому что работа не предполагает разработку приложений с нуля. Если вы не смотрели в сторону компаний low-code или, как я, даже не знали о них, погуглите. Возможно, это и ваш путь. Казалось бы, к чему тогда задачки, pet-проекты и все буквы выше? Я надеюсь, что всё пригодится. Да, я не могу за выходные освоить библиотеку или написать тестовое на неизвестном мне фреймворке — значит, пойду маленькими шагами. Пожелайте мне удачи ))',
-    tags: 'опыт, первая работа, стажировка, pet-проекты',
-  };
+  const dispatch = useAppDispatch();
+  const history = useNavigate();
+  const location = useLocation();
+  const article = useAppSelector(selectCurrentArticle);
+  const { id } = useParams();
 
-  const [title, setTitle] = useState<string>(mockArticleData.title);
-  const [about, setAbout] = useState<string>(mockArticleData.about);
-  const [image, setImage] = useState<string>(mockArticleData.image);
-  const [text, setText] = useState<string>(mockArticleData.text);
-  const [tags, setTags] = useState<string>(mockArticleData.tags);
+  const [title, setTitle] = useState('');
+  const [description, setAbout] = useState('');
+  const [link, setImage] = useState('');
+  const [body, setText] = useState('');
+  const [tags, setTags] = useState('');
+  const [inProgress, setInProgress] = useState(false);
+
+  useEffect(() => {
+    dispatch(getCurrentArticle(id));
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    if (article && !inProgress) {
+      setTitle(article.title);
+      setAbout(article.description);
+      setImage(article.link);
+      setText(article.body);
+      setTags(article.tagList.map((tag) => tag.trim()).join(', '));
+    }
+  }, [article, inProgress]);
 
   const onTitleChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    evt.preventDefault();
     setTitle(evt.target.value);
+    setInProgress(true);
   };
   const onAboutChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
     setAbout(evt.target.value);
+    setInProgress(true);
   };
   const onImageChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setImage(evt.target.value);
+    setInProgress(true);
   };
   const onTextChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
     setText(evt.target.value);
+    setInProgress(true);
   };
   const onTagsChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setTags(evt.target.value);
+    setInProgress(true);
   };
 
   const onEditComfirm = (evt: SyntheticEvent) => {
     evt.preventDefault();
-  };
-  const onDeleteComfirm = (evt: SyntheticEvent) => {
-    evt.preventDefault();
+    const editedArticleData = {
+      article: {
+        title,
+        description,
+        body,
+        link,
+        tagList: Array.from(new Set(tags?.split(','))),
+      },
+    };
+    dispatch(editArticle(article?.slug, editedArticleData));
+    history(`/articles/${article?.slug}`);
   };
 
   return (
     <div className={styles.editArticle}>
       <h1 className={styles.editArticle__title}>Редактировать запись</h1>
-      <form className={styles.editArticle__form}>
+      <form className={styles.editArticle__form} onSubmit={onEditComfirm}>
         <label className={styles.editArticle__label}>
           <p className={styles.editArticle__labelText}>Название статьи</p>
           <input
@@ -62,7 +92,7 @@ const EditorPage: FC = () => {
             name="about"
             className={`${styles.editArticle__input} ${styles.editArticle__input_textarea}`}
             rows={4}
-            value={about}
+            value={description}
             required
           />
         </label>
@@ -73,18 +103,18 @@ const EditorPage: FC = () => {
           <input
             className={styles.editArticle__input}
             onChange={onImageChange}
-            name="image"
-            value={image}
+            name="link"
+            value={link}
           />
         </label>
         <label className={styles.editArticle__label}>
           <p className={styles.editArticle__labelText}>Текст статьи</p>
           <textarea
             onChange={onTextChange}
-            name="text"
+            name="body"
             className={`${styles.editArticle__input} ${styles.editArticle__input_textarea}`}
             rows={24}
-            value={text}
+            value={body}
             required
           />
         </label>
@@ -99,13 +129,19 @@ const EditorPage: FC = () => {
           />
         </label>
         <div className={styles.editArticle__buttons}>
-          <button className={styles.editArticle__submitBtn} type="submit">
-            Сохранить запись
-          </button>
-          <button className={styles.editArticle__deleteBtn} type="button">
-            <div className={styles.editArticle__deleteIcon} />
-            Удалить запись
-          </button>
+          <Button
+            type="primary"
+            htmlType="submit"
+            children="Сохранить запись"
+            icon={<TrashIcon />}
+          />
+          <Link to={`/modal`} state={{ backgroundLocation: location }}>
+            <Button
+              type="secondary"
+              children="Удалить запись"
+              icon={<TrashIcon />}
+            />
+          </Link>
         </div>
       </form>
     </div>

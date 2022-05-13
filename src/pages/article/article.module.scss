@@ -25,7 +25,6 @@
   margin: 0 auto;
   max-width: 700px;
   background-color: #fff;
-  //padding: 40px 0;
   opacity: 0;
   animation: appearance 0.2s 0.1s forwards;
 
@@ -35,7 +34,7 @@
     font-size: 56px;
     line-height: 64px;
     font-family: 'Alegreya Sans', sans-serif;
-    padding-bottom: 24px;
+    padding: 22px 0;
   }
 
   &__text {

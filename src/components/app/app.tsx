@@ -13,6 +13,7 @@ import {
   selectCurrentArticle,
   selectArticlesRequest,
 } from 'services/selectors/articles';
+import { getUser } from 'services/slices/profile';
 const MainPage = lazy(() => import('../../pages/main'));
 const LoginPage = lazy(() => import('../../pages/login'));
 const RegisterPage = lazy(() => import('../../pages/register'));
@@ -33,11 +34,12 @@ const App: FC = () => {
 
   const handleArticleDelete = () => {
     dispatch(deleteArticle(article?.slug));
-    history(`/`);
+    history('/', { replace: true })
   };
 
   useEffect(() => {
     dispatch(getArticlesData());
+    dispatch(getUser());
   }, [dispatch]);
 
   return (
@@ -105,7 +107,7 @@ const App: FC = () => {
                 }
               />
               <Route
-                path="editor"
+                path="editor/:id"
                 element={
                   <Suspense fallback={<Loader />}>
                     <EditorPage />
