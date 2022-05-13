@@ -23,20 +23,43 @@ const Header: FC = () => {
           <span className={styles.nav__text}>Войти</span>
         </Link>
       </nav>
-      <Button
-        color="secondary"
-        children="LOGOUT BUTTON"
-        onClick={() => {
-          dispatch(signOut());
-        }}
-      />
-      <Button
-        color="secondary"
-        children="NEW ARTICLE"
-        onClick={() => {
-          history("/new-article")
-        }}
-      />
+      <div
+        style={{
+          padding: 10,
+          opacity: '.9',
+          display: 'flex',
+          gap: 30,
+          position: 'absolute',
+          top: 50,
+          left: '50%',
+          transform: 'translate(-50%, 0)',
+          margin: 'auto',
+          zIndex: 999,
+          backgroundColor: '#fff',
+        }}>
+        <Button
+          color="secondary"
+          children="LOGOUT BUTTON"
+          onClick={() => {
+            dispatch(signOut());
+          }}
+        />
+        <Button
+          color="secondary"
+          children="NEW ARTICLE"
+          onClick={() => {
+            history('/new-article');
+          }}
+        />
+        <Button
+          color="primary"
+          children="SETTINGS"
+          onClick={() => {
+            history('/settings');
+          }}
+        />
+      </div>
+
       <div className={styles.text_box}>
         <h1 className={styles.title}>Когда вырасту</h1>
         <p className={styles.description}>

@@ -37,6 +37,7 @@ const LoginPage: FC = () => {
           <label className={styles.login__label}>
             Email
             <input
+              type="email"
               className={styles.login__input}
               onChange={(e) => {
                 setEmail(e.target.value);

@@ -60,6 +60,7 @@ const RegisterPage: FC = () => {
           <label className={styles.register__label}>
             Email
             <input
+              type="email"
               className={styles.register__input}
               onChange={(e) => {
                 setEmail(e.target.value);
