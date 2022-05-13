@@ -34,7 +34,7 @@ const App: FC = () => {
 
   const handleArticleDelete = () => {
     dispatch(deleteArticle(article?.slug));
-    history('/', { replace: true })
+    history('/', { replace: true });
   };
 
   useEffect(() => {
@@ -67,7 +67,7 @@ const App: FC = () => {
                 }
               />
               <Route
-                path="profile"
+                path="profile/@:username"
                 element={
                   <Suspense fallback={<Loader />}>
                     <ProfilePage />
