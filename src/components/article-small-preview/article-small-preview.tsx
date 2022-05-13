@@ -1,7 +1,8 @@
 import { FC } from 'react';
-import { toLocalDate } from 'utils/date-time';
 import styles from './article-small-preview.module.scss';
 import { Link } from 'react-router-dom';
+import Author from '../../components/author';
+import { toLocalDate } from 'utils/date-time';
 
 interface IArticleSmallPreview {
   author: string;
@@ -23,22 +24,7 @@ const ArticleSmallPreview: FC<IArticleSmallPreview> = ({
   return (
     <div className={styles.articleSmallPreview}>
       <div className={styles.articleSmallPreview__info}>
-        <Link
-          to={`/profile/@${author}`}
-          className={styles.articleSmallPreview__author}>
-          <img
-            className={styles.articleSmallPreview__image}
-            alt={author}
-            src={image}
-          />
-          <div className={styles.articleSmallPreview__personal}>
-            <p className={styles.articleSmallPreview__authorName}>{author}</p>
-            <p className={styles.articleSmallPreview__date}>
-              {toLocalDate(date)}
-            </p>
-          </div>
-        </Link>
-
+        <Author username={author} image={image} date={toLocalDate(date)} />
         <div className={styles.articleSmallPreview__likes}>
           <p className={styles.articleSmallPreview__likesCounter}>{likes}</p>
           <div className={styles.articleSmallPreview__likesIcon} />

@@ -18,12 +18,6 @@
     line-height: 24px;
     font-family: 'Alegreya', sans-serif;
   }
-
-  &__img {
-    width: 31px;
-    height: 31px;
-    border-radius: 100px;
-  }
 }
 
 @include breakpoint('container', 800px) {
@@ -40,51 +34,9 @@
 }
 
 .smallcontainer {
-  padding-top: 24px;
+  padding: 24px 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-}
-
-.box {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-
-  &__info {
-    display: flex;
-    flex-direction: column;
-    padding-left: 13px;
-  }
-
-  &__name {
-    font-family: 'Alegreya Sans', sans-serif;
-    color: #62626a;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
-    padding-bottom: 4px;
-    text-decoration: none;
-  }
-
-  &__date {
-    font-family: 'Alegreya Sans', sans-serif;
-    color: #62626a;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 16px;
-    padding-bottom: 24px;
-    text-decoration: none;
-  }
-
-  &__trash button {
-    margin: 0;
-    padding: 0;
-  }
-
-  &__trash svg {
-    margin: 0;
-    padding: 0;
-  }
 }
