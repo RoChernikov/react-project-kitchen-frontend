@@ -1,4 +1,5 @@
 import React, { FC, useState, useCallback, SyntheticEvent } from 'react';
+import { useForm } from 'react-hook-form';
 import styles from './login-page.module.scss';
 import { Link } from 'react-router-dom';
 import { signIn } from 'services/slices/profile';
@@ -7,6 +8,11 @@ import { userErrors, isAuth } from 'services/selectors/profile';
 import { Navigate } from 'react-router-dom';
 import { Button } from 'components/button/button';
 
+type TLoginFormData = {
+  email: string;
+  password: string;
+};
+
 const LoginPage: FC = () => {
   const dispatch = useAppDispatch();
   const [email, setEmail] = useState('');
@@ -14,13 +20,33 @@ const LoginPage: FC = () => {
   const loginErrors = useAppSelector(userErrors);
   const auth = useAppSelector(isAuth);
 
-  const handleLoginSubmit = useCallback(
+  const {
+    register,
+    formState: { errors, isValid },
+    handleSubmit,
+    reset,
+  } = useForm<TLoginFormData>({
+    mode: 'onBlur',
+    defaultValues: {
+      password: '',
+      email: '',
+    },
+  });
+
+  /*const handleLoginSubmit = useCallback(
     (evt: SyntheticEvent) => {
       evt.preventDefault();
       dispatch(signIn({ user: { email: email, password: password } }));
     },
     [dispatch, email, password]
-  );
+  );*/
+
+  const onLoginSubmit = ({ email, password }: TLoginFormData) => {
+    alert(JSON.stringify({ email, password }));
+    // evt.preventDefault();
+    dispatch(signIn({ user: { email: email, password: password } }));
+    reset();
+  };
 
   if (auth) {
     return <Navigate to={{ pathname: '/' }} />;
@@ -39,19 +65,20 @@ const LoginPage: FC = () => {
             <input
               type="email"
               className={styles.login__input}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}></input>
+              {...register('email', {
+                required: 'Пожалуйста, заполните это поле',
+                pattern: {
+                  value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+                  message: 'Введите Email в формате username@example.com',
+                },
+              })}></input>
           </label>
           <div className={styles.login__errorsWrapper}>
-            {Object.keys(loginErrors).length !== 0 && (
+            {errors?.email && (
               <p className={styles.login__errorText}>
-                {loginErrors.email === "can't be blank"
-                  ? 'Поле не может быть пустым'
-                  : 'Некорректный логин или пароль'}
+                {errors?.email?.message}
               </p>
             )}
-            {/* тут нужна валидация, пока оставлю так */}
           </div>
 
           <label className={styles.login__label}>
@@ -59,27 +86,28 @@ const LoginPage: FC = () => {
             <input
               type="password"
               className={styles.login__input}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}></input>
+              {...register('password', {
+                required: 'Пожалуйста, заполните это поле',
+                minLength: {
+                  value: 5,
+                  message: 'Пароль должен быть не менее 5 символов',
+                },
+              })}></input>
           </label>
           <div className={styles.login__errorsWrapper}>
-            {Object.keys(loginErrors).length !== 0 && loginErrors.password && (
+            {errors?.password && (
               <p className={styles.login__errorText}>
-                {loginErrors.password === "can't be blank"
-                  ? 'Поле не может быть пустым'
-                  : 'Некорректный логин или пароль'}
+                {errors?.password?.message}
               </p>
             )}
-            {/* тут нужна валидация, пока оставлю так */}
           </div>
-
           <div className={styles.login__button}>
             <Button
               color="primary"
               type="primary"
               children="Войти"
-              onClick={handleLoginSubmit}
+              onClick={handleSubmit(onLoginSubmit)}
+              disabled={!isValid}
             />
           </div>
         </fieldset>
@@ -89,3 +117,5 @@ const LoginPage: FC = () => {
 };
 
 export default LoginPage;
+
+// @ts-ignore

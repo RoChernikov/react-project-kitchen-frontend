@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { IUserApi, ICommentApi, IArticleApi } from './interfaces';
 import { getCookie } from './cookie';
-const BASE_URL = 'http://localhost:3000/api';
+//const BASE_URL = 'http://localhost:3000/api';
+const BASE_URL = 'https://api.kspshnik.xyz/redtypes-blog/api';
 
 type TBaseUrl = { baseUrl: string };
 
@@ -135,15 +136,17 @@ class Api {
   }
 
   updateArticle(slug: string, data: IArticleApi) {
-    return axios.put(
-      `${BASE_URL}/articles/${slug}`,
-      { ...data },
-      {
-        headers: {
-          Authorization: `Bearer ${getCookie('accessToken')}`,
-        },
-      }
-    ).then((response) => response.data.article);
+    return axios
+      .put(
+        `${BASE_URL}/articles/${slug}`,
+        { ...data },
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie('accessToken')}`,
+          },
+        }
+      )
+      .then((response) => response.data.article);
   }
 
   getArticle(slug: string) {
