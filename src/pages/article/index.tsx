@@ -13,6 +13,7 @@ import CommentContainer from 'components/article/components/comment-container/co
 import styles from './article.module.scss';
 import Loader from 'components/loader/loader';
 import NewestArticles from 'components/newest-articles/newest-articles';
+import InviteLogin from 'components/invite-login/invite-login';
 
 export const ArticlePage: FC = () => {
   const dispatch = useAppDispatch();
@@ -62,11 +63,8 @@ export const ArticlePage: FC = () => {
                   currentUser={currentUser}
                 />
               ) : (
-                <div
-                  style={{ border: '3px dashed red', margin: 50, padding: 50 }}>
-                  ТУТ НУЖНО СООБЩЕНИЕ О НЕОБХОДИМОСТИ АВТОРИЗОВАТЬСЯ ДЛЯ ТОГО,
-                  ЧТОБЫ ОСТАВИТЬ КОММЕНТАРИЙ И ССЫЛКА НА СТРАНИЦУ АВТОРИЗАЦИИ
-                </div>
+                <InviteLogin />
+
               )}
             </div>
           </div>

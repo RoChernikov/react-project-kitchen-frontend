@@ -13,6 +13,7 @@ import PopularTags from 'components/popular-tags/popular-tags';
 import api from 'utils/api';
 import Loader from 'components/loader/loader';
 
+
 const MainPage: FC = () => {
   const dispatch = useAppDispatch();
   const articles = useAppSelector(selectLazyArticles);
@@ -47,7 +48,7 @@ const MainPage: FC = () => {
   };
 
   if (articles.length === 0) {
-    return <div className="article-preview">No articles are here... yet.</div>;
+    return <div className="article-preview">Пока статей нет, но мы работаем над их появлением!</div>;
   }
 
   return (
@@ -56,7 +57,7 @@ const MainPage: FC = () => {
       next={fetchData}
       hasMore={hasMore}
       loader={<Loader scale={0.5} />}
-      endMessage={<p className={styles.endMsg}>Yay! You have seen it all</p>}>
+      endMessage={<p className={styles.endMsg}>Теперь ты знаешь все!</p>}>
       <div className={styles.container}>
         <ul className={styles.main}>
           {articles.map((article) => {
