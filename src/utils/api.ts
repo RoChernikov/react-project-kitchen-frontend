@@ -58,7 +58,9 @@ class Api {
 
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++PROFILE
   getProfile(username: string) {
-    return axios.get(`${BASE_URL}/profiles/${username}`);
+    return axios
+      .get(`${BASE_URL}/profiles/${username}`)
+      .then((res) => res.data);
   }
 
   followUser(username: string) {
@@ -135,15 +137,17 @@ class Api {
   }
 
   updateArticle(slug: string, data: IArticleApi) {
-    return axios.put(
-      `${BASE_URL}/articles/${slug}`,
-      { ...data },
-      {
-        headers: {
-          Authorization: `Bearer ${getCookie('accessToken')}`,
-        },
-      }
-    ).then((response) => response.data.article);
+    return axios
+      .put(
+        `${BASE_URL}/articles/${slug}`,
+        { ...data },
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie('accessToken')}`,
+          },
+        }
+      )
+      .then((response) => response.data.article);
   }
 
   getArticle(slug: string) {

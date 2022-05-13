@@ -47,6 +47,7 @@ const PopularArticles: FC = () => {
                     title={article.title}
                     likes={article.favoritesCount}
                     date={article.updatedAt}
+                    slug={article.slug}
                   />
                 </li>
               );

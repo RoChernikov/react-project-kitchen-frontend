@@ -2,12 +2,13 @@ import Api from '../../utils/api';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk, AppDispatch } from '../../services/store';
 import { getCookie, setCookie, deleteCookie } from '../../utils/cookie';
-import { TStatus, TUser, TErrors } from '../../utils/types';
+import { TStatus, TUser, TProfile, TErrors } from '../../utils/types';
 import { IUserApi } from '../../utils/interfaces';
 
 type TInitialState = {
   status: TStatus;
   user: TUser;
+  selectedProfile: TProfile | null;
   isAuth: boolean;
   errors: TErrors;
   following: boolean;
@@ -21,6 +22,7 @@ export const initialState: TInitialState = {
     bio: '',
     image: '',
   },
+  selectedProfile: null,
   isAuth: !!getCookie('accessToken'),
   errors: {},
   following: false,
@@ -58,6 +60,12 @@ export const profileSlice = createSlice({
       state.isAuth = false;
       deleteCookie('accessToken');
     },
+    setSelectedProfileSuccess(state, action: PayloadAction<TProfile>) {
+      state.selectedProfile = action.payload;
+    },
+    resetSelectedProfile(state) {
+      state.selectedProfile = null;
+    },
   },
 });
 
@@ -69,6 +77,8 @@ export const {
   setAuth,
   setErrors,
   signOut,
+  setSelectedProfileSuccess,
+  resetSelectedProfile,
 } = profileSlice.actions;
 
 export const signIn: AppThunk = (data: IUserApi) => (dispatch: AppDispatch) => {
@@ -128,6 +138,21 @@ export const patchUser: AppThunk =
     Api.patchUser(data)
       .then((res) => {
         dispatch(setUser(res.user));
+        dispatch(setStatusSuccess());
+      })
+      .catch((err) => {
+        dispatch(setStatusFailed());
+        console.log(err.message);
+        dispatch(setErrors(err.response.data.errors));
+      });
+  };
+
+export const getProfile: AppThunk =
+  (username: string) => (dispatch: AppDispatch) => {
+    dispatch(setStatusPending());
+    Api.getProfile(username)
+      .then((res) => {
+        dispatch(setSelectedProfileSuccess(res.profile));
         dispatch(setStatusSuccess());
       })
       .catch((err) => {

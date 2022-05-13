@@ -22,8 +22,8 @@ export const ArticlePage: FC = () => {
   const request = useAppSelector(currentArticleRequest);
 
   useEffect(() => {
-      dispatch(getCurrentArticle(id));
-  }, []);
+    dispatch(getCurrentArticle(id));
+  }, [dispatch, id]);
 
   const canModify =
     currentUser && currentUser.username === article?.author?.username;
