@@ -59,7 +59,7 @@ const NewArticlePage: FC = () => {
   return (
     <section className={styles.newArticle}>
       <h2 className={styles.newArticle__title}>Новая запись</h2>
-      <form className={styles.newArticle__form}>
+      <form className={styles.newArticle__form} onSubmit={handleNewArticleSubmit}>
         <fieldset className={styles.newArticle__fieldset}>
           <label className={styles.newArticle__label}>
             Название статьи
@@ -135,8 +135,8 @@ const NewArticlePage: FC = () => {
             <Button
               color="primary"
               type="primary"
+              htmlType='submit'
               children="Опубликовать запись"
-              onClick={handleNewArticleSubmit}
             />
           </div>
         </fieldset>

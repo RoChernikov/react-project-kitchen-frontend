@@ -143,7 +143,7 @@ class Api {
           Authorization: `Bearer ${getCookie('accessToken')}`,
         },
       }
-    );
+    ).then((response) => response.data.article);
   }
 
   getArticle(slug: string) {

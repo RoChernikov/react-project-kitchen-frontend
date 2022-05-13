@@ -12,10 +12,6 @@ type TInitialState = {
   fetchLazyStatus: TStatus;
   tags: string[];
   tag: string | null;
-  tab: string | null;
-  pager: any;
-  inProgress: boolean;
-  editTags: string[];
   lazyArticlesRequest: boolean;
   lazyArticlesSuccess: boolean;
   lazyArticlesFailed: boolean;
@@ -37,10 +33,6 @@ export const initialState: TInitialState = {
   fetchLazyStatus: 'success',
   tags: [],
   tag: null,
-  tab: null,
-  pager: null,
-  inProgress: true,
-  editTags: [],
   lazyArticlesRequest: false,
   lazyArticlesSuccess: false,
   lazyArticlesFailed: false,
@@ -122,7 +114,6 @@ export const articleSlice = createSlice({
       state.addCommentRequest = false;
     },
     addCommentSuccess(state, action: PayloadAction<TComment>) {
-      // commentErrors: action.error ? action.payload.errors : null,
       state.currentArticle?.comments.unshift(action.payload);
     },
     deleteCommentRequest(state) {
@@ -150,16 +141,39 @@ export const articleSlice = createSlice({
           article.favoritesCount = action.payload.favoritesCount;
         }
       });
+      state.lazyArticles.forEach((article) => {
+        if (state.currentArticle && article?.slug === action.payload.slug) {
+          article.favorited = action.payload.favorited;
+          article.favoritesCount = action.payload.favoritesCount;
+        }
+      });
     },
     deleteArticleSuccess(state, action: PayloadAction<string>) {
       state.currentArticle = initialState.currentArticle;
       state.articles = state.articles.filter(
         (article) => article?.slug !== action.payload
       );
+      state.lazyArticles = state.articles.filter(
+        (article) => article?.slug !== action.payload
+      );
     },
     addArticleSuccess(state, action: PayloadAction<TArticle>) {
       state.currentArticle = action.payload;
       state.articles.unshift(action.payload);
+      state.lazyArticles.unshift(action.payload);
+    },
+    editArticleSuccess(state, action: PayloadAction<TArticle>) {
+      state.articles.forEach((article) => {
+        if (state.currentArticle && article?.slug === action.payload.slug) {
+          state.currentArticle = action.payload;
+          const editedArticleIndex = state.articles.findIndex(
+            (article) => article?.slug === action.payload.slug
+          );
+          state.articles[editedArticleIndex] = action.payload;
+          state.lazyArticles[editedArticleIndex] = action.payload;
+        }
+      });
+      state.currentArticle = initialState.currentArticle;
     },
     resetArticles() {
       return initialState;
@@ -188,6 +202,7 @@ export const {
   toggleArticleSuccess,
   deleteArticleSuccess,
   addArticleSuccess,
+  editArticleSuccess,
   resetArticles,
 } = articleSlice.actions;
 
@@ -216,7 +231,7 @@ export const getArticlesData: AppThunk = () => (dispatch: AppDispatch) => {
     });
 };
 
-export const getCurrentArticleData: AppThunk =
+export const getCurrentArticle: AppThunk =
   (slug: string) => (dispatch: AppDispatch) => {
     dispatch(getCurrentArticleRequest());
     Promise.all([api.getArticle(slug), api.getComments(slug)])
@@ -302,6 +317,18 @@ export const addArticle: AppThunk =
       })
       .catch((err) => {
         console.log(`Ошибка публикации статьи: ${err}`);
+      });
+  };
+
+  export const editArticle: AppThunk =
+  (slug: string, data: IArticleApi) => (dispatch: AppDispatch) => {
+    api
+      .updateArticle(slug, data)
+      .then((article) => {
+        dispatch(editArticleSuccess(article));
+      })
+      .catch((err) => {
+        console.log(`Ошибка обновления статьи: ${err}`);
       });
   };
 

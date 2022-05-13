@@ -18,7 +18,7 @@ const NewestArticles: FC = () => {
     arr
       .slice(1)
       .forEach((element: TArticle) =>
-        element.updatedAt < pivot.updatedAt
+        element.updatedAt > pivot.updatedAt
           ? less.push(element)
           : greater.push(element)
       );

@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { toLocalDate } from 'utils/date-time';
 import styles from './article-small-preview.module.scss';
 
 interface IArticleSmallPreview {
@@ -16,7 +17,7 @@ const ArticleSmallPreview:FC<IArticleSmallPreview> = ({ author, image, title, li
         <img className={styles.articleSmallPreview__image} alt={author} src={image}/>
         <div className={styles.articleSmallPreview__personal}>
           <a className={styles.articleSmallPreview__authorLink} href="#">{author}</a>
-          <p className={styles.articleSmallPreview__date}>{date}</p>
+          <p className={styles.articleSmallPreview__date}>{toLocalDate(date)}</p>
         </div>
         <div className={styles.articleSmallPreview__likes}>
           <p className={styles.articleSmallPreview__likesCounter}>{likes}</p>
