@@ -39,7 +39,7 @@ const NewestArticles: FC = () => {
             {sortedArticlesByDate.map((article: TArticle) => {
               return (
                 <li
-                  key={article.updatedAt}
+                  key={article.slug}
                   className={styles.newestArticles__item}>
                   <ArticleSmallPreview
                     author={article.author.username}
@@ -48,6 +48,7 @@ const NewestArticles: FC = () => {
                     likes={article.favoritesCount}
                     date={article.updatedAt}
                     slug={article.slug}
+                    favorited={article.favorited}
                   />
                 </li>
               );

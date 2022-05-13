@@ -3,6 +3,7 @@ import styles from './article-small-preview.module.scss';
 import { Link } from 'react-router-dom';
 import Author from '../../components/author';
 import { toLocalDate } from 'utils/date-time';
+import { LikeButton } from 'components/like-button/like-button';
 
 interface IArticleSmallPreview {
   author: string;
@@ -11,6 +12,7 @@ interface IArticleSmallPreview {
   likes: number;
   date: string;
   slug: string;
+  favorited: boolean;
 }
 
 const ArticleSmallPreview: FC<IArticleSmallPreview> = ({
@@ -20,6 +22,7 @@ const ArticleSmallPreview: FC<IArticleSmallPreview> = ({
   likes,
   date,
   slug,
+  favorited
 }) => {
   return (
     <div className={styles.articleSmallPreview}>
@@ -27,7 +30,7 @@ const ArticleSmallPreview: FC<IArticleSmallPreview> = ({
         <Author username={author} image={image} date={toLocalDate(date)} />
         <div className={styles.articleSmallPreview__likes}>
           <p className={styles.articleSmallPreview__likesCounter}>{likes}</p>
-          <div className={styles.articleSmallPreview__likesIcon} />
+          <LikeButton active={favorited} />
         </div>
       </div>
       <Link
