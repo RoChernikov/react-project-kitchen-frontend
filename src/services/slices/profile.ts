@@ -89,7 +89,7 @@ export const signIn: AppThunk = (data: IUserApi) => (dispatch: AppDispatch) => {
     });
 };
 
-export const register: AppThunk =
+export const registerUser: AppThunk =
   (data: IUserApi) => (dispatch: AppDispatch) => {
     dispatch(setStatusPending());
     Api.register(data)

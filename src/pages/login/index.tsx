@@ -1,4 +1,4 @@
-import React, { FC, useState, useCallback, SyntheticEvent } from 'react';
+import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './login-page.module.scss';
 import { Link } from 'react-router-dom';
@@ -15,8 +15,6 @@ type TLoginFormData = {
 
 const LoginPage: FC = () => {
   const dispatch = useAppDispatch();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const loginErrors = useAppSelector(userErrors);
   const auth = useAppSelector(isAuth);
 
@@ -26,24 +24,14 @@ const LoginPage: FC = () => {
     handleSubmit,
     reset,
   } = useForm<TLoginFormData>({
-    mode: 'onBlur',
+    mode: 'onChange',
     defaultValues: {
       password: '',
       email: '',
     },
   });
 
-  /*const handleLoginSubmit = useCallback(
-    (evt: SyntheticEvent) => {
-      evt.preventDefault();
-      dispatch(signIn({ user: { email: email, password: password } }));
-    },
-    [dispatch, email, password]
-  );*/
-
   const onLoginSubmit = ({ email, password }: TLoginFormData) => {
-    alert(JSON.stringify({ email, password }));
-    // evt.preventDefault();
     dispatch(signIn({ user: { email: email, password: password } }));
     reset();
   };
@@ -51,14 +39,16 @@ const LoginPage: FC = () => {
   if (auth) {
     return <Navigate to={{ pathname: '/' }} />;
   }
-
+  //TODO красная рамка на поле при ошибке
   return (
     <section className={styles.login}>
       <h2 className={styles.login__title}>Войти</h2>
       <Link to="/register" className={styles.login__link}>
         Зарегистрироваться
       </Link>
-      <form className={styles.login__form}>
+      <form
+        className={styles.login__form}
+        onSubmit={handleSubmit(onLoginSubmit)}>
         <fieldset className={styles.login__fieldset}>
           <label className={styles.login__label}>
             Email
@@ -80,6 +70,7 @@ const LoginPage: FC = () => {
               </p>
             )}
           </div>
+          {/*тут должен быть ответ сервера про неверный логин пароль*/}
 
           <label className={styles.login__label}>
             Пароль
@@ -101,12 +92,13 @@ const LoginPage: FC = () => {
               </p>
             )}
           </div>
+          {/*тут должен быть ответ сервера про неверный логин пароль*/}
+
           <div className={styles.login__button}>
             <Button
               color="primary"
               type="primary"
               children="Войти"
-              onClick={handleSubmit(onLoginSubmit)}
               disabled={!isValid}
             />
           </div>

@@ -12,6 +12,14 @@ import { selectCurrentUser } from 'services/selectors/profile';
 import { patchUser } from 'services/slices/profile';
 import styles from './settings-page.module.scss';
 import { Button } from 'components/button/button';
+import { useForm } from 'react-hook-form';
+
+type TSettingsFormData = {
+  avatar: string;
+  username: string;
+  email: string;
+  password: string;
+};
 
 const SettingsPage: FC = () => {
   const navigate = useNavigate();
@@ -22,23 +30,41 @@ const SettingsPage: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSettingsSubmit = useCallback(
-    (evt: SyntheticEvent) => {
-      evt.preventDefault();
-      dispatch(
-        patchUser({
-          user: {
-            username: username,
-            email: email,
-            password: password,
-            image: avatar,
-          },
-        })
-      );
-      navigate(`/profile/@${username}`);
+  const {
+    register,
+    formState: { errors, isValid },
+    handleSubmit,
+    reset,
+  } = useForm<TSettingsFormData>({
+    mode: 'onChange',
+    defaultValues: {
+      username: user.username,
+      email: user.email,
+      password: '',
+      avatar: user.image,
     },
-    [navigate, dispatch, avatar, password, email, username]
-  );
+  });
+
+  const onSettingsSubmit = ({
+    username,
+    email,
+    password,
+    avatar,
+  }: TSettingsFormData) => {
+    alert(JSON.stringify({ username, email, password, avatar }));
+    dispatch(
+      patchUser({
+        user: {
+          username: username,
+          email: email,
+          password: password,
+          image: avatar,
+        },
+      })
+    );
+    reset();
+    navigate(`/profile/@${username}`);
+  };
 
   useEffect(() => {
     if (user) {
@@ -48,75 +74,95 @@ const SettingsPage: FC = () => {
     }
   }, [user]);
 
+  //TODO красная рамка на поле при ошибке
   return (
     <section className={styles.settings}>
       <h2 className={styles.settings__title}>Ваши настройки</h2>
-      <form className={styles.settings__form}>
+      <form
+        className={styles.settings__form}
+        onSubmit={handleSubmit(onSettingsSubmit)}>
         <fieldset className={styles.settings__fieldset}>
           <label className={styles.settings__label}>
             URL изображения профиля
             <input
-              value={avatar}
-              name="avatar"
+              type="url"
               className={styles.settings__input}
-              onChange={(e) => {
-                setAvatar(e.target.value);
-              }}></input>
+              {...register('avatar', {
+                pattern: {
+                  value:
+                    /^((ftp|http|https):\/\/)?(www\.)?([A-Za-zА-Яа-я0-9]{1}[A-Za-zА-Яа-я0-9\-]*\.?)*\.{1}[A-Za-zА-Яа-я0-9-]{2,8}(\/([\w#!:.?+=&%@!\-\/])*)?/,
+                  message: 'Неверный формат ссылки',
+                },
+              })}></input>
           </label>
           <div className={styles.settings__errorsWrapper}>
-            <p className={styles.settings__errorText}>
-              {/* тут нужна валидация, пока оставлю так */}
-            </p>
+            {errors?.avatar && (
+              <p className={styles.settings__errorText}>
+                {errors?.avatar?.message}
+              </p>
+            )}
           </div>
 
           <label className={styles.settings__label}>
             Имя пользователя
             <input
-              value={username}
-              name="username"
+              type="text"
               className={styles.settings__input}
-              onChange={(e) => {
-                setUsername(e.target.value);
-              }}></input>
+              {...register('username', {
+                required: 'Пожалуйста, заполните это поле',
+                minLength: {
+                  value: 2,
+                  message: 'Имя пользователя должно быть не менее 2 символов',
+                },
+              })}></input>
           </label>
           <div className={styles.settings__errorsWrapper}>
-            <p className={styles.settings__errorText}>
-              {/* тут нужна валидация, пока оставлю так */}
-            </p>
+            {errors?.username && (
+              <p className={styles.settings__errorText}>
+                {errors?.username?.message}
+              </p>
+            )}
           </div>
 
           <label className={styles.settings__label}>
             E-mail
             <input
-              value={email}
               type="email"
-              name="email"
               className={styles.settings__input}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}></input>
+              {...register('email', {
+                required: 'Пожалуйста, заполните это поле',
+                pattern: {
+                  value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+                  message: 'Введите Email в формате username@example.com',
+                },
+              })}></input>
           </label>
           <div className={styles.settings__errorsWrapper}>
-            <p className={styles.settings__errorText}>
-              {/* тут нужна валидация, пока оставлю так */}
-            </p>
+            {errors?.email && (
+              <p className={styles.settings__errorText}>
+                {errors?.email?.message}
+              </p>
+            )}
           </div>
 
           <label className={styles.settings__label}>
             Новый пароль
             <input
               type="password"
-              name="password"
-              value={password}
               className={styles.settings__input}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}></input>
+              {...register('password', {
+                minLength: {
+                  value: 5,
+                  message: 'Пароль должен быть не менее 5 символов',
+                },
+              })}></input>
           </label>
           <div className={styles.settings__errorsWrapper}>
-            <p className={styles.settings__errorText}>
-              {/* тут нужна валидация, пока оставлю так */}
-            </p>
+            {errors?.password && (
+              <p className={styles.settings__errorText}>
+                {errors?.password?.message}
+              </p>
+            )}
           </div>
 
           <div className={styles.settings__button}>
@@ -124,7 +170,7 @@ const SettingsPage: FC = () => {
               color="primary"
               type="primary"
               children="Обновить настройки"
-              onClick={handleSettingsSubmit}
+              disabled={!isValid}
             />
           </div>
         </fieldset>
