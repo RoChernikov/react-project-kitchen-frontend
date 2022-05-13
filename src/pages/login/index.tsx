@@ -4,12 +4,10 @@ import { Link } from 'react-router-dom';
 import { signIn } from 'services/slices/profile';
 import { useAppDispatch, useAppSelector } from 'services/hooks';
 import { userErrors, isAuth } from 'services/selectors/profile';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import { Button } from 'components/button/button';
 
 const LoginPage: FC = () => {
-  const location = useLocation();
-  console.log(location);
-  // const goBackPath = location.state?.from.pathname;
   const dispatch = useAppDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,11 +32,12 @@ const LoginPage: FC = () => {
       <Link to="/register" className={styles.login__link}>
         Зарегистрироваться
       </Link>
-      <form className={styles.login__form} onSubmit={handleLoginSubmit}>
+      <form className={styles.login__form}>
         <fieldset className={styles.login__fieldset}>
           <label className={styles.login__label}>
             Email
             <input
+              type="email"
               className={styles.login__input}
               onChange={(e) => {
                 setEmail(e.target.value);
@@ -54,6 +53,7 @@ const LoginPage: FC = () => {
             )}
             {/* тут нужна валидация, пока оставлю так */}
           </div>
+
           <label className={styles.login__label}>
             Пароль
             <input
@@ -73,7 +73,15 @@ const LoginPage: FC = () => {
             )}
             {/* тут нужна валидация, пока оставлю так */}
           </div>
-          <button className={styles.login__button}>Войти</button>
+
+          <div className={styles.login__button}>
+            <Button
+              color="primary"
+              type="primary"
+              children="Войти"
+              onClick={handleLoginSubmit}
+            />
+          </div>
         </fieldset>
       </form>
     </section>

@@ -1,43 +1,18 @@
 @import '../../scss/mixins';
 
-.container {
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100%;
+  opacity: 0;
+  animation: appearance 0.3s 0.2s forwards;
+}
+
+.main {
   width: 100%;
-  background: url('../../assets/images/left-figure.svg') 0px -41px no-repeat,
-    url('../../assets/images/center-figure.svg') 50% -170px no-repeat,
-    url('../../assets/images/right-figure.svg') 100% -202px no-repeat;
+  max-width: 1140px;
+  flex: 1 1 auto;
 }
 
-@include mediaMax(1600px) {
-  .container {
-    background-size: 15%, auto, 400px;
-    background-position: 0px 65px, 50% -170px, 100% -35px;
-  }
-}
-
-@include mediaMax(1400px) {
-  .container {
-    background-size: 9%, auto, 400px;
-    background-position: 0px 65px, 50% -170px, 100% -35px;
-  }
-}
-
-@include mediaMax(1200px) {
-  .container {
-    background-size: 9%, auto, 400px;
-    background-position: 0px 65px, 50% -170px, 100% -65px;
-  }
-}
-
-@include mediaMax(900px) {
-  .container {
-    background-size: 15%, 300px, 300px;
-    background-position: 0px 65px, 50% -170px, 110% 0px;
-  }
-}
-
-@include mediaMax(700px) {
-  .container {
-    background-size: 15%, 180px, 0;
-    background-position: 0px 65px, 64% -82px, 0;
-  }
-}
+@include appearance;

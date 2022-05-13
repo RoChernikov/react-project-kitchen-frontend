@@ -1,6 +1,5 @@
-import { HeaderMenu } from 'components/header-menu/header-menu';
-import React, { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { FC } from 'react';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { ReactComponent as HomeIcon } from '../../assets/images/home-icon.svg';
 import { ReactComponent as LoginIcon } from '../../assets/images/login-icon.svg';
 import styles from './header.module.scss';
@@ -10,28 +9,57 @@ import { signOut } from 'services/slices/profile';
 
 const Header: FC = () => {
   const dispatch = useAppDispatch();
+  const history = useNavigate();
+
   return (
     <div className={styles.container}>
       <nav className={styles.nav}>
-        <Link to="/">
-          <HomeIcon className={`${styles.home_icon} ${styles.icon}`} />
-          <span className={styles.link_text}>Главная</span>
+        <Link className={styles.nav__link} to="/">
+          <HomeIcon className={styles.nav__icon} />
+          <span className={styles.nav__text}>Главная</span>
         </Link>
-        <div className={styles.header_menu}>
-          <HeaderMenu />
-          <Link to="/login">
-            <LoginIcon className={styles.icon} />
-            <span className={styles.link_text}>Войти</span>
-          </Link>
-        </div>
+        <Link className={styles.nav__link} to="/login">
+          <LoginIcon className={styles.nav__icon} />
+          <span className={styles.nav__text}>Войти</span>
+        </Link>
       </nav>
-      <Button
-        color="secondary"
-        children="LOGOUT BUTTON"
-        onClick={() => {
-          dispatch(signOut());
-        }}
-      />
+      <div
+        style={{
+          padding: 10,
+          opacity: '.9',
+          display: 'flex',
+          gap: 30,
+          position: 'absolute',
+          top: 50,
+          left: '50%',
+          transform: 'translate(-50%, 0)',
+          margin: 'auto',
+          zIndex: 999,
+          backgroundColor: '#fff',
+        }}>
+        <Button
+          color="secondary"
+          children="LOGOUT BUTTON"
+          onClick={() => {
+            dispatch(signOut());
+          }}
+        />
+        <Button
+          color="secondary"
+          children="NEW ARTICLE"
+          onClick={() => {
+            history('/new-article');
+          }}
+        />
+        <Button
+          color="primary"
+          children="SETTINGS"
+          onClick={() => {
+            history('/settings');
+          }}
+        />
+      </div>
+
       <div className={styles.text_box}>
         <h1 className={styles.title}>Когда вырасту</h1>
         <p className={styles.description}>

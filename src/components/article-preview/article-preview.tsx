@@ -1,39 +1,21 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './article-preview.module.scss';
-import imgPath from '../../assets/images/author-image.jpg';
-import { ReactComponent as LikeDefault } from '../../assets/images/like-default.svg';
 import { TArticle } from 'utils/types';
 import { toLocalDate } from 'utils/date-time';
 import { LikeButton } from 'components/like-button/like-button';
 
-const FAVORITED_CLASS = 'btn btn-sm btn-primary';
-const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary';
-
 interface IArticlePreview {
   article: TArticle;
-  // unfavorite: (slug: string) => void;
-  // favorite: (slug: string) => void;
 }
 
 const ArticlePreview: FC<IArticlePreview> = ({ article }) => {
-  // const favoriteButtonClass = article.favorited
-  //   ? FAVORITED_CLASS
-  //   : NOT_FAVORITED_CLASS;
-
-  // const handleClick = (ev: any) => {
-  //   ev.preventDefault();
-  //   if (article.favorited) {
-  //     unfavorite(article.slug);
-  //   } else {
-  //     favorite(article.slug);
-  //   }
-  // };
-
   return (
-    <div className={styles.article_preview}>
+    <li className={styles.article_preview}>
       <div className={styles.header}>
-        <Link to={`/profile/@${article.author.username}`} className={styles.author}>
+        <Link
+          to={`/profile/@${article.author.username}`}
+          className={styles.author}>
           <img
             src={article?.author?.image}
             alt={`${article?.author?.username} avatar`}
@@ -63,13 +45,13 @@ const ArticlePreview: FC<IArticlePreview> = ({ article }) => {
           {article?.tagList.map((tag, index) => {
             return (
               <div className={`${styles.tag}`} key={index}>
-                {`#${tag}`}
+                {tag?.length ? `#${tag}` : ''}
               </div>
             );
           })}
         </div>
       </div>
-    </div>
+    </li>
   );
 };
 

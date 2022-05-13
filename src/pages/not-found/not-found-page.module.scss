@@ -5,6 +5,8 @@
   flex-direction: column;
   padding-top: 88px;
   min-height: calc(100vh - 440px);
+  opacity: 0;
+  animation: appearance 0.2s 0.1s forwards;
 
   &__title {
     text-align: center;
@@ -50,3 +52,5 @@
     }
   }
 }
+
+@include appearance;

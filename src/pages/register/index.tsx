@@ -5,16 +5,17 @@ import { register } from 'services/slices/profile';
 import { useAppDispatch, useAppSelector } from 'services/hooks';
 import { userErrors, isAuth } from 'services/selectors/profile';
 import { Navigate } from 'react-router-dom';
+import { Button } from 'components/button/button';
 
 const RegisterPage: FC = () => {
   const dispatch = useAppDispatch();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const loginErrors = useAppSelector(userErrors);
+  const registerErrors = useAppSelector(userErrors);
   const auth = useAppSelector(isAuth);
 
-  const handleLoginSubmit = useCallback(
+  const handleRegisterSubmit = useCallback(
     (evt: SyntheticEvent) => {
       evt.preventDefault();
       dispatch(
@@ -36,7 +37,7 @@ const RegisterPage: FC = () => {
       <Link to="/login" className={styles.register__link}>
         Войти
       </Link>
-      <form className={styles.register__form} onSubmit={handleLoginSubmit}>
+      <form className={styles.register__form}>
         <fieldset className={styles.register__fieldset}>
           <label className={styles.register__label}>
             Имя пользователя
@@ -47,31 +48,34 @@ const RegisterPage: FC = () => {
               }}></input>
           </label>
           <div className={styles.register__errorsWrapper}>
-            {loginErrors.username && (
+            {registerErrors.username && (
               <p className={styles.register__errorText}>
-                {loginErrors.username === 'is already taken.'
+                {registerErrors.username === 'is already taken.'
                   ? 'Такое имя пользователя уже занято'
                   : 'Поле не может быть пустым'}
               </p>
             )}
           </div>
+
           <label className={styles.register__label}>
             Email
             <input
+              type="email"
               className={styles.register__input}
               onChange={(e) => {
                 setEmail(e.target.value);
               }}></input>
           </label>
           <div className={styles.register__errorsWrapper}>
-            {loginErrors.email && (
+            {registerErrors.email && (
               <p className={styles.register__errorText}>
-                {loginErrors.email === 'is already taken.'
+                {registerErrors.email === 'is already taken.'
                   ? 'Такой e-mail уже зарегистрирован'
                   : 'Поле не может быть пустым'}
               </p>
             )}
           </div>
+
           <label className={styles.register__label}>
             Пароль
             <input
@@ -85,9 +89,15 @@ const RegisterPage: FC = () => {
             {false && <p className={styles.register__errorText}>ОШИБКА</p>}{' '}
             {/* тут нужна валидация, на бэке эта ошибка не обрабатывается, пока оставлю false */}
           </div>
-          <button className={styles.register__button}>
-            Зарегистрироваться
-          </button>
+
+          <div className={styles.register__button}>
+            <Button
+              color="primary"
+              type="primary"
+              children="Зарегистрироваться"
+              onClick={handleRegisterSubmit}
+            />
+          </div>
         </fieldset>
       </form>
     </section>

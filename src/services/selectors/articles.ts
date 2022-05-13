@@ -11,3 +11,9 @@ export const selectCurrentArticleFailed = (state: RootState) =>
   state.articles.currentArticlesFailed;
 export const selectCurrentArticleRequest = (state: RootState) =>
   state.articles.currentArticlesRequest;
+export const currentArticleRequest = (state: RootState) =>
+  state.articles.currentArticlesRequest;
+export const selectLazyArticles = (state: RootState) =>
+  state.articles.lazyArticles;
+export const selectLazyArticlesSuccess = (state: RootState) =>
+  state.articles.lazyArticlesSuccess;
