@@ -2,8 +2,9 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './article-preview.module.scss';
 import { TArticle } from 'utils/types';
-import { toLocalDate } from 'utils/date-time';
 import { LikeButton } from 'components/like-button/like-button';
+import Author from '../../components/author';
+import { toLocalDate } from 'utils/date-time';
 
 interface IArticlePreview {
   article: TArticle;
@@ -13,19 +14,11 @@ const ArticlePreview: FC<IArticlePreview> = ({ article }) => {
   return (
     <li className={styles.article_preview}>
       <div className={styles.header}>
-        <Link
-          to={`/profile/@${article.author.username}`}
-          className={styles.author}>
-          <img
-            src={article?.author?.image}
-            alt={`${article?.author?.username} avatar`}
-            className={styles.author_avatar}
-          />
-          <div className={styles.author_text}>
-            <p className={styles.author_name}>{article?.author?.username}</p>
-            <p className={styles.date}>{toLocalDate(article?.createdAt)}</p>
-          </div>
-        </Link>
+        <Author
+          username={article.author.username}
+          image={article?.author?.image}
+          date={toLocalDate(article?.createdAt)}
+        />
         <Link to={`/articles/${article?.slug}`} className={styles.likes}>
           <span className={styles.likes_count}>{article?.favoritesCount}</span>
           <LikeButton active={article?.favorited} />

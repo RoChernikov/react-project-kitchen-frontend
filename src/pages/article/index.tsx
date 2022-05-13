@@ -20,6 +20,7 @@ export const ArticlePage: FC = () => {
   const { id } = useParams();
   const currentUser = useAppSelector(selectCurrentUser);
   const request = useAppSelector(currentArticleRequest);
+  const { isAuth } = useAppSelector((state) => state.profile);
 
   useEffect(() => {
     dispatch(getCurrentArticle(id));
@@ -53,12 +54,20 @@ export const ArticlePage: FC = () => {
                   );
                 })}
               </ul>
-              <CommentContainer
-                comments={article?.comments}
-                //errors={commentErrors}
-                slug={article?.slug}
-                currentUser={currentUser}
-              />
+              {isAuth ? (
+                <CommentContainer
+                  comments={article?.comments}
+                  //errors={commentErrors}
+                  slug={article?.slug}
+                  currentUser={currentUser}
+                />
+              ) : (
+                <div
+                  style={{ border: '3px dashed red', margin: 50, padding: 50 }}>
+                  ТУТ НУЖНО СООБЩЕНИЕ О НЕОБХОДИМОСТИ АВТОРИЗОВАТЬСЯ ДЛЯ ТОГО,
+                  ЧТОБЫ ОСТАВИТЬ КОММЕНТАРИЙ И ССЫЛКА НА СТРАНИЦУ АВТОРИЗАЦИИ
+                </div>
+              )}
             </div>
           </div>
           <div>

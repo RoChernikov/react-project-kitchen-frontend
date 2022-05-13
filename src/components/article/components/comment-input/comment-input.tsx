@@ -4,8 +4,8 @@ import styles from './comment-input.module.scss';
 import { Button } from 'components/button/button';
 import { useAppDispatch, useAppSelector } from 'services/hooks';
 import { postComment } from 'services/slices/articles';
-import { selectCurrentUser } from 'services/selectors/profile';
 import { toLocalDate } from 'utils/date-time';
+import Author from '../../../../components/author';
 
 interface ICommentInput {
   slug: string | undefined;
@@ -13,7 +13,7 @@ interface ICommentInput {
 
 const CommentInput: FC<ICommentInput> = ({ slug }) => {
   const dispatch = useAppDispatch();
-  const currentUser = useAppSelector(selectCurrentUser);
+  const { user } = useAppSelector((state) => state.profile);
   const currentDate = toLocalDate();
 
   const [body, setBody] = useState('');
@@ -42,19 +42,11 @@ const CommentInput: FC<ICommentInput> = ({ slug }) => {
         />
       </div>
       <div className={styles.info}>
-        <div className={styles.box}>
-          <img
-            src={currentUser.image}
-            className={styles.info__img}
-            alt={currentUser.username}
-          />
-          <div className={styles.info__smallbox}>
-            <div className={styles.info__name}>{currentUser.username}</div>
-            <span className={styles.info__date}>
-              {currentDate}
-            </span>
-          </div>
-        </div>
+        <Author
+          username={user.username}
+          image={user.image}
+          date={currentDate}
+        />
         <Button
           type="primary"
           color="primary"

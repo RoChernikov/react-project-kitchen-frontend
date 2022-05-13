@@ -19,3 +19,9 @@ export interface IArticleApi {
     tagList: string[];
   };
 }
+
+export interface IAuthor {
+  username: string;
+  image: string;
+  date: string;
+}
