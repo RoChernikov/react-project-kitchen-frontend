@@ -39,3 +39,10 @@ export type TUser = {
   bio?: string;
   image: string;
 };
+
+export type TProfile = {
+  username: string;
+  image: string;
+  bio?: string;
+  following: boolean;
+};

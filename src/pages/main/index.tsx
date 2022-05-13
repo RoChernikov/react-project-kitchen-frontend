@@ -55,11 +55,7 @@ const MainPage: FC = () => {
       dataLength={articles.length}
       next={fetchData}
       hasMore={hasMore}
-      loader={
-        <div style={{ padding: 20, transform: 'scale(.5)' }}>
-          <Loader />
-        </div>
-      }
+      loader={<Loader scale={0.5} />}
       endMessage={<p className={styles.endMsg}>Yay! You have seen it all</p>}>
       <div className={styles.container}>
         <ul className={styles.main}>
@@ -68,7 +64,6 @@ const MainPage: FC = () => {
           })}
         </ul>
         <div className={styles.rightbord}>
-
           <PopularTags />
 
           <div>

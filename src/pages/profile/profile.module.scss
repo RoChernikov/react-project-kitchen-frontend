@@ -45,4 +45,9 @@
   }
 }
 
+.articleList {
+  list-style: none;
+  margin-bottom: 0;
+}
+
 @include appearance;
