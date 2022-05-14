@@ -18,7 +18,6 @@
   gap: 81px;
   padding-top: 56px;
 
-
   @include mediaMax(1198px) {
     max-width: 720px;
   }
@@ -43,7 +42,7 @@
   }
 }
 
-.endMsg {
+.msg {
   text-align: center;
   line-height: 3;
   font-size: 18px;

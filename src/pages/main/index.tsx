@@ -42,7 +42,7 @@ const MainPage: FC = () => {
 
   if (articles.length === 0) {
     return (
-      <div className="article-preview">
+      <div className={styles.msg}>
         Пока статей нет, но мы работаем над их появлением!
       </div>
     );
@@ -54,7 +54,7 @@ const MainPage: FC = () => {
       next={fetchData}
       hasMore={hasMore}
       loader={<Loader scale={0.5} />}
-      endMessage={<p className={styles.endMsg}>Теперь ты знаешь все!</p>}>
+      endMessage={<p className={styles.msg}>Теперь ты знаешь все!</p>}>
       <div className={styles.container}>
         <ul className={styles.main}>
           {articles.map((article) => {
