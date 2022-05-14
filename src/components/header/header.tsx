@@ -1,96 +1,38 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
+import { ReactComponent as HomeIcon } from '../../assets/images/home-icon.svg';
+import { ReactComponent as LoginIcon } from '../../assets/images/login-icon.svg';
+import styles from './header.module.scss';
+import HeaderMenu from 'components/header-menu';
+import { useAppSelector } from 'services/hooks';
 
-const LoggedOutView = ({ currentUser }) => {
-  if (!currentUser) {
-    return (
-      <ul className="nav navbar-nav pull-xs-right">
+const Header: FC = () => {
+  const { isAuth, user } = useAppSelector((state) => state.profile);
 
-        <li className="nav-item">
-          <Link to="/" className="nav-link">
-            Home
-          </Link>
-        </li>
-
-        <li className="nav-item">
-          <Link to="/login" className="nav-link">
-            Sign in
-          </Link>
-        </li>
-
-        <li className="nav-item">
-          <Link to="/register" className="nav-link">
-            Sign up
-          </Link>
-        </li>
-
-      </ul>
-    );
-  }
-  return null;
-};
-
-const LoggedInView = ({ currentUser }) => {
-  if (currentUser) {
-    return (
-      <ul className="nav navbar-nav pull-xs-right">
-
-        <li className="nav-item">
-          <Link to="/" className="nav-link">
-            Home
-          </Link>
-        </li>
-
-        <li className="nav-item">
-          <Link to="/editor" className="nav-link">
-            <i className="ion-compose"></i>&nbsp;New Post
-          </Link>
-        </li>
-
-        <li className="nav-item">
-          <Link to="/settings" className="nav-link">
-            <i className="ion-gear-a"></i>&nbsp;Settings
-          </Link>
-        </li>
-
-        <li className="nav-item">
-          <Link
-            to={`/@${currentUser.username}`}
-            className="nav-link">
-            <span>Hello, {currentUser.username}</span>
-          </Link>
-        </li>
-
-      </ul>
-    );
-  }
-
-  return null;
-};
-
-
-interface IHeader {
-  appName: string;
-  currentUser: {
-    username: string;
-  };
-}
-
-const Header: FC<IHeader> = ({currentUser, appName }) => {
   return (
-    <nav className="navbar navbar-light">
-      <div className="container">
-
-        <Link to="/" className="navbar-brand">
-          {appName.toLowerCase()}
+    <div className={styles.container}>
+      <nav className={styles.nav}>
+        <Link className={styles.nav__link} to="/">
+          <HomeIcon className={styles.nav__icon} />
+          <span className={styles.nav__text}>Главная</span>
         </Link>
-
-        <LoggedOutView currentUser={currentUser} />
-
-        <LoggedInView currentUser={currentUser} />
+        {isAuth ? (
+          <HeaderMenu image={user.image} name={user.username} />
+        ) : (
+          <Link className={styles.nav__link} to="/login">
+            <LoginIcon className={styles.nav__icon} />
+            <span className={styles.nav__text}>Войти</span>
+          </Link>
+        )}
+      </nav>
+      <div className={styles.text_box}>
+        <h1 className={styles.title}>Когда вырасту</h1>
+        <p className={styles.description}>
+          Каково быть джуном в турбулентном мире
+        </p>
       </div>
-    </nav>
-  )
-}
+    </div>
+  );
+};
 
 export default Header;
