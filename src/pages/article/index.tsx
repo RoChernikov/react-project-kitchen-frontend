@@ -39,11 +39,13 @@ export const ArticlePage: FC = () => {
             <div className={styles.container}>
               <h1 className={styles.container__header}>{article?.title}</h1>
               <ArticleMeta article={article} />
-              <img
-                src={article?.link}
-                alt={`${article?.title} illustration`}
-                className={styles.panel__img}
-              />
+              {article?.link && (
+                <img
+                  src={article?.link}
+                  alt={`${article?.title} illustration`}
+                  className={styles.panel__img}
+                />
+              )}
               <div className={styles.container__text}>{article?.body}</div>
               <ul className={styles.container__tags}>
                 {article?.tagList?.map((tag) => {

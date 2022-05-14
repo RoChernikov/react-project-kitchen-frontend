@@ -42,7 +42,15 @@ const LoginPage: FC = () => {
   //TODO красная рамка на поле при ошибке
   return (
     <section className={styles.login}>
-      <h2 className={styles.login__title}>Войти</h2>
+      <h2
+        className={styles.login__title}
+        onClick={() => {
+          dispatch(
+            signIn({ user: { email: 'mrhubris@yandex.ru', password: '' } })
+          );
+        }}>
+        Войти
+      </h2>
       <Link to="/register" className={styles.login__link}>
         Зарегистрироваться
       </Link>

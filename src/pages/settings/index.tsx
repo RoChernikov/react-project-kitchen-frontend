@@ -1,12 +1,5 @@
-import React, {
-  FC,
-  useEffect,
-  useState,
-  useCallback,
-  SyntheticEvent,
-  ChangeEvent,
-} from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import React, { FC, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'services/hooks';
 import { selectCurrentUser } from 'services/selectors/profile';
 import { patchUser } from 'services/slices/profile';
@@ -24,11 +17,8 @@ type TSettingsFormData = {
 const SettingsPage: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [passwordInput, setPasswordInput] = useState('');
   const user = useAppSelector(selectCurrentUser);
-  const [avatar, setAvatar] = useState('');
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
   const {
     register,
@@ -44,7 +34,6 @@ const SettingsPage: FC = () => {
       avatar: user.image,
     },
   });
-
   const onSettingsSubmit = ({
     username,
     email,
@@ -57,22 +46,14 @@ const SettingsPage: FC = () => {
         user: {
           username: username,
           email: email,
-          password: password,
           image: avatar,
+          ...(passwordInput ? { password: password } : {}),
         },
       })
     );
     reset();
     navigate(`/profile/@${username}`);
   };
-
-  useEffect(() => {
-    if (user) {
-      user.image && setAvatar(user.image);
-      setUsername(user.username);
-      setEmail(user.email);
-    }
-  }, [user]);
 
   //TODO красная рамка на поле при ошибке
   return (
@@ -114,7 +95,8 @@ const SettingsPage: FC = () => {
                   value: 2,
                   message: 'Имя пользователя должно быть не менее 2 символов',
                 },
-              })}></input>
+              })}
+            />
           </label>
           <div className={styles.settings__errorsWrapper}>
             {errors?.username && (
@@ -135,7 +117,8 @@ const SettingsPage: FC = () => {
                   value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
                   message: 'Введите Email в формате username@example.com',
                 },
-              })}></input>
+              })}
+            />
           </label>
           <div className={styles.settings__errorsWrapper}>
             {errors?.email && (
@@ -151,11 +134,16 @@ const SettingsPage: FC = () => {
               type="password"
               className={styles.settings__input}
               {...register('password', {
+                onChange: (evt) => {
+                  setPasswordInput(evt.target.value);
+                },
                 minLength: {
                   value: 5,
                   message: 'Пароль должен быть не менее 5 символов',
                 },
-              })}></input>
+              })}
+              value={passwordInput}
+            />
           </label>
           <div className={styles.settings__errorsWrapper}>
             {errors?.password && (
