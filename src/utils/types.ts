@@ -3,6 +3,7 @@ export type TErrors = {
 };
 
 export type TStatus = 'pending' | 'success' | 'failed';
+export type TBy = 'author' | 'tag' | 'favorited';
 
 export type TArticle = {
   author: TAuthor;
