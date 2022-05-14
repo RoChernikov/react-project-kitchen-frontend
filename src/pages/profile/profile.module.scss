@@ -1,13 +1,7 @@
 @import '../../scss/mixins';
 
-.profile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .list {
-  max-width: 700px;
+  width: 100%;
   height: 100%;
   list-style: none;
   margin-bottom: 0;
