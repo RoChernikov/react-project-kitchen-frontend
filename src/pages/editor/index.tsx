@@ -125,7 +125,6 @@ const EditorPage: FC = () => {
             onChange={onTagsChange}
             name="tags"
             value={tags}
-            required
           />
         </label>
         <div className={styles.editArticle__buttons}>

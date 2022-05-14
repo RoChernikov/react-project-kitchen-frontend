@@ -9,6 +9,7 @@ import { Button } from 'components/button/button';
 import PlusIcon from 'components/icons/plus-icon';
 import MinusIcon from 'components/icons/minus-icon';
 import Loader from 'components/loader/loader';
+import noAvatarImg from '../../assets/images/Intersect.svg';
 
 const ProfilePage: FC = () => {
   const { username } = useParams();
@@ -17,8 +18,6 @@ const ProfilePage: FC = () => {
   );
   const dispatch = useAppDispatch();
   const articles = useAppSelector(selectArticles);
-
-  // const isUser = currentUser && currentUser.username === currentUser.username;
 
   useEffect(() => {
     dispatch(getProfile(username));

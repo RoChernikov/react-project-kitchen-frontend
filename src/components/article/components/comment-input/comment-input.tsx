@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from 'services/hooks';
 import { postComment } from 'services/slices/articles';
 import { toLocalDate } from 'utils/date-time';
 import Author from '../../../../components/author';
+import noAvatarImg from '../../../../assets/images/Intersect.svg';
 
 interface ICommentInput {
   slug: string | undefined;
@@ -44,7 +45,7 @@ const CommentInput: FC<ICommentInput> = ({ slug }) => {
       <div className={styles.info}>
         <Author
           username={user.username}
-          image={user.image}
+          image={user.image ? user.image : noAvatarImg}
           date={currentDate}
         />
         <Button
