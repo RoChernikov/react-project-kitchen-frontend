@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import styles from './new-article-page.module.scss';
 import { Button } from 'components/button/button';
 import { useAppDispatch, useAppSelector } from 'services/hooks';
@@ -128,7 +128,6 @@ const NewArticlePage: FC = () => {
               </p>
             )}
           </div>
-
           <label className={styles.newArticle__label}>
             Теги (через запятую)
             <input
@@ -144,7 +143,6 @@ const NewArticlePage: FC = () => {
               </p>
             )}
           </div>
-
           <div className={styles.newArticle__button}>
             <Button
               color="primary"

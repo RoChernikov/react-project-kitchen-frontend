@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import ArticlePreview from '../../components/article-preview/article-preview';
 import styles from './main.module.scss';

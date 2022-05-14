@@ -1,26 +1,22 @@
-import React, { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { FC } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import styles from './invite-login.module.scss';
-import { Button } from 'components/button/button';
 
-const InviteLogin: FC<any> = () => {
-    return (
+const InviteLogin: FC = () => {
+  const location = useLocation();
 
-        <div className={styles.box}>
-            <div className={styles.round}>
-                <Link to="/login">
-                    <p className={styles.text}>Хотите написать комментарий?
-                        <span className={styles.round}>Авторизуйтесь!</span></p>
-                </Link>
-            </div>
-        </div>
-
-
-
-
-
-
-    )
-}
+  return (
+    <div className={styles.box}>
+      <div className={styles.round}>
+        <Link to="/login" state={{ from: location }}>
+          <p className={styles.text}>
+            Хотите написать комментарий?
+            <span className={styles.round}>Авторизуйтесь!</span>
+          </p>
+        </Link>
+      </div>
+    </div>
+  );
+};
 
 export default InviteLogin;

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import styles from './layout.module.scss';
 import { Outlet } from 'react-router-dom';
 import Header from '../header/header';

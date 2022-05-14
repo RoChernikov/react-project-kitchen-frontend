@@ -14,7 +14,6 @@ const CommentList: FC<ICommentList> = ({ comments, currentUser, slug }) => {
       {comments?.map((comment: TComment) => (
         <Comment
           comment={comment}
-          //currentUser={currentUser}
           slug={slug}
           key={comment.id}
         />

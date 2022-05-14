@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import styles from './register-page.module.scss';
 import { Link } from 'react-router-dom';
 import { registerUser } from 'services/slices/profile';
@@ -16,16 +16,14 @@ type TRegisterFormData = {
 
 const RegisterPage: FC = () => {
   const dispatch = useAppDispatch();
-  const registerErrors = useAppSelector(userErrors);
-  console.log('registerErrors', registerErrors);
   const [isError, setIsError] = useState(false);
   const auth = useAppSelector(isAuth);
+  const registerErrors = useAppSelector(userErrors);
 
   const {
     register,
     formState: { errors, isValid },
     handleSubmit,
-    reset,
   } = useForm<TRegisterFormData>({
     mode: 'onChange',
     defaultValues: {
@@ -93,7 +91,6 @@ const RegisterPage: FC = () => {
               </p>
             )}
           </div>
-
           <label className={styles.register__label}>
             Email
             <input
@@ -123,7 +120,6 @@ const RegisterPage: FC = () => {
               </p>
             )}
           </div>
-
           <label className={styles.register__label}>
             Пароль
             <input
@@ -144,7 +140,6 @@ const RegisterPage: FC = () => {
               </p>
             )}
           </div>
-
           <div className={styles.register__button}>
             <Button
               color="primary"

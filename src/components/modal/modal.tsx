@@ -2,7 +2,7 @@ import styles from './modal.module.scss';
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import ModalOverlay from './components/modal-overlay/modal-overlay';
-import React, { FC, ReactElement } from 'react';
+import { FC, ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
 //--------------------------------------------------------------------------------
 

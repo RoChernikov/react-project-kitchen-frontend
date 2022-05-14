@@ -1,5 +1,5 @@
-import React, { FC, useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { FC, useState, useEffect, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import styles from './header-menu.module.scss';
 import { ReactComponent as EditIcon } from '../../assets/images/edit-icon.svg';
 import { ReactComponent as SettingsIcon } from '../../assets/images/settings-icon.svg';
@@ -13,6 +13,7 @@ const HeaderMenu: FC<{ image: string; name: string }> = ({ image, name }) => {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.profile);
   const userEl = useRef<HTMLDivElement>(null);
+  const location = useLocation();
 
   useEffect(() => {
     const handler = (evt: { target: any }) =>
@@ -56,13 +57,17 @@ const HeaderMenu: FC<{ image: string; name: string }> = ({ image, name }) => {
             </Link>
           </li>
           <li className={styles.menu__item}>
-            <Link to="new-article" className={styles.menu__link}>
+            <Link
+              to="new-article"
+              className={styles.menu__link}>
               <EditIcon className={styles.menu__icon} />
               <span className={styles.menu__text}>Новая запись</span>
             </Link>
           </li>
           <li className={styles.menu__item}>
-            <Link to="settings" className={styles.menu__link}>
+            <Link
+              to='settings'
+              className={styles.menu__link}>
               <SettingsIcon className={styles.menu__icon} />
               <span className={styles.menu__text}>Настройки</span>
             </Link>

@@ -9,12 +9,12 @@ const NewestArticles: FC = () => {
   const articles = useAppSelector(selectArticles);
 
   const dateSort = (arr: Array<TArticle>): Array<TArticle> => {
-    if (arr.length < 2) return arr;
-
     const pivot = arr[0];
-
     const less: Array<TArticle> = [];
     const greater: Array<TArticle> = [];
+
+    if (arr.length < 2) return arr;
+
     arr
       .slice(1)
       .forEach((element: TArticle) =>
@@ -38,9 +38,7 @@ const NewestArticles: FC = () => {
           <ul className={styles.newestArticles__list}>
             {sortedArticlesByDate.map((article: TArticle) => {
               return (
-                <li
-                  key={article.slug}
-                  className={styles.newestArticles__item}>
+                <li key={article.slug} className={styles.newestArticles__item}>
                   <ArticleSmallPreview
                     author={article.author.username}
                     image={article.author.image}

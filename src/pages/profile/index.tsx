@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'services/hooks';
@@ -92,7 +92,7 @@ const ProfilePage: FC = () => {
             <h4 className={styles.usercontainer__text}>
               {selectedProfile ? selectedProfile.username : ''}
             </h4>
-            {username !== user.username && (
+            {isAuth && username !== user.username && (
               <Button
                 type="primary"
                 color="primary"
