@@ -49,7 +49,7 @@ const App: FC = () => {
       ) : (
         <>
           <Routes location={state?.backgroundLocation || location}>
-            <Route path="/" element={<RequireAuth children={<Layout />} />}>
+            <Route path="/" element={<Layout />}>
               <Route
                 index
                 element={
@@ -93,25 +93,37 @@ const App: FC = () => {
               <Route
                 path="settings"
                 element={
-                  <Suspense fallback={<Loader />}>
-                    <SettingsPage />
-                  </Suspense>
+                  <RequireAuth
+                    children={
+                      <Suspense fallback={<Loader />}>
+                        <SettingsPage />
+                      </Suspense>
+                    }
+                  />
                 }
               />
               <Route
                 path="new-article"
                 element={
-                  <Suspense fallback={<Loader />}>
-                    <NewArticlePage />
-                  </Suspense>
+                  <RequireAuth
+                    children={
+                      <Suspense fallback={<Loader />}>
+                        <NewArticlePage />
+                      </Suspense>
+                    }
+                  />
                 }
               />
               <Route
                 path="editor/:id"
                 element={
-                  <Suspense fallback={<Loader />}>
-                    <EditorPage />
-                  </Suspense>
+                  <RequireAuth
+                    children={
+                      <Suspense fallback={<Loader />}>
+                        <EditorPage />
+                      </Suspense>
+                    }
+                  />
                 }
               />
               <Route path="*" element={<NotFound />} />

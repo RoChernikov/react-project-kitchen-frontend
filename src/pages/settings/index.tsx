@@ -83,7 +83,6 @@ const SettingsPage: FC = () => {
               </p>
             )}
           </div>
-
           <label className={styles.settings__label}>
             Имя пользователя
             <input

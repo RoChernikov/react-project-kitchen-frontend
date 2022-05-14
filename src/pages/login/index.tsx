@@ -1,7 +1,7 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './login-page.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { signIn } from 'services/slices/profile';
 import { useAppDispatch, useAppSelector } from 'services/hooks';
 import { userErrors, isAuth } from 'services/selectors/profile';
@@ -15,8 +15,10 @@ type TLoginFormData = {
 
 const LoginPage: FC = () => {
   const dispatch = useAppDispatch();
-  const loginErrors = useAppSelector(userErrors);
   const auth = useAppSelector(isAuth);
+  const location = useLocation();
+  const state = location.state as { from?: Location };
+  const loginErrors = useAppSelector(userErrors);
 
   const {
     register,
@@ -37,8 +39,9 @@ const LoginPage: FC = () => {
   };
 
   if (auth) {
-    return <Navigate to={{ pathname: '/' }} />;
+    return <Navigate to={state?.from || '/'} />;
   }
+
   //TODO красная рамка на поле при ошибке
   return (
     <section className={styles.login}>

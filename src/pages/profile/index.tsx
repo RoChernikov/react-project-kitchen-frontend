@@ -92,7 +92,7 @@ const ProfilePage: FC = () => {
             <h4 className={styles.usercontainer__text}>
               {selectedProfile ? selectedProfile.username : ''}
             </h4>
-            {username !== user.username && (
+            {isAuth && username !== user.username && (
               <Button
                 type="primary"
                 color="primary"
