@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import styles from './register-page.module.scss';
 import { Link } from 'react-router-dom';
 import { registerUser } from 'services/slices/profile';
@@ -16,6 +16,7 @@ type TRegisterFormData = {
 
 const RegisterPage: FC = () => {
   const dispatch = useAppDispatch();
+  const [isError, setIsError] = useState(false);
   const auth = useAppSelector(isAuth);
   const registerErrors = useAppSelector(userErrors);
 
@@ -23,7 +24,6 @@ const RegisterPage: FC = () => {
     register,
     formState: { errors, isValid },
     handleSubmit,
-    reset,
   } = useForm<TRegisterFormData>({
     mode: 'onChange',
     defaultValues: {
@@ -43,14 +43,16 @@ const RegisterPage: FC = () => {
         user: { username: username, email: email, password: password },
       })
     );
-    reset();
   };
+
+  useEffect(() => {
+    setIsError(isValid);
+  }, [isValid]);
 
   if (auth) {
     return <Navigate to={{ pathname: '/' }} />;
   }
 
-  //TODO красная рамка на поле при ошибке
   return (
     <section className={styles.register}>
       <h2 className={styles.register__title}>Зарегистрироваться</h2>
@@ -64,7 +66,11 @@ const RegisterPage: FC = () => {
           <label className={styles.register__label}>
             Имя пользователя
             <input
-              className={styles.register__input}
+              className={
+                registerErrors.username
+                  ? `${styles.register__input} ${styles.register__input_error}`
+                  : `${styles.register__input}`
+              }
               {...register('username', {
                 required: 'Пожалуйста, заполните это поле',
                 minLength: {
@@ -79,13 +85,21 @@ const RegisterPage: FC = () => {
                 {errors?.username?.message}
               </p>
             )}
+            {registerErrors.username && (
+              <p className={styles.register__errorText}>
+                {'Такое имя пользователя уже занято'}
+              </p>
+            )}
           </div>
-          {/*тут должен быть ответ сервера про существующего пользователя*/}
           <label className={styles.register__label}>
             Email
             <input
               type="email"
-              className={styles.register__input}
+              className={
+                registerErrors.email
+                  ? `${styles.register__input} ${styles.register__input_error}`
+                  : `${styles.register__input}`
+              }
               {...register('email', {
                 required: 'Пожалуйста, заполните это поле',
                 pattern: {
@@ -100,8 +114,12 @@ const RegisterPage: FC = () => {
                 {errors?.email?.message}
               </p>
             )}
+            {registerErrors.email && (
+              <p className={styles.register__errorText}>
+                {'Такой e-mail уже зарегистрирован'}
+              </p>
+            )}
           </div>
-          {/*тут должен быть ответ сервера про существующего пользователя*/}
           <label className={styles.register__label}>
             Пароль
             <input
@@ -126,6 +144,7 @@ const RegisterPage: FC = () => {
             <Button
               color="primary"
               type="primary"
+              htmlType="submit"
               children="Зарегистрироваться"
               disabled={!isValid}
             />

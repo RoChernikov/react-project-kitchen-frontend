@@ -24,6 +24,7 @@ const LoginPage: FC = () => {
     register,
     formState: { errors, isValid },
     handleSubmit,
+    reset,
   } = useForm<TLoginFormData>({
     mode: 'onChange',
     defaultValues: {
@@ -34,12 +35,14 @@ const LoginPage: FC = () => {
 
   const onLoginSubmit = ({ email, password }: TLoginFormData) => {
     dispatch(signIn({ user: { email: email, password: password } }));
+    reset();
   };
 
   if (auth) {
     return <Navigate to={state?.from || '/'} />;
   }
 
+  //TODO красная рамка на поле при ошибке
   return (
     <section className={styles.login}>
       <h2 className={styles.login__title}>Войти</h2>
@@ -54,11 +57,7 @@ const LoginPage: FC = () => {
             Email
             <input
               type="email"
-              className={
-                loginErrors['email or password']
-                  ? `${styles.login__input} ${styles.login__input_error}`
-                  : `${styles.login__input}`
-              }
+              className={styles.login__input}
               {...register('email', {
                 required: 'Пожалуйста, заполните это поле',
                 pattern: {
@@ -73,21 +72,13 @@ const LoginPage: FC = () => {
                 {errors?.email?.message}
               </p>
             )}
-            {loginErrors['email or password'] && (
-              <p className={styles.login__errorText}>
-                {'Вы ввели неверный Email или пароль'}
-              </p>
-            )}
           </div>
+          {/*тут должен быть ответ сервера про неверный логин пароль*/}
           <label className={styles.login__label}>
             Пароль
             <input
               type="password"
-              className={
-                loginErrors['email or password']
-                  ? `${styles.login__input} ${styles.login__input_error}`
-                  : `${styles.login__input}`
-              }
+              className={styles.login__input}
               {...register('password', {
                 required: 'Пожалуйста, заполните это поле',
                 minLength: {
@@ -102,17 +93,12 @@ const LoginPage: FC = () => {
                 {errors?.password?.message}
               </p>
             )}
-            {loginErrors['email or password'] && (
-              <p className={styles.login__errorText}>
-                {'Вы ввели неверный Email или пароль'}
-              </p>
-            )}
           </div>
+          {/*тут должен быть ответ сервера про неверный логин пароль*/}
           <div className={styles.login__button}>
             <Button
               color="primary"
               type="primary"
-              htmlType="submit"
               children="Войти"
               disabled={!isValid}
             />
@@ -124,3 +110,5 @@ const LoginPage: FC = () => {
 };
 
 export default LoginPage;
+
+// @ts-ignore

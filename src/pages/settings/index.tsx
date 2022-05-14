@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'services/hooks';
-import { selectCurrentUser } from 'services/selectors/profile';
+import { selectCurrentUser, userErrors } from 'services/selectors/profile';
 import { patchUser } from 'services/slices/profile';
 import styles from './settings-page.module.scss';
 import { Button } from 'components/button/button';
@@ -17,6 +17,7 @@ type TSettingsFormData = {
 const SettingsPage: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const settingsErrors = useAppSelector(userErrors);
   const [passwordInput, setPasswordInput] = useState('');
   const user = useAppSelector(selectCurrentUser);
 
@@ -24,7 +25,6 @@ const SettingsPage: FC = () => {
     register,
     formState: { errors, isValid },
     handleSubmit,
-    reset,
   } = useForm<TSettingsFormData>({
     mode: 'onChange',
     defaultValues: {
@@ -41,7 +41,6 @@ const SettingsPage: FC = () => {
     password,
     avatar,
   }: TSettingsFormData) => {
-    alert(JSON.stringify({ username, email, password, avatar }));
     dispatch(
       patchUser({
         user: {
@@ -52,11 +51,9 @@ const SettingsPage: FC = () => {
         },
       })
     );
-    reset();
     navigate(`/profile/@${username}`);
   };
 
-  //TODO красная рамка на поле при ошибке
   return (
     <section className={styles.settings}>
       <h2 className={styles.settings__title}>Ваши настройки</h2>
@@ -88,7 +85,11 @@ const SettingsPage: FC = () => {
             Имя пользователя
             <input
               type="text"
-              className={styles.settings__input}
+              className={
+                settingsErrors.username
+                  ? `${styles.settings__input} ${styles.settings__input_error}`
+                  : `${styles.settings__input}`
+              }
               {...register('username', {
                 required: 'Пожалуйста, заполните это поле',
                 minLength: {
@@ -104,12 +105,21 @@ const SettingsPage: FC = () => {
                 {errors?.username?.message}
               </p>
             )}
+            {settingsErrors.username && (
+              <p className={styles.settings__errorText}>
+                {'Такое имя пользователя уже занято'}
+              </p>
+            )}
           </div>
           <label className={styles.settings__label}>
             E-mail
             <input
               type="email"
-              className={styles.settings__input}
+              className={
+                settingsErrors.email
+                  ? `${styles.settings__input} ${styles.settings__input_error}`
+                  : `${styles.settings__input}`
+              }
               {...register('email', {
                 required: 'Пожалуйста, заполните это поле',
                 pattern: {
@@ -123,6 +133,11 @@ const SettingsPage: FC = () => {
             {errors?.email && (
               <p className={styles.settings__errorText}>
                 {errors?.email?.message}
+              </p>
+            )}
+            {settingsErrors.email && (
+              <p className={styles.settings__errorText}>
+                {'Такой e-mail уже зарегистрирован'}
               </p>
             )}
           </div>
@@ -154,6 +169,7 @@ const SettingsPage: FC = () => {
             <Button
               color="primary"
               type="primary"
+              htmlType="submit"
               children="Обновить настройки"
               disabled={!isValid}
             />

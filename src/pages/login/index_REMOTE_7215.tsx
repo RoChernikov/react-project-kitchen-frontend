@@ -1,7 +1,7 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './login-page.module.scss';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { signIn } from 'services/slices/profile';
 import { useAppDispatch, useAppSelector } from 'services/hooks';
 import { userErrors, isAuth } from 'services/selectors/profile';
@@ -15,10 +15,9 @@ type TLoginFormData = {
 
 const LoginPage: FC = () => {
   const dispatch = useAppDispatch();
-  const auth = useAppSelector(isAuth);
-  const location = useLocation();
-  const state = location.state as { from?: Location };
   const loginErrors = useAppSelector(userErrors);
+  //console.log('loginErrors', loginErrors);
+  const auth = useAppSelector(isAuth);
 
   const {
     register,
@@ -37,7 +36,7 @@ const LoginPage: FC = () => {
   };
 
   if (auth) {
-    return <Navigate to={state?.from || '/'} />;
+    return <Navigate to={{ pathname: '/' }} />;
   }
 
   return (
@@ -79,6 +78,7 @@ const LoginPage: FC = () => {
               </p>
             )}
           </div>
+
           <label className={styles.login__label}>
             Пароль
             <input
@@ -108,6 +108,7 @@ const LoginPage: FC = () => {
               </p>
             )}
           </div>
+
           <div className={styles.login__button}>
             <Button
               color="primary"
