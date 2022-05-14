@@ -1,5 +1,27 @@
 @import '../../scss/mixins';
 
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.list {
+  max-width: 700px;
+  height: 100%;
+  list-style: none;
+  margin-bottom: 0;
+  opacity: 0;
+  animation: appearance 0.2s 0.1s forwards;
+}
+
+.endMsg {
+  text-align: center;
+  line-height: 3;
+  font-size: 18px;
+  font-weight: 700;
+}
+
 .usercontainer {
   padding-top: 56px;
   padding-bottom: 16px;

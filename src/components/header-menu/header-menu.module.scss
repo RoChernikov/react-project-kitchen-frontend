@@ -19,6 +19,10 @@
     &:hover {
       opacity: 0.8;
     }
+
+    &_opened:hover {
+      opacity: 1;
+    }
   }
 
   &__image {

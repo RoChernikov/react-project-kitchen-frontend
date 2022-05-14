@@ -6,6 +6,7 @@ import { ReactComponent as SettingsIcon } from '../../assets/images/settings-ico
 import { ReactComponent as LogoutIcon } from '../../assets/images/logout-icon.svg';
 import { useAppSelector, useAppDispatch } from 'services/hooks';
 import { signOut } from 'services/slices/profile';
+import noAvatarImg from '../../assets/images/Intersect.svg';
 
 const HeaderMenu: FC<{ image: string; name: string }> = ({ image, name }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,7 +30,11 @@ const HeaderMenu: FC<{ image: string; name: string }> = ({ image, name }) => {
         onClick={() => {
           setIsOpen(true);
         }}>
-        <img src={image} alt={name} className={styles.menu__image} />
+        <img
+          src={image ? image : noAvatarImg}
+          alt={name}
+          className={styles.menu__image}
+        />
         <span className={styles.menu__text}>{name}</span>
       </div>
       <nav
@@ -39,8 +44,13 @@ const HeaderMenu: FC<{ image: string; name: string }> = ({ image, name }) => {
             <Link
               to={`profile/@${user.username}`}
               className={styles.menu__link}>
-              <div className={styles.menu__user}>
-                <img src={image} alt={name} className={styles.menu__image} />
+              <div
+                className={`${styles.menu__user} ${styles.menu__user_opened}`}>
+                <img
+                  src={image ? image : noAvatarImg}
+                  alt={name}
+                  className={styles.menu__image}
+                />
                 <span className={styles.menu__text}>{name}</span>
               </div>
             </Link>

@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk, AppDispatch } from 'services/store';
 import api from 'utils/api';
 import { IArticleApi, ICommentApi } from 'utils/interfaces';
-import { TArticle, TComment, TStatus } from 'utils/types';
+import { TArticle, TComment, TStatus, TBy } from 'utils/types';
 
 type TInitialState = {
   currentArticle: TArticle | null | undefined;
@@ -75,6 +75,9 @@ export const articleSlice = createSlice({
     },
     fetchLazyArticlesFailed(state) {
       state.fetchLazyStatus = 'failed';
+    },
+    resetLazyArticles(state) {
+      state.lazyArticles = [];
     },
     getArticlesRequest(state) {
       state.articlesRequest = true;
@@ -186,6 +189,7 @@ export const {
   getLazyArticlesSuccess,
   getLazyArticlesFailed,
   setLazyArticles,
+  resetLazyArticles,
   getArticlesRequest,
   getArticlesSuccess,
   getArticlesFailed,
@@ -207,10 +211,15 @@ export const {
 } = articleSlice.actions;
 
 export const getLazyArticles: AppThunk =
-  (articlesByPage: number) => (dispatch: AppDispatch) => {
+  (
+    articlesByPage: number,
+    by: TBy | undefined = undefined,
+    value: string | undefined = undefined
+  ) =>
+  (dispatch: AppDispatch) => {
     dispatch(getLazyArticlesRequest());
     api
-      .getArticlesBy(undefined, undefined, articlesByPage, 1)
+      .getArticlesBy(by, value, articlesByPage, 1)
       .then((data) => dispatch(getLazyArticlesSuccess(data)))
       .catch((err) => {
         dispatch(getLazyArticlesFailed());
@@ -320,7 +329,7 @@ export const addArticle: AppThunk =
       });
   };
 
-  export const editArticle: AppThunk =
+export const editArticle: AppThunk =
   (slug: string, data: IArticleApi) => (dispatch: AppDispatch) => {
     api
       .updateArticle(slug, data)
