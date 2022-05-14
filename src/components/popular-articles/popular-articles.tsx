@@ -9,12 +9,12 @@ const PopularArticles: FC = () => {
   const articles = useAppSelector(selectArticles);
 
   const popularSort = (arr: Array<TArticle>): Array<TArticle> => {
-    if (arr.length < 2) return arr;
-
     const pivot = arr[0];
-
     const less: Array<TArticle> = [];
     const greater: Array<TArticle> = [];
+    
+    if (arr.length < 2) return arr;
+
     arr
       .slice(1)
       .forEach((element: TArticle) =>

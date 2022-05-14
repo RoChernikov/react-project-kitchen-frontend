@@ -4,18 +4,15 @@ import { Link } from 'react-router-dom';
 import { FC } from 'react';
 import { TUser } from 'utils/types';
 import styles from './comment-container.module.scss';
-//import ListErrors from '../../../../../src_old/components/list-errors/list-errors';
 
 interface ICommentContainer {
   comments: any;
-  //errors: any;
   slug: string | undefined;
   currentUser: TUser | null;
 }
 
 const CommentContainer: FC<ICommentContainer> = ({
   comments,
-  //errors,
   slug,
   currentUser,
 }) => {
@@ -23,10 +20,8 @@ const CommentContainer: FC<ICommentContainer> = ({
     <div className={styles.container}>
       <p className={styles.container__header}>Комментарии</p>
       <div className={styles.inputbox}>
-        {/* <ListErrors errors={errors} /> */}
         <CommentInput
           slug={slug}
-          //currentUser={currentUser}
         />
       </div>
       <CommentList comments={comments} slug={slug} currentUser={currentUser} />

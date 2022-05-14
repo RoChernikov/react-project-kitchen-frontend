@@ -74,7 +74,6 @@ const LoginPage: FC = () => {
             )}
           </div>
           {/*тут должен быть ответ сервера про неверный логин пароль*/}
-
           <label className={styles.login__label}>
             Пароль
             <input
@@ -96,7 +95,6 @@ const LoginPage: FC = () => {
             )}
           </div>
           {/*тут должен быть ответ сервера про неверный логин пароль*/}
-
           <div className={styles.login__button}>
             <Button
               color="primary"

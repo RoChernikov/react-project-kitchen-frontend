@@ -59,5 +59,4 @@ const CommentInput: FC<ICommentInput> = ({ slug }) => {
   );
 };
 
-// export default connect(mapStateToProps, mapDispatchToProps)(CommentInput);
 export default CommentInput;

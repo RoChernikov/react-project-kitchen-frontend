@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'services/hooks';
 import { selectCurrentUser } from 'services/selectors/profile';
@@ -34,6 +34,7 @@ const SettingsPage: FC = () => {
       avatar: user.image,
     },
   });
+
   const onSettingsSubmit = ({
     username,
     email,
@@ -104,7 +105,6 @@ const SettingsPage: FC = () => {
               </p>
             )}
           </div>
-
           <label className={styles.settings__label}>
             E-mail
             <input
@@ -126,7 +126,6 @@ const SettingsPage: FC = () => {
               </p>
             )}
           </div>
-
           <label className={styles.settings__label}>
             Новый пароль
             <input
@@ -151,7 +150,6 @@ const SettingsPage: FC = () => {
               </p>
             )}
           </div>
-
           <div className={styles.settings__button}>
             <Button
               color="primary"

@@ -60,7 +60,6 @@ export const ArticlePage: FC = () => {
               {isAuth ? (
                 <CommentContainer
                   comments={article?.comments}
-                  //errors={commentErrors}
                   slug={article?.slug}
                   currentUser={currentUser}
                 />

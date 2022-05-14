@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import styles from './register-page.module.scss';
 import { Link } from 'react-router-dom';
 import { registerUser } from 'services/slices/profile';
@@ -16,8 +16,8 @@ type TRegisterFormData = {
 
 const RegisterPage: FC = () => {
   const dispatch = useAppDispatch();
-  const registerErrors = useAppSelector(userErrors);
   const auth = useAppSelector(isAuth);
+  const registerErrors = useAppSelector(userErrors);
 
   const {
     register,
@@ -49,6 +49,7 @@ const RegisterPage: FC = () => {
   if (auth) {
     return <Navigate to={{ pathname: '/' }} />;
   }
+
   //TODO красная рамка на поле при ошибке
   return (
     <section className={styles.register}>
@@ -80,7 +81,6 @@ const RegisterPage: FC = () => {
             )}
           </div>
           {/*тут должен быть ответ сервера про существующего пользователя*/}
-
           <label className={styles.register__label}>
             Email
             <input
@@ -102,7 +102,6 @@ const RegisterPage: FC = () => {
             )}
           </div>
           {/*тут должен быть ответ сервера про существующего пользователя*/}
-
           <label className={styles.register__label}>
             Пароль
             <input
@@ -123,7 +122,6 @@ const RegisterPage: FC = () => {
               </p>
             )}
           </div>
-
           <div className={styles.register__button}>
             <Button
               color="primary"

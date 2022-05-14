@@ -4,8 +4,6 @@ import { TBy } from './types';
 import { getCookie } from './cookie';
 const BASE_URL = 'http://localhost:3000/api';
 
-// const BASE_URL = 'https://api.kspshnik.xyz/redtypes-blog/api';
-
 type TBaseUrl = { baseUrl: string };
 
 class Api {
