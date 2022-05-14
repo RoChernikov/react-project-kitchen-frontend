@@ -162,4 +162,34 @@ export const getProfile: AppThunk =
       });
   };
 
+export const followUser: AppThunk =
+  (username: string) => (dispatch: AppDispatch) => {
+    dispatch(setStatusPending());
+    Api.followUser(username)
+      .then((res) => {
+        dispatch(setSelectedProfileSuccess(res.profile));
+        dispatch(setStatusSuccess());
+      })
+      .catch((err) => {
+        dispatch(setStatusFailed());
+        console.log(err.message);
+        dispatch(setErrors(err.response.data.errors));
+      });
+  };
+
+export const unfollowUser: AppThunk =
+  (username: string) => (dispatch: AppDispatch) => {
+    dispatch(setStatusPending());
+    Api.unfollowUser(username)
+      .then((res) => {
+        dispatch(setSelectedProfileSuccess(res.profile));
+        dispatch(setStatusSuccess());
+      })
+      .catch((err) => {
+        dispatch(setStatusFailed());
+        console.log(err.message);
+        dispatch(setErrors(err.response.data.errors));
+      });
+  };
+
 export default profileSlice.reducer;

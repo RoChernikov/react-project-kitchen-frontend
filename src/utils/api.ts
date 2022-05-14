@@ -62,28 +62,36 @@ class Api {
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++PROFILE
   getProfile(username: string) {
     return axios
-      .get(`${BASE_URL}/profiles/${username}`)
+      .get(`${BASE_URL}/profiles/${username}`, {
+        headers: {
+          Authorization: `Bearer ${getCookie('accessToken')}`,
+        },
+      })
       .then((res) => res.data);
   }
 
   followUser(username: string) {
-    return axios.post(
-      `${BASE_URL}/profiles/${username}/follow`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${getCookie('accessToken')}`,
-        },
-      }
-    );
+    return axios
+      .post(
+        `${BASE_URL}/profiles/${username}/follow`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie('accessToken')}`,
+          },
+        }
+      )
+      .then((res) => res.data);
   }
 
   unfollowUser(username: string) {
-    return axios.delete(`${BASE_URL}/profiles/${username}/follow`, {
-      headers: {
-        Authorization: `Bearer ${getCookie('accessToken')}`,
-      },
-    });
+    return axios
+      .delete(`${BASE_URL}/profiles/${username}/follow`, {
+        headers: {
+          Authorization: `Bearer ${getCookie('accessToken')}`,
+        },
+      })
+      .then((res) => res.data);
   }
 
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++COMMENTS

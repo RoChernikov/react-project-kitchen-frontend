@@ -5,7 +5,12 @@ import { useAppDispatch, useAppSelector } from 'services/hooks';
 import api from 'utils/api';
 import { selectLazyArticles } from 'services/selectors/articles';
 import { getLazyArticles, setLazyArticles } from 'services/slices/articles';
-import { getProfile, resetSelectedProfile } from 'services/slices/profile';
+import {
+  getProfile,
+  resetSelectedProfile,
+  followUser,
+  unfollowUser,
+} from 'services/slices/profile';
 import ArticlePreview from 'components/article-preview/article-preview';
 import styles from './profile.module.scss';
 import { Button } from 'components/button/button';
@@ -87,27 +92,42 @@ const ProfilePage: FC = () => {
             <h4 className={styles.usercontainer__text}>
               {selectedProfile ? selectedProfile.username : ''}
             </h4>
-            {user.username !== selectedProfile.username && (
+            {username !== user.username && (
               <Button
                 type="primary"
                 color="primary"
-                icon={<PlusIcon />}
-                children="Подписаться"
+                icon={selectedProfile.following ? <MinusIcon /> : <PlusIcon />}
+                children={
+                  selectedProfile.following ? 'Отписаться' : 'Подписаться'
+                }
+                onClick={() => {
+                  selectedProfile.following
+                    ? dispatch(unfollowUser(username))
+                    : dispatch(followUser(username));
+                }}
               />
             )}
           </div>
-          <InfiniteScroll
-            dataLength={articles.length}
-            next={fetchData}
-            hasMore={hasMore}
-            loader={<Loader scale={0.5} />}
-            endMessage={<p className={styles.endMsg}>Теперь ты знаешь все!</p>}>
-            <ul className={styles.list}>
-              {articles.map((article) => {
-                return <ArticlePreview article={article} key={article.slug} />;
-              })}
-            </ul>
-          </InfiniteScroll>
+          {articles.length === 0 ? (
+            <p className={styles.msg}>
+              Пока статей нет, но мы работаем над их появлением!
+            </p>
+          ) : (
+            <InfiniteScroll
+              dataLength={articles.length}
+              next={fetchData}
+              hasMore={hasMore}
+              loader={<Loader scale={0.5} />}
+              endMessage={<p className={styles.msg}>Теперь ты знаешь все!</p>}>
+              <ul className={styles.list}>
+                {articles.map((article) => {
+                  return (
+                    <ArticlePreview article={article} key={article.slug} />
+                  );
+                })}
+              </ul>
+            </InfiniteScroll>
+          )}
         </div>
       )}
     </>
