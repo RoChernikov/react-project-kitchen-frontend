@@ -44,7 +44,6 @@ const HeaderMenu: FC<{ image: string; name: string }> = ({ image, name }) => {
           <li className={styles.menu__item}>
             <Link
               to={`profile/@${user.username}`}
-              state={{ backgroundLocation: location }}
               className={styles.menu__link}>
               <div
                 className={`${styles.menu__user} ${styles.menu__user_opened}`}>
@@ -60,7 +59,6 @@ const HeaderMenu: FC<{ image: string; name: string }> = ({ image, name }) => {
           <li className={styles.menu__item}>
             <Link
               to="new-article"
-              state={{ backgroundLocation: location }}
               className={styles.menu__link}>
               <EditIcon className={styles.menu__icon} />
               <span className={styles.menu__text}>Новая запись</span>
@@ -68,8 +66,7 @@ const HeaderMenu: FC<{ image: string; name: string }> = ({ image, name }) => {
           </li>
           <li className={styles.menu__item}>
             <Link
-              to={'settings'}
-              state={{ backgroundLocation: location }}
+              to='settings'
               className={styles.menu__link}>
               <SettingsIcon className={styles.menu__icon} />
               <span className={styles.menu__text}>Настройки</span>
