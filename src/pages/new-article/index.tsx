@@ -1,144 +1,157 @@
-import React, {
-  FC,
-  useState,
-  useCallback,
-  SyntheticEvent,
-  ChangeEvent,
-} from 'react';
+import React, { FC } from 'react';
 import styles from './new-article-page.module.scss';
 import { Button } from 'components/button/button';
 import { useAppDispatch, useAppSelector } from 'services/hooks';
 import { addArticle } from 'services/slices/articles';
 import { useNavigate } from 'react-router-dom';
 import { selectCurrentArticle } from 'services/selectors/articles';
+import { useForm } from 'react-hook-form';
+
+type TNewArticleFormData = {
+  title: string;
+  description: string;
+  link: string;
+  body: string;
+  tags: string;
+};
 
 const NewArticlePage: FC = () => {
   const dispatch = useAppDispatch();
   const history = useNavigate();
   const article = useAppSelector(selectCurrentArticle);
-  const [title, setTitle] = useState<string>('');
-  const [description, setAbout] = useState<string>('');
-  const [link, setImage] = useState<string>('');
-  const [body, setText] = useState<string>('');
-  const [tags, setTags] = useState<string>('');
 
-  const onTitleChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    evt.preventDefault();
-    setTitle(evt.target.value);
-  };
-  const onAboutChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    setAbout(evt.target.value);
-  };
-  const onImageChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    setImage(evt.target.value);
-  };
-  const onTextChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
-    setText(evt.target.value);
-  };
-  const onTagsChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    setTags(evt.target.value);
-  };
-  const handleNewArticleSubmit = useCallback(
-    (evt: SyntheticEvent) => {
-      evt.preventDefault();
-      const newArticleData = {
-        article: {
-          title,
-          description,
-          body,
-          link,
-          tagList: Array.from(new Set(tags.split(','))),
-        },
-      };
-      dispatch(addArticle(newArticleData));
-      history(`/articles/${article?.slug}`);
+  const {
+    register,
+    formState: { errors, isValid },
+    handleSubmit,
+  } = useForm<TNewArticleFormData>({
+    mode: 'onChange',
+    defaultValues: {
+      title: '',
+      description: '',
+      link: '',
+      body: '',
+      tags: '',
     },
-    [article?.slug, body, description, dispatch, history, link, tags, title]
-  );
+  });
+
+  const handleNewArticleSubmit = ({
+    title,
+    description,
+    body,
+    link,
+    tags,
+  }: TNewArticleFormData) => {
+    const newArticleData = {
+      article: {
+        title,
+        description,
+        body,
+        link,
+        tagList: Array.from(new Set(tags.split(','))),
+      },
+    };
+    dispatch(addArticle(newArticleData));
+    history(`/articles/${article?.slug}`);
+  };
 
   return (
     <section className={styles.newArticle}>
       <h2 className={styles.newArticle__title}>Новая запись</h2>
       <form
         className={styles.newArticle__form}
-        onSubmit={handleNewArticleSubmit}>
+        onSubmit={handleSubmit(handleNewArticleSubmit)}>
         <fieldset className={styles.newArticle__fieldset}>
           <label className={styles.newArticle__label}>
             Название статьи
             <input
-              name="title"
-              onChange={onTitleChange}
-              value={title}
-              required
-              className={styles.newArticle__input}></input>
+              type="text"
+              className={styles.newArticle__input}
+              {...register('title', {
+                required: 'Пожалуйста, заполните это поле',
+              })}></input>
           </label>
           <div className={styles.newArticle__errorsWrapper}>
-            <p className={styles.newArticle__errorText}>
-              {/* тут нужна валидация, пока оставлю так */}
-            </p>
+            {errors?.title && (
+              <p className={styles.newArticle__errorText}>
+                {errors?.title?.message}
+              </p>
+            )}
           </div>
           <label className={styles.newArticle__label}>
             О чем статья
             <input
-              name="description"
-              onChange={onAboutChange}
-              value={description}
-              required
-              className={styles.newArticle__input}></input>
+              className={styles.newArticle__input}
+              {...register('description', {
+                required: 'Пожалуйста, заполните это поле',
+              })}></input>
           </label>
           <div className={styles.newArticle__errorsWrapper}>
-            <p className={styles.newArticle__errorText}>
-              {/* тут нужна валидация, пока оставлю так */}
-            </p>
+            {errors?.description && (
+              <p className={styles.newArticle__errorText}>
+                {errors?.description?.message}
+              </p>
+            )}
           </div>
           <label className={styles.newArticle__label}>
             URL изображения (опционально)
             <input
-              name="link"
-              onChange={onImageChange}
-              value={link}
-              required
-              className={styles.newArticle__input}></input>
+              type="url"
+              className={styles.newArticle__input}
+              {...register('link', {
+                pattern: {
+                  value:
+                    /^((ftp|http|https):\/\/)?(www\.)?([A-Za-zА-Яа-я0-9]{1}[A-Za-zА-Яа-я0-9\-]*\.?)*\.{1}[A-Za-zА-Яа-я0-9-]{2,8}(\/([\w#!:.?+=&%@!\-\/])*)?/,
+                  message: 'Неверный формат ссылки',
+                },
+              })}></input>
           </label>
           <div className={styles.newArticle__errorsWrapper}>
-            <p className={styles.newArticle__errorText}>
-              {/* тут нужна валидация, пока оставлю так */}
-            </p>
+            {errors?.link && (
+              <p className={styles.newArticle__errorText}>
+                {errors?.link?.message}
+              </p>
+            )}
           </div>
           <label className={styles.newArticle__label}>
             Текст статьи
             <textarea
-              name="body"
-              onChange={onTextChange}
-              value={body}
-              required
-              className={`${styles.newArticle__input} ${styles.newArticle__input_wide}`}></textarea>
+              className={`${styles.newArticle__input} ${styles.newArticle__input_wide}`}
+              {...register('body', {
+                required: 'Пожалуйста, заполните это поле',
+              })}></textarea>
           </label>
           <div className={styles.newArticle__errorsWrapper}>
-            <p className={styles.newArticle__errorText}>
-              {/* тут нужна валидация, пока оставлю так */}
-            </p>
+            {errors?.body && (
+              <p className={styles.newArticle__errorText}>
+                {errors?.body?.message}
+              </p>
+            )}
           </div>
+
           <label className={styles.newArticle__label}>
             Теги (через запятую)
             <input
-              name="tags"
-              onChange={onTagsChange}
-              value={tags}
-              required
-              className={styles.newArticle__input}></input>
+              className={styles.newArticle__input}
+              {...register('tags', {
+                required: 'Пожалуйста, заполните это поле',
+              })}></input>
           </label>
           <div className={styles.newArticle__errorsWrapper}>
-            <p className={styles.newArticle__errorText}>
-              {/* тут нужна валидация, пока оставлю так */}
-            </p>
+            {errors?.tags && (
+              <p className={styles.newArticle__errorText}>
+                {errors?.tags?.message}
+              </p>
+            )}
           </div>
+
           <div className={styles.newArticle__button}>
             <Button
               color="primary"
               type="primary"
               htmlType="submit"
               children="Опубликовать запись"
+              disabled={!isValid}
             />
           </div>
         </fieldset>
