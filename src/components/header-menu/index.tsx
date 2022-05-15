@@ -16,11 +16,17 @@ const HeaderMenu: FC<{ image: string; name: string }> = ({ image, name }) => {
   const userEl = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handler = (evt: { target: any }) =>
-      (userEl.current && userEl.current.contains(evt.target)) ||
+    const handler = (evt: MouseEvent) =>
+      (userEl.current && userEl.current.contains(evt.target as HTMLElement)) ||
       setIsOpen(false);
+    const escClose = (evt: KeyboardEvent) =>
+      evt.key === 'Escape' && setIsOpen(false);
     document.addEventListener('click', handler);
-    return () => document.removeEventListener('click', handler);
+    document.addEventListener('keydown', escClose);
+    return () => {
+      document.addEventListener('keydown', escClose);
+      document.removeEventListener('click', handler);
+    };
   }, []);
 
   return (
