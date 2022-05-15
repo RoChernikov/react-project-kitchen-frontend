@@ -1,5 +1,4 @@
 .popularArticles__list {
-  //max-width: fit-content;
   max-width: 359px;
   width: 100%;
   list-style: none;
@@ -8,5 +7,5 @@
 }
 
 .popularArticles__item:not(:last-child) {
-  border-bottom: 1px solid #CCCCCC;
+  border-bottom: 1px solid #cccccc;
 }

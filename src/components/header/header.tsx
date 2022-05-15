@@ -5,6 +5,7 @@ import { ReactComponent as LoginIcon } from '../../assets/images/login-icon.svg'
 import styles from './header.module.scss';
 import HeaderMenu from 'components/header-menu';
 import { useAppSelector } from 'services/hooks';
+//--------------------------------------------------------------------------------
 
 const Header: FC = () => {
   const { isAuth, user } = useAppSelector((state) => state.profile);

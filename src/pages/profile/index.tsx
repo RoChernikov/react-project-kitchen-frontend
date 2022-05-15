@@ -17,6 +17,7 @@ import { Button } from 'components/button/button';
 import PlusIcon from 'components/icons/plus-icon';
 import MinusIcon from 'components/icons/minus-icon';
 import Loader from 'components/loader/loader';
+//--------------------------------------------------------------------------------
 
 const ProfilePage: FC = () => {
   const { username } = useParams();

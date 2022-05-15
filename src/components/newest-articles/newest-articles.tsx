@@ -4,6 +4,7 @@ import { selectArticles } from 'services/selectors/articles';
 import { TArticle } from 'utils/types';
 import ArticleSmallPreview from '../article-small-preview/article-small-preview';
 import styles from './newest-articles.module.scss';
+//--------------------------------------------------------------------------------
 
 const NewestArticles: FC = () => {
   const articles = useAppSelector(selectArticles);

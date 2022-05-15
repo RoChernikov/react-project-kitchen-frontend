@@ -9,6 +9,7 @@ import PopularArticles from 'components/popular-articles/popular-articles';
 import PopularTags from 'components/popular-tags/popular-tags';
 import api from 'utils/api';
 import Loader from 'components/loader/loader';
+//--------------------------------------------------------------------------------
 
 const MainPage: FC = () => {
   const dispatch = useAppDispatch();

@@ -14,6 +14,7 @@ import styles from './article.module.scss';
 import Loader from 'components/loader/loader';
 import NewestArticles from 'components/newest-articles/newest-articles';
 import InviteLogin from 'components/invite-login/invite-login';
+//--------------------------------------------------------------------------------
 
 export const ArticlePage: FC = () => {
   const dispatch = useAppDispatch();

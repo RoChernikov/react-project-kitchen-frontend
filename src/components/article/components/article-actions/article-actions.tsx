@@ -5,6 +5,7 @@ import { Button } from 'components/button/button';
 import TrashIcon from 'components/icons/trash-icon';
 import PlusIcon from 'components/icons/plus-icon';
 import { TArticle } from 'utils/types';
+//--------------------------------------------------------------------------------
 
 interface IArticleActions {
   article?: TArticle | null;
@@ -30,9 +31,7 @@ const ArticleActions: FC<IArticleActions> = ({ article, canModify }) => {
             onClick={onEditClick}
           />
         </div>
-        <Link
-          to={`/modal`}
-          state={{ backgroundLocation: location }}>
+        <Link to={`/modal`} state={{ backgroundLocation: location }}>
           <Button
             type="secondary"
             children="Удалить запись"

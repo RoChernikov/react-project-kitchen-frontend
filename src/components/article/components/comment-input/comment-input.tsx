@@ -7,6 +7,7 @@ import { postComment } from 'services/slices/articles';
 import { toLocalDate } from 'utils/date-time';
 import Author from '../../../../components/author';
 import noAvatarImg from '../../../../assets/images/Intersect.svg';
+//--------------------------------------------------------------------------------
 
 interface ICommentInput {
   slug: string | undefined;

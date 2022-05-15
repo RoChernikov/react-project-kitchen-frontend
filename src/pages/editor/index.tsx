@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from 'services/hooks';
 import { selectCurrentArticle } from 'services/selectors/articles';
 import { editArticle, getCurrentArticle } from 'services/slices/articles';
 import styles from './editor-page.module.scss';
+//--------------------------------------------------------------------------------
 
 const EditorPage: FC = () => {
   const dispatch = useAppDispatch();

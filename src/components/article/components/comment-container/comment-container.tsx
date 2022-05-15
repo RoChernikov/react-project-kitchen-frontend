@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { FC } from 'react';
 import { TUser, TComment } from 'utils/types';
 import styles from './comment-container.module.scss';
+//--------------------------------------------------------------------------------
 
 interface ICommentContainer {
   comments: TComment[];

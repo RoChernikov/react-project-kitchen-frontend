@@ -6,6 +6,7 @@ import { patchUser } from 'services/slices/profile';
 import styles from './settings-page.module.scss';
 import { Button } from 'components/button/button';
 import { useForm } from 'react-hook-form';
+//--------------------------------------------------------------------------------
 
 type TSettingsFormData = {
   avatar: string;
