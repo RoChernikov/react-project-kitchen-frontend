@@ -1,22 +1,25 @@
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
 import React from 'react';
-import state from './services/store';
-// import { store, history } from './store';
-
-import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
-// import { ConnectedRouter } from 'react-router-redux';
-
+import { createRoot } from 'react-dom/client';
+import './index.scss';
 import App from './components/app/app';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
+import state from './services/store';
+import reportWebVitals from './reportWebVitals';
+//--------------------------------------------------------------------------------
 
-ReactDOM.render(
-  <Router>
+const rootElement = document.getElementById('root');
+if (!rootElement) throw new Error('Failed to find the root element');
+const root = createRoot(rootElement);
+
+root.render(
+  <React.StrictMode>
     <Provider store={state}>
-      <Switch>
-        <Route path="/" component={App} />
-      </Switch>
+      <Router>
+        <App />
+      </Router>
     </Provider>
-  </Router>,
-
-  document.getElementById('root')
+  </React.StrictMode>
 );
+
+reportWebVitals();
