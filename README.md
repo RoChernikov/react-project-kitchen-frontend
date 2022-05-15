@@ -28,14 +28,14 @@
 
 Для работы с проектом вам понадобятся git, NodeJS
 
-- [Как установить git.](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+- https://github.com/we-programmers/react-project-kitchen-backend
 - [Как установить NodeJS.](https://nodejs.org/en/download/package-manager/)
 
 ## Локальная установка:
 
 Проект состоит из фронтенда и бэкенда.
 ### Бэкенд
-Запускается на порту :3000 с использованием Docker. Инструкции по запуску бэкенда - в README к проекту бэкенда.
+Запускается на порту :3000 с использованием Docker. Инструкции по запуску бэкенда - [в README к проекту бэкенда](https://github.com/we-programmers/react-project-kitchen-backend/blob/main/README.md).
 
 ### Фронтенд
 В командной строке перейдите в папку, где будет развернут проект. После чего скопируйте его с GitHub:
