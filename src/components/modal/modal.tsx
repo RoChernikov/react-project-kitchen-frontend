@@ -6,10 +6,11 @@ import { FC, ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
 //--------------------------------------------------------------------------------
 
-const Modal: FC<{ children?: ReactElement; title?: string }> = ({
-  children,
-  title,
-}) => {
+const Modal: FC<{
+  children?: ReactElement;
+  title?: string;
+  onClose: () => void;
+}> = ({ children, title, onClose }) => {
   const navigate = useNavigate();
   const rootModal = document.getElementById('root-modal');
 
@@ -29,14 +30,14 @@ const Modal: FC<{ children?: ReactElement; title?: string }> = ({
       <div className={styles.popup__wrapper}>
         <button
           onClick={() => {
-            navigate(-1);
+            onClose();
           }}
           className={styles.popup__closeButton}
         />
         <h2 className={styles.popup__title}>{title}</h2>
         {children}
       </div>
-      <ModalOverlay />
+      <ModalOverlay onClose={onClose} />
     </div>,
     rootModal!
   );

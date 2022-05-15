@@ -42,6 +42,10 @@ const App: FC = () => {
     dispatch(getUser());
   }, [dispatch]);
 
+  const onModalClose = () => {
+    history(-1);
+  };
+
   return (
     <>
       {request ? (
@@ -135,6 +139,7 @@ const App: FC = () => {
                 path="modal"
                 element={
                   <Modal
+                    onClose={onModalClose}
                     title="Удалить запись"
                     children={<DeleteConfirm onClick={handleArticleDelete} />}
                   />

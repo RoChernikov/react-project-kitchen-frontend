@@ -57,9 +57,9 @@ export const ArticlePage: FC = () => {
                   );
                 })}
               </ul>
-              {isAuth ? (
+              {isAuth && article?.comments ? (
                 <CommentContainer
-                  comments={article?.comments}
+                  comments={article.comments}
                   slug={article?.slug}
                   currentUser={currentUser}
                 />

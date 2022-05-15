@@ -10,7 +10,7 @@ const Header: FC = () => {
   const { isAuth, user } = useAppSelector((state) => state.profile);
 
   return (
-    <div className={styles.container}>
+    <header className={styles.container}>
       <nav className={styles.nav}>
         <Link className={styles.nav__link} to="/">
           <HomeIcon className={styles.nav__icon} />
@@ -31,7 +31,7 @@ const Header: FC = () => {
           Каково быть джуном в турбулентном мире
         </p>
       </div>
-    </div>
+    </header>
   );
 };
 
