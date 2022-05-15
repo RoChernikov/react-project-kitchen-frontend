@@ -2,11 +2,11 @@ import CommentInput from '../comment-input/comment-input';
 import CommentList from '../comment-list/comment-list';
 import { Link } from 'react-router-dom';
 import { FC } from 'react';
-import { TUser } from 'utils/types';
+import { TUser, TComment } from 'utils/types';
 import styles from './comment-container.module.scss';
 
 interface ICommentContainer {
-  comments: any;
+  comments: TComment[];
   slug: string | undefined;
   currentUser: TUser | null;
 }
@@ -20,9 +20,7 @@ const CommentContainer: FC<ICommentContainer> = ({
     <div className={styles.container}>
       <p className={styles.container__header}>Комментарии</p>
       <div className={styles.inputbox}>
-        <CommentInput
-          slug={slug}
-        />
+        <CommentInput slug={slug} />
       </div>
       <CommentList comments={comments} slug={slug} currentUser={currentUser} />
     </div>
