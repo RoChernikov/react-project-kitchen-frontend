@@ -31,7 +31,7 @@ const EditorPage: FC = () => {
       setAbout(article.description);
       setImage(article.link);
       setText(article.body);
-      setTags(article.tagList.map((tag) => tag.trim()).join(', '));
+      setTags(article.tagList.map((tag: string) => tag.trim()).join(', '));
     }
   }, [article, inProgress]);
 
