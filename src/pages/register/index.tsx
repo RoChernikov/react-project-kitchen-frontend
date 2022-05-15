@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import styles from './register-page.module.scss';
 import { Link } from 'react-router-dom';
 import { registerUser } from 'services/slices/profile';
@@ -7,6 +7,7 @@ import { userErrors, isAuth } from 'services/selectors/profile';
 import { Navigate } from 'react-router-dom';
 import { Button } from 'components/button/button';
 import { useForm } from 'react-hook-form';
+//--------------------------------------------------------------------------------
 
 type TRegisterFormData = {
   username: string;
@@ -16,7 +17,6 @@ type TRegisterFormData = {
 
 const RegisterPage: FC = () => {
   const dispatch = useAppDispatch();
-  const [isError, setIsError] = useState(false);
   const auth = useAppSelector(isAuth);
   const registerErrors = useAppSelector(userErrors);
 
@@ -44,10 +44,6 @@ const RegisterPage: FC = () => {
       })
     );
   };
-
-  useEffect(() => {
-    setIsError(isValid);
-  }, [isValid]);
 
   if (auth) {
     return <Navigate to={{ pathname: '/' }} />;

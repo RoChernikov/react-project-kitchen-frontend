@@ -7,6 +7,7 @@ import { ReactComponent as LogoutIcon } from '../../assets/images/logout-icon.sv
 import { useAppSelector, useAppDispatch } from 'services/hooks';
 import { signOut } from 'services/slices/profile';
 import noAvatarImg from '../../assets/images/Intersect.svg';
+//--------------------------------------------------------------------------------
 
 const HeaderMenu: FC<{ image: string; name: string }> = ({ image, name }) => {
   const [isOpen, setIsOpen] = useState(false);

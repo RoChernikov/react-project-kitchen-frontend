@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import styles from './popular-tags.module.scss';
+//--------------------------------------------------------------------------------
 
 const PopularTags: FC = () => {
   const localTags: Array<string> = [

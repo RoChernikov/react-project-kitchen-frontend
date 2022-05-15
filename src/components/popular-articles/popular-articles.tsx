@@ -4,6 +4,7 @@ import { selectArticles } from 'services/selectors/articles';
 import { TArticle } from 'utils/types';
 import ArticleSmallPreview from '../article-small-preview/article-small-preview';
 import styles from './popular-articles.module.scss';
+//--------------------------------------------------------------------------------
 
 const PopularArticles: FC = () => {
   const articles = useAppSelector(selectArticles);
@@ -12,7 +13,7 @@ const PopularArticles: FC = () => {
     const pivot = arr[0];
     const less: Array<TArticle> = [];
     const greater: Array<TArticle> = [];
-    
+
     if (arr.length < 2) return arr;
 
     arr

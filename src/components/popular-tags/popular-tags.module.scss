@@ -7,7 +7,7 @@
 
 .popularTags__title {
   margin: 0;
-  color: #0A0A0B;
+  color: #0a0a0b;
   font-size: 32px;
 }
 
@@ -24,16 +24,16 @@
 .popularTags__tagsItem {
   cursor: pointer;
   font-size: 16px;
-  color: #62626A;
-  transition: .3s;
+  color: #62626a;
+  transition: 0.3s;
 }
 
 .popularTags__tagsItem:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .popularTags__tagsItem_active {
-  color: #008AFF;
+  color: #008aff;
   display: flex;
   align-items: center;
   gap: 4px;
@@ -43,5 +43,5 @@
   content: '';
   width: 24px;
   height: 24px;
-  background-image: url(./cross.svg);
+  background-image: url(../../assets/images/cross.svg);
 }

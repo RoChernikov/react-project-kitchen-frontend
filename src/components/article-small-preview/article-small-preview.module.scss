@@ -21,8 +21,6 @@
   }
 
   &__likesCounter {
-
-
     margin: 0;
     font-size: 18px;
     line-height: 24px;
@@ -32,7 +30,7 @@
   &__likesIcon {
     width: 24px;
     height: 24px;
-    background-image: url(./like.svg);
+    background-image: url(../../assets/images/like.svg);
     background-position: center;
     background-repeat: no-repeat;
     cursor: pointer;

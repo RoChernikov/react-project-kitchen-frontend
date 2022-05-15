@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styles from './invite-login.module.scss';
+//--------------------------------------------------------------------------------
 
 const InviteLogin: FC = () => {
   const location = useLocation();

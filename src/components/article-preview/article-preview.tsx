@@ -5,6 +5,7 @@ import { TArticle } from 'utils/types';
 import { LikeButton } from 'components/like-button/like-button';
 import Author from '../../components/author';
 import { toLocalDate } from 'utils/date-time';
+//--------------------------------------------------------------------------------
 
 interface IArticlePreview {
   article: TArticle;

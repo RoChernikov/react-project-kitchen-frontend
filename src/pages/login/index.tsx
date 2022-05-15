@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from 'services/hooks';
 import { userErrors, isAuth } from 'services/selectors/profile';
 import { Navigate } from 'react-router-dom';
 import { Button } from 'components/button/button';
+//--------------------------------------------------------------------------------
 
 type TLoginFormData = {
   email: string;

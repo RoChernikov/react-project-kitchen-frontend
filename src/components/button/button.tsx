@@ -1,5 +1,6 @@
 import React, { SyntheticEvent, ReactElement } from 'react';
 import styles from './button.module.scss';
+//--------------------------------------------------------------------------------
 
 export const Button: React.FC<{
   children?: string;

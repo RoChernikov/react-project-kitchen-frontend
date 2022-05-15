@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Author from '../../components/author';
 import { toLocalDate } from 'utils/date-time';
 import { LikeButton } from 'components/like-button/like-button';
+//--------------------------------------------------------------------------------
 
 interface IArticleSmallPreview {
   author: string;
@@ -22,7 +23,7 @@ const ArticleSmallPreview: FC<IArticleSmallPreview> = ({
   likes,
   date,
   slug,
-  favorited
+  favorited,
 }) => {
   return (
     <div className={styles.articleSmallPreview}>

@@ -9,6 +9,7 @@ import { selectCurrentUser } from 'services/selectors/profile';
 import { LikeButton } from 'components/like-button/like-button';
 import Author from '../../../../components/author';
 import { toLocalDate } from 'utils/date-time';
+//--------------------------------------------------------------------------------
 
 interface IComment {
   comment: TComment;
