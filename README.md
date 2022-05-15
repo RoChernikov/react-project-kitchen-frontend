@@ -35,7 +35,9 @@
 
 Проект состоит из фронтенда и бэкенда.
 ### Бэкенд
-Запускается на порту :3000 с использованием Docker. Инструкции по запуску бэкенда - [в README к проекту бэкенда](https://github.com/we-programmers/react-project-kitchen-backend/blob/main/README.md).
+Запускается на порту :3000 с использованием Docker. 
+
+Инструкции по запуску бэкенда - [в README к проекту бэкенда](https://github.com/we-programmers/react-project-kitchen-backend/blob/main/README.md).
 
 ### Фронтенд
 В командной строке перейдите в папку, где будет развернут проект. После чего скопируйте его с GitHub:
