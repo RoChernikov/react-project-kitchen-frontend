@@ -1,172 +1,79 @@
-import axios from 'axios';
+import request from './api-client';
 import { IUserApi, ICommentApi, IArticleApi } from './interfaces';
 import { TBy } from './types';
-import { getCookie } from './cookie';
-const BASE_URL = 'http://localhost:3000/api';
-
-type TBaseUrl = { baseUrl: string };
 
 class Api {
-  _baseUrl: string;
-  constructor({ baseUrl }: TBaseUrl) {
-    this._baseUrl = baseUrl;
-  }
-
   _limit(limit: number, page: number): string {
     return `limit=${limit}&offset=${page * limit}`;
   }
 
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++AUTH
   signIn(data: IUserApi) {
-    return axios
-      .post(`${BASE_URL}/users/login`, {
-        ...data,
-      })
-      .then((res) => res.data);
+    return request.post('/users/login', data).then((res) => res.data);
   }
 
   register(data: IUserApi) {
-    return axios
-      .post(`${BASE_URL}/users`, {
-        ...data,
-      })
-      .then((res) => res.data);
+    return request.post('/users', data).then((res) => res.data);
   }
 
   patchUser(data: IUserApi) {
-    return axios
-      .put(
-        `${BASE_URL}/user`,
-        { ...data },
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie('accessToken')}`,
-          },
-        }
-      )
-      .then((res) => res.data);
+    return request.put('/user', data).then((res) => res.data);
   }
 
   getUser() {
-    return axios
-      .get(`${BASE_URL}/user`, {
-        headers: {
-          Authorization: `Bearer ${getCookie('accessToken')}`,
-        },
-      })
-      .then((res) => res.data);
+    return request.get('/user').then((res) => res.data);
   }
 
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++PROFILE
   getProfile(username: string) {
-    return axios
-      .get(`${BASE_URL}/profiles/${username}`, {
-        headers: {
-          Authorization: `Bearer ${getCookie('accessToken')}`,
-        },
-      })
-      .then((res) => res.data);
+    return request.get(`/profiles/${username}`).then((res) => res.data);
   }
 
   followUser(username: string) {
-    return axios
-      .post(
-        `${BASE_URL}/profiles/${username}/follow`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie('accessToken')}`,
-          },
-        }
-      )
-      .then((res) => res.data);
+    return request.post(`/profiles/${username}/follow`).then((res) => res.data);
   }
 
   unfollowUser(username: string) {
-    return axios
-      .delete(`${BASE_URL}/profiles/${username}/follow`, {
-        headers: {
-          Authorization: `Bearer ${getCookie('accessToken')}`,
-        },
-      })
+    return request
+      .delete(`/profiles/${username}/follow`)
       .then((res) => res.data);
   }
 
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++COMMENTS
   getComments(slug: string) {
-    return axios
-      .get(`${BASE_URL}/articles/${slug}/comments/`)
-      .then((response) => response.data.comments);
+    return request
+      .get(`/articles/${slug}/comments/`)
+      .then((res) => res.data.comments);
   }
 
   addComment(slug: string, data: ICommentApi) {
-    return axios
-      .post(
-        `${BASE_URL}/articles/${slug}/comments`,
-        { ...data },
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie('accessToken')}`,
-          },
-        }
-      )
-      .then((response) => response.data.comment);
+    return request
+      .post(`/articles/${slug}/comments`, data)
+      .then((res) => res.data.comment);
   }
 
   deleteComment(slug: string, commentId: string) {
-    return axios.delete(`${BASE_URL}/articles/${slug}/comments/${commentId}`, {
-      headers: {
-        Authorization: `Bearer ${getCookie('accessToken')}`,
-      },
-    });
+    return request.delete(`/articles/${slug}/comments/${commentId}`);
   }
 
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++TAGS
   getTags() {
-    return axios.get(`${BASE_URL}/tags`, {
-      headers: {
-        Authorization: `Bearer ${getCookie('accessToken')}`,
-      },
-    });
+    return request.get(`/tags`);
   }
 
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ARTICLES
   createArticle(data: IArticleApi) {
-    return axios
-      .post(
-        `${BASE_URL}/articles`,
-        { ...data },
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie('accessToken')}`,
-          },
-        }
-      )
-      .then((response) => response.data.article);
+    return request.post(`/articles`, data).then((res) => res.data.article);
   }
 
   updateArticle(slug: string, data: IArticleApi) {
-    return axios
-      .put(
-        `${BASE_URL}/articles/${slug}`,
-        { ...data },
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie('accessToken')}`,
-          },
-        }
-      )
-      .then((response) => response.data.article);
+    return request
+      .put(`/articles/${slug}`, data)
+      .then((res) => res.data.article);
   }
 
   getArticle(slug: string) {
-    return axios
-      .get(`${BASE_URL}/articles/${slug}`, {
-        headers: {
-          Authorization: `Bearer ${getCookie('accessToken')}`,
-        },
-      })
-      .then((response) => response.data.article);
+    return request.get(`/articles/${slug}`).then((res) => res.data.article);
   }
 
   getArticlesBy(
@@ -175,67 +82,40 @@ class Api {
     limit: number = 0,
     page: number = 0
   ) {
-    return axios
+    return request
       .get(
-        `${BASE_URL}/articles?${by ? by : ''}=${encodeURIComponent(
-          value
-        )}&${this._limit(limit, page === 0 || page < 0 ? 0 : page - 1)}`,
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie('accessToken')}`,
-          },
-        }
+        `/articles?${by ? by : ''}=${encodeURIComponent(value)}&${this._limit(
+          limit,
+          page === 0 || page < 0 ? 0 : page - 1
+        )}`
       )
-      .then((response) => response.data.articles);
+      .then((res) => res.data.articles);
   }
 
   deleteArticle(slug: string) {
-    return axios.delete(`${BASE_URL}/articles/${slug}`, {
-      headers: {
-        Authorization: `Bearer ${getCookie('accessToken')}`,
-      },
-    });
+    return request.delete(`/articles/${slug}`);
   }
 
   favoriteArticle(slug: string) {
-    return axios
-      .post(
-        `${BASE_URL}/articles/${slug}/favorite`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie('accessToken')}`,
-          },
-        }
-      )
-      .then((response) => response.data.article);
+    return request
+      .post(`/articles/${slug}/favorite`)
+      .then((res) => res.data.article);
   }
 
   unfavoriteArticle(slug: string) {
-    return axios
-      .delete(`${BASE_URL}/articles/${slug}/favorite`, {
-        headers: {
-          Authorization: `Bearer ${getCookie('accessToken')}`,
-        },
-      })
+    return request
+      .delete(`/articles/${slug}/favorite`)
       .then((response) => response.data.article);
   }
 
   getFeed(limit: number = 10, page: number = 0) {
-    return axios.get(
-      `${BASE_URL}/articles/feed?${this._limit(
+    return request.get(
+      `/articles/feed?${this._limit(
         limit,
         page === 0 || page < 0 ? 0 : page - 1
-      )}`,
-      {
-        headers: {
-          Authorization: `Bearer ${getCookie('accessToken')}`,
-        },
-      }
+      )}`
     );
   }
 }
 
-export default new Api({
-  baseUrl: BASE_URL,
-});
+export default new Api();
