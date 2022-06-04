@@ -3,6 +3,9 @@ import { IUserApi, ICommentApi, IArticleApi } from './interfaces';
 import { TBy } from './types';
 import { getCookie } from './cookie';
 const BASE_URL = 'http://localhost:3000/api';
+axios.defaults.headers.common['Authorization'] = `Bearer ${getCookie(
+  'accessToken'
+)}`;
 
 type TBaseUrl = { baseUrl: string };
 
@@ -34,27 +37,11 @@ class Api {
   }
 
   patchUser(data: IUserApi) {
-    return axios
-      .put(
-        `${BASE_URL}/user`,
-        { ...data },
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie('accessToken')}`,
-          },
-        }
-      )
-      .then((res) => res.data);
+    return axios.put(`${BASE_URL}/user`, { ...data }).then((res) => res.data);
   }
 
   getUser() {
-    return axios
-      .get(`${BASE_URL}/user`, {
-        headers: {
-          Authorization: `Bearer ${getCookie('accessToken')}`,
-        },
-      })
-      .then((res) => res.data);
+    return axios.get(`${BASE_URL}/user`).then((res) => res.data);
   }
 
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++PROFILE
@@ -84,11 +71,7 @@ class Api {
 
   unfollowUser(username: string) {
     return axios
-      .delete(`${BASE_URL}/profiles/${username}/follow`, {
-        headers: {
-          Authorization: `Bearer ${getCookie('accessToken')}`,
-        },
-      })
+      .delete(`${BASE_URL}/profiles/${username}/follow`)
       .then((res) => res.data);
   }
 
@@ -101,71 +84,35 @@ class Api {
 
   addComment(slug: string, data: ICommentApi) {
     return axios
-      .post(
-        `${BASE_URL}/articles/${slug}/comments`,
-        { ...data },
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie('accessToken')}`,
-          },
-        }
-      )
+      .post(`${BASE_URL}/articles/${slug}/comments`, { ...data })
       .then((response) => response.data.comment);
   }
 
   deleteComment(slug: string, commentId: string) {
-    return axios.delete(`${BASE_URL}/articles/${slug}/comments/${commentId}`, {
-      headers: {
-        Authorization: `Bearer ${getCookie('accessToken')}`,
-      },
-    });
+    return axios.delete(`${BASE_URL}/articles/${slug}/comments/${commentId}`);
   }
 
   //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++TAGS
   getTags() {
-    return axios.get(`${BASE_URL}/tags`, {
-      headers: {
-        Authorization: `Bearer ${getCookie('accessToken')}`,
-      },
-    });
+    return axios.get(`${BASE_URL}/tags`);
   }
 
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ARTICLES
   createArticle(data: IArticleApi) {
     return axios
-      .post(
-        `${BASE_URL}/articles`,
-        { ...data },
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie('accessToken')}`,
-          },
-        }
-      )
+      .post(`${BASE_URL}/articles`, { ...data })
       .then((response) => response.data.article);
   }
 
   updateArticle(slug: string, data: IArticleApi) {
     return axios
-      .put(
-        `${BASE_URL}/articles/${slug}`,
-        { ...data },
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie('accessToken')}`,
-          },
-        }
-      )
+      .put(`${BASE_URL}/articles/${slug}`, { ...data })
       .then((response) => response.data.article);
   }
 
   getArticle(slug: string) {
     return axios
-      .get(`${BASE_URL}/articles/${slug}`, {
-        headers: {
-          Authorization: `Bearer ${getCookie('accessToken')}`,
-        },
-      })
+      .get(`${BASE_URL}/articles/${slug}`)
       .then((response) => response.data.article);
   }
 
@@ -179,45 +126,24 @@ class Api {
       .get(
         `${BASE_URL}/articles?${by ? by : ''}=${encodeURIComponent(
           value
-        )}&${this._limit(limit, page === 0 || page < 0 ? 0 : page - 1)}`,
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie('accessToken')}`,
-          },
-        }
+        )}&${this._limit(limit, page === 0 || page < 0 ? 0 : page - 1)}`
       )
       .then((response) => response.data.articles);
   }
 
   deleteArticle(slug: string) {
-    return axios.delete(`${BASE_URL}/articles/${slug}`, {
-      headers: {
-        Authorization: `Bearer ${getCookie('accessToken')}`,
-      },
-    });
+    return axios.delete(`${BASE_URL}/articles/${slug}`);
   }
 
   favoriteArticle(slug: string) {
     return axios
-      .post(
-        `${BASE_URL}/articles/${slug}/favorite`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie('accessToken')}`,
-          },
-        }
-      )
+      .post(`${BASE_URL}/articles/${slug}/favorite`)
       .then((response) => response.data.article);
   }
 
   unfavoriteArticle(slug: string) {
     return axios
-      .delete(`${BASE_URL}/articles/${slug}/favorite`, {
-        headers: {
-          Authorization: `Bearer ${getCookie('accessToken')}`,
-        },
-      })
+      .delete(`${BASE_URL}/articles/${slug}/favorite`)
       .then((response) => response.data.article);
   }
 
@@ -226,12 +152,7 @@ class Api {
       `${BASE_URL}/articles/feed?${this._limit(
         limit,
         page === 0 || page < 0 ? 0 : page - 1
-      )}`,
-      {
-        headers: {
-          Authorization: `Bearer ${getCookie('accessToken')}`,
-        },
-      }
+      )}`
     );
   }
 }
